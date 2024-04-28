@@ -1,0 +1,105 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  username String  @unique
+  email    String
+  imageUrl String? @db.Text
+  bio      String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userProgress UserProgress?
+}
+
+model Course {
+  id          Int     @id @default(autoincrement())
+  title       String
+  description String? @db.Text
+  imageUrl    String? @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  lessons      Lesson[]
+  userProgress UserProgress?
+}
+
+enum Difficulty {
+  EASY
+  NORMAL
+  HEARD
+}
+
+model Lesson {
+  id         Int        @id @default(autoincrement())
+  title      String
+  courseId   Int
+  order      Int
+  difficulty Difficulty
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  challenges Challenge[]
+}
+
+enum ChallengeType {
+  MULTIPLE_CHOICE
+  CODE_TEST
+}
+
+model Challenge {
+  id       Int           @id @default(autoincrement())
+  question String        @db.Text
+  order    Int
+  type     ChallengeType
+
+  lessonId Int
+  lesson   Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  challengeOptions  ChallengeOption[]
+  challengeProgress ChallengeProgress?
+}
+
+model ChallengeOption {
+  id      Int     @id @default(autoincrement())
+  text    String  @db.Text
+  correct Boolean
+
+  challengeId Int
+  challenge   Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+}
+
+model ChallengeProgress {
+  id          Int     @id @default(autoincrement())
+  userId      Int
+  challengeId Int     @unique
+  completed   Boolean @default(false)
+
+  challenge Challenge @relation(fields: [challengeId], references: [id])
+}
+
+model UserProgress {
+  id       Int @id @default(autoincrement())
+  userId   Int @unique
+  courseId Int @unique
+  hearts   Int @default(6)
+  points   Int @default(0)
+
+  user   User   @relation(fields: [userId], references: [id])
+  course Course @relation(fields: [courseId], references: [id])
+}
