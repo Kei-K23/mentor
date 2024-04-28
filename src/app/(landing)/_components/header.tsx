@@ -8,6 +8,7 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 import { Loader, LogInIcon } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -15,8 +16,9 @@ const Header = () => {
   return (
     <header className="sticky top-0 w-full border-b border-b-slate-200 h-14 z-50">
       <nav className="px-5 lg:max-w-screen-lg mx-auto h-full flex items-center justify-between">
-        <Link href={"/"} className="flex items-center gap-3">
-          <h1 className="font-bold text-emerald-600">Mentor</h1>
+        <Link href={"/"} className="flex items-center gap-2">
+          <Image src={"/icon.png"} alt="icon image" width={36} height={36} />
+          <h1 className="font-bold text-sky-600">Mentor</h1>
         </Link>
 
         <ClerkLoading>

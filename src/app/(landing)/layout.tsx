@@ -3,7 +3,7 @@ import Header from "./_components/header";
 
 const LandingLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div>
+    <div className="flex h-full flex-col">
       <Header />
       {children}
     </div>
