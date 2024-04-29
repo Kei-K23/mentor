@@ -16,8 +16,8 @@ const LandingPage = () => {
   return (
     <div className="flex-1 h-full max-w-[980px] mx-auto flex flex-col lg:flex-row items-center justify-center gap-8 p-4">
       <div className="flex flex-col items-center justify-center gap-y-5">
-        <p className="text-xl lg:text-2xl text-center">
-          Learn, Practice and Master Programming Language and Craft interview
+        <p className="text-xl lg:text-2xl text-center max-w-[690px]">
+          Learn, Practice and Master Programming Languages and Craft interview
           questions with <span className="font-bold text-sky-500">Mentor</span>{" "}
           🚀.
         </p>
