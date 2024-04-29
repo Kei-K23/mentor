@@ -8,11 +8,12 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
-  username String  @unique
-  email    String
-  imageUrl String? @db.Text
-  bio      String?
+  id             Int     @id @default(autoincrement())
+  username       String  @unique
+  externalUserId String  @unique
+  email          String
+  imageUrl       String? @db.Text
+  bio            String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
