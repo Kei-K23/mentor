@@ -1,5 +1,22 @@
 import { SignIn } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
+import { useTheme } from "next-themes";
 
 export default function Page() {
-  return <SignIn path="/sign-in" />;
+  const { resolvedTheme } = useTheme();
+
+  return (
+    <>
+      {resolvedTheme === "dark" ? (
+        <SignIn
+          path="/sign-in"
+          appearance={{
+            baseTheme: dark,
+          }}
+        />
+      ) : (
+        <SignIn path="/sign-in" />
+      )}
+    </>
+  );
 }

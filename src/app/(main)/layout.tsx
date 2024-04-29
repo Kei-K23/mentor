@@ -36,6 +36,7 @@ import MobileSideBar from "@/components/mobile-side-bar";
 import SearchHeader from "@/components/search-header";
 import { UserButton } from "@clerk/nextjs";
 import { ModeToggle } from "@/components/mode-toggle";
+import UserButtonContainer from "@/components/user-button-container";
 
 export default function MainLayout({
   children,
@@ -52,7 +53,7 @@ export default function MainLayout({
             <SearchHeader />
           </div>
           <div className="flex items-center gap-x-4">
-            <UserButton afterSignOutUrl="/" showName={true} />
+            <UserButtonContainer />
             <ModeToggle />
           </div>
         </header>

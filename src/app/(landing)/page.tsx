@@ -45,7 +45,7 @@ const LandingPage = () => {
             </Link>
           </SignedIn>
           <SignedOut>
-            <SignInButton mode="modal">
+            <SignInButton mode="modal" signUpForceRedirectUrl={"/learn"}>
               <Button className="text-base lg:text-lg">
                 <LogInIcon className="w-5 h-5 mr-2" /> Login
               </Button>

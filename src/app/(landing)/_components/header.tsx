@@ -1,3 +1,4 @@
+"use client";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import {
@@ -6,12 +7,12 @@ import {
   SignedIn,
   SignedOut,
   SignInButton,
-  UserButton,
 } from "@clerk/nextjs";
 import { Loader, LogInIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import UserButtonContainer from "@/components/user-button-container";
 
 const Header = () => {
   return (
@@ -28,7 +29,7 @@ const Header = () => {
           </ClerkLoading>
           <ClerkLoaded>
             <SignedIn>
-              <UserButton afterSignOutUrl="/" showName={true} />
+              <UserButtonContainer />
             </SignedIn>
             <SignedOut>
               <SignInButton mode="modal">

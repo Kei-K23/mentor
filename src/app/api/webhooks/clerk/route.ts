@@ -59,7 +59,7 @@ export async function POST(req: Request) {
                 username: payload.data.username,
                 externalUserId: payload.data.id,
                 imageUrl: payload.data.image_url,
-                email: payload.email_addresses[0].email_address
+                email: payload.data.email_addresses[0].email_address
             },
         });
     }
@@ -73,7 +73,7 @@ export async function POST(req: Request) {
             data: {
                 username: payload.data.username,
                 imageUrl: payload.data.image_url,
-                email: payload.email_addresses[0].email_address
+                email: payload.data.email_addresses[0].email_address
             },
         });
     }
