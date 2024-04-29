@@ -11,12 +11,18 @@ import { Loader, LogInIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { robotoSlab } from "../font";
 
 const LandingPage = () => {
   return (
-    <div className="flex-1 h-full max-w-[980px] mx-auto flex flex-col lg:flex-row items-center justify-center gap-8 p-4">
+    <div className="flex-1 h-full max-w-[980px] mx-auto flex flex-col lg:flex-row items-center justify-center gap-10 p-4">
       <div className="flex flex-col items-center justify-center gap-y-5">
-        <p className="text-xl lg:text-2xl text-center max-w-[690px]">
+        <p
+          className={cn(
+            robotoSlab.className,
+            "text-xl lg:text-2xl text-center max-w-[690px]"
+          )}
+        >
           Learn, Practice and Master Programming Languages and Craft interview
           questions with <span className="font-bold text-sky-500">Mentor</span>{" "}
           🚀.

@@ -5,9 +5,9 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="w-full static bottom-0 border-t border-t-slate-200 h-14 flex items-center justify-between px-5">
+    <footer className="w-full static bottom-0 border-t border-t-slate-200 dark:border-t-slate-700 h-14 flex items-center justify-between px-5">
       <Link
-        href={"/terms&conditions"}
+        href={"/terms"}
         className={cn(
           buttonVariants({
             variant: "ghost",
@@ -18,7 +18,7 @@ const Footer = () => {
         Terms and Conditions
       </Link>
       <Link
-        href={"/privacy&policy"}
+        href={"/privacy"}
         className={cn(
           buttonVariants({
             variant: "ghost",
