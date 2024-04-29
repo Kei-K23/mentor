@@ -1,6 +1,6 @@
 import React from "react";
 
-const LearnPage = () => {
+const QuestsPage = () => {
   return (
     <div>
       <div className="w-[300px] h-[300px] bg-red-300" />
@@ -20,4 +20,4 @@ const LearnPage = () => {
   );
 };
 
-export default LearnPage;
+export default QuestsPage;

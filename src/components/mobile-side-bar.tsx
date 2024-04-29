@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
@@ -9,18 +11,14 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import {
-  Home,
-  LineChart,
-  Menu,
-  Package,
-  Package2,
-  ShoppingCart,
-  Users,
-} from "lucide-react";
-import { Badge } from "./ui/badge";
+import { Goal, Home, Medal, Menu, Store } from "lucide-react";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 const MobileSideBar = () => {
+  const pathname = usePathname();
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -35,46 +33,48 @@ const MobileSideBar = () => {
             href="#"
             className="flex items-center gap-2 text-lg font-semibold"
           >
-            <Package2 className="h-6 w-6" />
-            <span className="sr-only">Acme Inc</span>
+            <Image src={"/icon.png"} alt="icon image" width={32} height={32} />
+            <span>Mentor</span>
           </Link>
           <Link
-            href="#"
-            className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+            href="/learn"
+            className={cn(
+              "mx-[-0.65rem] flex items-center gap-4 rounded-xl  px-3 py-2 text-muted-foreground hover:text-foreground",
+              pathname === "/learn" && "bg-muted text-foreground"
+            )}
           >
-            <Home className="h-5 w-5" />
-            Dashboard
+            <Home className="h-6 w-6" />
+            Learn
           </Link>
           <Link
-            href="#"
-            className="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
+            href="/leaderboard"
+            className={cn(
+              "mx-[-0.65rem] flex items-center gap-4 rounded-xl  px-3 py-2 text-muted-foreground hover:text-foreground",
+              pathname === "/leaderboard" && "bg-muted text-foreground"
+            )}
           >
-            <ShoppingCart className="h-5 w-5" />
-            Orders
-            <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-              6
-            </Badge>
+            <Medal className="h-6 w-6" />
+            Leader Board
           </Link>
           <Link
-            href="#"
-            className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+            href="/quests"
+            className={cn(
+              "mx-[-0.65rem] flex items-center gap-4 rounded-xl  px-3 py-2 text-muted-foreground hover:text-foreground",
+              pathname === "/quests" && "bg-muted text-foreground"
+            )}
           >
-            <Package className="h-5 w-5" />
-            Products
+            <Goal className="h-6 w-6" />
+            Quests
           </Link>
           <Link
-            href="#"
-            className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+            href="/shop"
+            className={cn(
+              "mx-[-0.65rem] flex items-center gap-4 rounded-xl  px-3 py-2 text-muted-foreground hover:text-foreground",
+              pathname === "/shop" && "bg-muted text-foreground"
+            )}
           >
-            <Users className="h-5 w-5" />
-            Customers
-          </Link>
-          <Link
-            href="#"
-            className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-          >
-            <LineChart className="h-5 w-5" />
-            Analytics
+            <Store className="h-6 w-6" />
+            Shop
           </Link>
         </nav>
         <div className="mt-auto">

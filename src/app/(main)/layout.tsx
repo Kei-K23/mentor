@@ -52,7 +52,7 @@ export default function MainLayout({
             <SearchHeader />
           </div>
           <div className="flex items-center gap-x-4">
-            <UserButton afterSignOutUrl="/" />
+            <UserButton afterSignOutUrl="/" showName={true} />
             <ModeToggle />
           </div>
         </header>

@@ -22,13 +22,13 @@ const Header = () => {
           <h1 className="font-bold text-sky-500">Mentor</h1>
         </Link>
 
-        <div>
+        <div className="flex items-center gap-x-4">
           <ClerkLoading>
             <Loader className="w-5 h-5 animate-spin text-muted-foreground" />
           </ClerkLoading>
           <ClerkLoaded>
             <SignedIn>
-              <UserButton afterSignOutUrl="/" />
+              <UserButton afterSignOutUrl="/" showName={true} />
             </SignedIn>
             <SignedOut>
               <SignInButton mode="modal">
