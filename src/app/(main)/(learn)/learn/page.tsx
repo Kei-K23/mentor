@@ -1,16 +1,29 @@
+import { ChallengeDataTable } from "@/components/challenges-data-table";
+import { columns } from "@/components/challenges-data-table/columns";
 import FeedWrapper from "@/components/feed-wrapper";
+import Header from "@/components/header";
 import StickyWrapper from "@/components/sticky-wrapper";
 import UserProgress from "@/components/user-progress";
+import { getChallengesForActiveCourses } from "@/queries/challenges-queries";
 import { getUserProgress } from "@/queries/user-progress-queries";
 import { redirect } from "next/navigation";
 import React from "react";
 
 const LearnPage = async () => {
   const userProgressData = await getUserProgress();
+  const challengesData = await getChallengesForActiveCourses();
 
-  const [userProgress] = await Promise.all([userProgressData]);
+  const [userProgress, challenges] = await Promise.all([
+    userProgressData,
+    challengesData,
+  ]);
 
-  if (!userProgress || !userProgress.courseId || !userProgress.course) {
+  if (
+    !userProgress ||
+    !userProgress.courseId ||
+    !userProgress.course ||
+    !challenges?.length
+  ) {
     redirect("/courses");
   }
 
@@ -24,24 +37,8 @@ const LearnPage = async () => {
         />
       </StickyWrapper>
       <FeedWrapper>
-        <Header title={userProgress.activeCourse?.title} />
-        {units.map((unit) => (
-          <div key={unit.id} className="mb-10">
-            <Unit
-              id={unit.id}
-              title={unit.title}
-              description={unit.description}
-              order={unit.order}
-              lesson={unit.lessons}
-              activeLesson={
-                courseProgress?.activeLesson as typeof lessons.$inferSelect & {
-                  unit: typeof unitsSchema.$inferSelect;
-                }
-              }
-              activeLessonPercentage={lessonPercentage}
-            />
-          </div>
-        ))}
+        <Header title={userProgress.course?.title} />
+        <ChallengeDataTable columns={columns} data={challenges} />
       </FeedWrapper>
     </div>
   );
