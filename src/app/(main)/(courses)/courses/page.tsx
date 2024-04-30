@@ -13,7 +13,7 @@ const CoursesPage = async () => {
   ]);
 
   return (
-    <div>
+    <div className="w-full">
       <h1 className="text-lg font-bold ">Choose your prefer course 🚀</h1>
       <List courses={courses} activeCourseId={userProgress?.courseId!} />
     </div>

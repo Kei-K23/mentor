@@ -6,6 +6,7 @@ import React from "react";
 type CardProps = {
   id: number;
   title: string;
+  description?: string | null;
   imageSrc: string | null;
   onClick: (id: number) => void;
   disabled: boolean;
@@ -19,6 +20,7 @@ const Card = ({
   onClick,
   disabled,
   active,
+  description,
 }: CardProps) => {
   return (
     <div
@@ -28,7 +30,7 @@ const Card = ({
         disabled && "pointer-events-none opacity-50"
       )}
     >
-      <div className=" ">
+      <div>
         {active && (
           <div className="absolute top-2 right-2 rounded-md bg-green-500 flex items-center justify-center p-1.5">
             <CheckIcon className="w-4 h-4 stroke-[4] text-white" />
@@ -36,15 +38,12 @@ const Card = ({
         )}
       </div>
 
-      <Image
-        src={imageSrc!}
-        alt={title}
-        width={94}
-        height={70}
-        className="rounded-lg drop-shadow-md border object-cover"
-      />
+      <Image src={imageSrc!} alt={title} width={94} height={70} />
 
-      <p className="text-gray-800 font-bold mt-3">{title}</p>
+      <p className="text-slate-800 dark:text-slate-200 font-bold mt-3">
+        {title}
+      </p>
+      <p className="mt-2 text-sm text-muted-foreground">{description}</p>
     </div>
   );
 };

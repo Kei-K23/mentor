@@ -57,8 +57,8 @@ export default function MainLayout({
             <ModeToggle />
           </div>
         </header>
-        <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
-          <div className="max-w-[1050px] mx-auto h-full">{children}</div>
+        <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6 w-full">
+          <div className="w-full mx-auto h-full">{children}</div>
         </main>
       </div>
     </div>

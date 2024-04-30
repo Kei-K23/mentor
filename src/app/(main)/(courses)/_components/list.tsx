@@ -27,12 +27,13 @@ const List = ({ courses, activeCourseId }: ListProps) => {
   };
 
   return (
-    <div className="pt-6 grid grid-cols-2 lg:grid-cols-[repeat(auto-fill,minmax(210px,1fr))] gap-4">
+    <div className="pt-6 grid sm:grid-cols-2 lg:grid-cols-[repeat(auto-fill,minmax(210px,1fr))] gap-4 w-full ">
       {courses.map((course) => (
         <Card
           key={course.id}
           id={course.id}
           title={course.title}
+          description={course.description}
           imageSrc={course.imageUrl}
           onClick={onClick}
           disabled={pending}
