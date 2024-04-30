@@ -4,6 +4,8 @@ import { Course } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import React, { useTransition } from "react";
 import Card from "./card";
+import { createUserProgress } from "@/actions/user-progress-action";
+import { toast } from "sonner";
 
 type ListProps = {
   courses: Course[];
@@ -22,7 +24,9 @@ const List = ({ courses, activeCourseId }: ListProps) => {
     }
 
     startTransition(() => {
-      //   createUserProgress(id).catch(() => toast.error("Something went wrong"));
+      createUserProgress(id)
+        .then(() => router.push("/learn"))
+        .catch((e) => toast.error(e));
     });
   };
 

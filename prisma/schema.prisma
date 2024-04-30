@@ -30,8 +30,8 @@ model Course {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  lessons      Lesson[]
   userProgress UserProgress?
+  challenges   Challenge[]
 }
 
 enum Difficulty {
@@ -40,34 +40,21 @@ enum Difficulty {
   HEARD
 }
 
-model Lesson {
-  id         Int        @id @default(autoincrement())
-  title      String
-  courseId   Int
-  order      Int
-  difficulty Difficulty
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
-
-  challenges Challenge[]
-}
-
 enum ChallengeType {
   MULTIPLE_CHOICE
   CODE_TEST
+  LESSON
 }
 
 model Challenge {
-  id       Int           @id @default(autoincrement())
-  question String        @db.Text
-  order    Int
-  type     ChallengeType
+  id         Int           @id @default(autoincrement())
+  question   String        @db.Text
+  order      Int
+  type       ChallengeType
+  difficulty Difficulty
 
-  lessonId Int
-  lesson   Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  courseId Int
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -98,7 +85,7 @@ model UserProgress {
   id       Int @id @default(autoincrement())
   userId   Int @unique
   courseId Int @unique
-  hearts   Int @default(6)
+  hearts   Int @default(5)
   points   Int @default(0)
 
   user   User   @relation(fields: [userId], references: [id])
