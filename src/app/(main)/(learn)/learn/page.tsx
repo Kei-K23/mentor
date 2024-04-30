@@ -1,4 +1,6 @@
+import FeedWrapper from "@/components/feed-wrapper";
 import StickyWrapper from "@/components/sticky-wrapper";
+import UserProgress from "@/components/user-progress";
 import { getUserProgress } from "@/queries/user-progress-queries";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -16,13 +18,10 @@ const LearnPage = async () => {
     <div className="flex flex-row-reverse gap-[48px] px-6 py-4">
       <StickyWrapper>
         <UserProgress
-          activeCourse={userProgress.activeCourse}
+          activeCourse={userProgress.course}
           hearts={userProgress.hearts}
           points={userProgress.points}
-          hasActiveSubscription={isPro}
         />
-        {!isPro && <Promo />}
-        <QuestsIndicator points={userProgress.points} />
       </StickyWrapper>
       <FeedWrapper>
         <Header title={userProgress.activeCourse?.title} />
