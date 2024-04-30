@@ -47,7 +47,7 @@ export default function MainLayout({
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <SideBar />
       <div className="flex flex-col">
-        <header className="sticky top-0 flex h-14 items-center gap-4 border-b bg-slate-50 dark:bg-slate-900 px-4 lg:h-[60px] lg:px-6">
+        <header className="z-10 sticky top-0 flex h-14 items-center gap-4 border-b bg-slate-50 dark:bg-slate-900 px-4 lg:h-[60px] lg:px-6">
           <MobileSideBar />
           <div className="w-full flex-1">
             <SearchHeader />
