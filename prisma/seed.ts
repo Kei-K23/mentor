@@ -37,6 +37,7 @@ async function main() {
     await prisma.challenge.createMany({
         data: [
             {
+                title: "JS interview question 1",
                 courseId: course.id,
                 difficulty: Difficulty.EASY,
                 order: 1,
@@ -44,17 +45,111 @@ async function main() {
                 type: ChallengeType.MULTIPLE_CHOICE
             },
             {
+                title: "JS interview question 1",
+
                 courseId: course.id,
-                difficulty: Difficulty.HEARD,
+                difficulty: Difficulty.HARD,
                 order: 2,
                 question: "What is const in javascript?",
                 type: ChallengeType.MULTIPLE_CHOICE
             },
             {
+                title: "JS interview question 1",
+
                 courseId: course.id,
-                difficulty: Difficulty.NORMAL,
+                difficulty: Difficulty.MEDIUM,
                 order: 3,
                 question: "What is scope in javascript",
+                type: ChallengeType.MULTIPLE_CHOICE
+            },
+            {
+                title: "JS interview question 1",
+
+                courseId: course.id,
+                difficulty: Difficulty.MEDIUM,
+                order: 4,
+                question: "What are closures in JavaScript?",
+                type: ChallengeType.MULTIPLE_CHOICE
+            },
+            {
+                title: "JS interview question 1",
+
+                courseId: course.id,
+                difficulty: Difficulty.HARD,
+                order: 5,
+                question: "Explain event bubbling and event capturing in JavaScript.",
+                type: ChallengeType.MULTIPLE_CHOICE
+            },
+            {
+                title: "JS interview question 1",
+
+                courseId: course.id,
+                difficulty: Difficulty.EASY,
+                order: 6,
+                question: "What is a ternary operator in JavaScript?",
+                type: ChallengeType.MULTIPLE_CHOICE
+            },
+            {
+                title: "JS interview question 1",
+
+                courseId: course.id,
+                difficulty: Difficulty.MEDIUM,
+                order: 7,
+                question: "What is the purpose of the 'use strict' directive in JavaScript?",
+                type: ChallengeType.MULTIPLE_CHOICE
+            },
+            {
+                title: "JS interview question 1",
+
+                courseId: course.id,
+                difficulty: Difficulty.HARD,
+                order: 8,
+                question: "Explain the concept of prototypal inheritance in JavaScript.",
+                type: ChallengeType.MULTIPLE_CHOICE
+            },
+            {
+                title: "JS interview question 1",
+
+                courseId: course.id,
+                difficulty: Difficulty.EASY,
+                order: 9,
+                question: "What is the difference between 'null' and 'undefined' in JavaScript?",
+                type: ChallengeType.MULTIPLE_CHOICE
+            },
+            {
+                title: "JS interview question 1",
+
+                courseId: course.id,
+                difficulty: Difficulty.HARD,
+                order: 10,
+                question: "Explain what AJAX is and how it works.",
+                type: ChallengeType.MULTIPLE_CHOICE
+            },
+            {
+                title: "JS interview question 1",
+
+                courseId: course.id,
+                difficulty: Difficulty.MEDIUM,
+                order: 11,
+                question: "What are the different ways to create objects in JavaScript?",
+                type: ChallengeType.MULTIPLE_CHOICE
+            },
+            {
+                title: "JS interview question 1",
+
+                courseId: course.id,
+                difficulty: Difficulty.HARD,
+                order: 12,
+                question: "What is the event loop in JavaScript and how does it work?",
+                type: ChallengeType.MULTIPLE_CHOICE
+            },
+            {
+                title: "JS interview question 1",
+
+                courseId: course.id,
+                difficulty: Difficulty.EASY,
+                order: 13,
+                question: "What is the purpose of the 'this' keyword in JavaScript?",
                 type: ChallengeType.MULTIPLE_CHOICE
             },
         ]

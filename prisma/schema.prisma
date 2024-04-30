@@ -36,8 +36,8 @@ model Course {
 
 enum Difficulty {
   EASY
-  NORMAL
-  HEARD
+  MEDIUM
+  HARD
 }
 
 enum ChallengeType {
@@ -48,7 +48,9 @@ enum ChallengeType {
 
 model Challenge {
   id         Int           @id @default(autoincrement())
+  title      String
   question   String        @db.Text
+  code       String?       @db.Text
   order      Int
   type       ChallengeType
   difficulty Difficulty

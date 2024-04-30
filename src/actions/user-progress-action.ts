@@ -6,7 +6,6 @@ import { getUserProgress } from "@/queries/user-progress-queries";
 import { getUserByExternalUserId } from "@/queries/user-queries";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 
 export const createUserProgress = async (courseId: number) => {
     try {

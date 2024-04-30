@@ -32,5 +32,18 @@ export const getChallengesForActiveCourses = async () => {
             order: "asc"
         }
     })
+}
 
+export const getCoursePercentage = async () => {
+    const challenges = await getChallengesForActiveCourses();
+
+    if (!challenges) return 0;
+
+    const coursePercentage =
+        (challenges.filter((challenge) => challenge.challengeProgress?.completed)
+            .length /
+            challenges.length) *
+        100;
+
+    return coursePercentage;
 }

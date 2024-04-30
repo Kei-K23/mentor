@@ -3,8 +3,12 @@ import { columns } from "@/components/challenges-data-table/columns";
 import FeedWrapper from "@/components/feed-wrapper";
 import Header from "@/components/header";
 import StickyWrapper from "@/components/sticky-wrapper";
+import { Progress } from "@/components/ui/progress";
 import UserProgress from "@/components/user-progress";
-import { getChallengesForActiveCourses } from "@/queries/challenges-queries";
+import {
+  getChallengesForActiveCourses,
+  getCoursePercentage,
+} from "@/queries/challenges-queries";
 import { getUserProgress } from "@/queries/user-progress-queries";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -12,10 +16,12 @@ import React from "react";
 const LearnPage = async () => {
   const userProgressData = await getUserProgress();
   const challengesData = await getChallengesForActiveCourses();
+  const coursePercentageData = await getCoursePercentage();
 
-  const [userProgress, challenges] = await Promise.all([
+  const [userProgress, challenges, coursePercentage] = await Promise.all([
     userProgressData,
     challengesData,
+    coursePercentageData,
   ]);
 
   if (
@@ -38,6 +44,7 @@ const LearnPage = async () => {
       </StickyWrapper>
       <FeedWrapper>
         <Header title={userProgress.course?.title} />
+        <Progress value={coursePercentage} className="w-full" />
         <ChallengeDataTable columns={columns} data={challenges} />
       </FeedWrapper>
     </div>
