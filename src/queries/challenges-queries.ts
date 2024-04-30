@@ -8,7 +8,6 @@ export const getChallengesForActiveCourses = async () => {
 
     if (!userId) return null;
 
-
     const user = await getUserByExternalUserId(userId);
 
     if (!user) return null;
@@ -46,4 +45,34 @@ export const getCoursePercentage = async () => {
         100;
 
     return coursePercentage;
+}
+
+export const getChallengeById = async (id: number) => {
+
+    const { userId } = auth()
+
+    if (!userId) return null;
+
+    const user = await getUserByExternalUserId(userId);
+
+    if (!user) return null;
+
+    return db.challenge.findUnique({
+        where: {
+            id
+        },
+        include: {
+            challengeOptions: {
+                where: {
+                    challengeId: id
+                }
+            },
+            challengeProgress: {
+                where: {
+                    challengeId: id,
+                    userId: user.id
+                }
+            }
+        }
+    });
 }

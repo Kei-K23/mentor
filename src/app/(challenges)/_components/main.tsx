@@ -5,19 +5,21 @@ import Footer from "./footer";
 
 import { toast } from "sonner";
 import { useAudio, useMount } from "react-use";
-import { ChallengeWithChallengeProgress } from "@/types";
+import { ChallengeWithChallengeProgressAndOptions } from "@/types";
 import Header from "./header";
 
 type MainProps = {
   initialPercentage: number;
-  initialChallengeWithChallengeProgress: ChallengeWithChallengeProgress;
+  initialChallengeWithChallengeProgressAndOptions: ChallengeWithChallengeProgressAndOptions;
   initialHeart: number;
+  initialPoints: number;
 };
 
 const Main = ({
   initialHeart,
-  initialChallengeWithChallengeProgress,
+  initialChallengeWithChallengeProgressAndOptions,
   initialPercentage,
+  initialPoints,
 }: MainProps) => {
   const [correctAudio, _correct, correctControl] = useAudio({
     src: "/correct.wav",
@@ -31,7 +33,7 @@ const Main = ({
     initialPercentage === 100 ? 0 : initialPercentage
   );
 
-  const [challenge] = useState(initialChallengeWithChallengeProgress);
+  const [challenge] = useState(initialChallengeWithChallengeProgressAndOptions);
 
   const [selectedOption, setSelectedOption] = useState<number>();
   const [status, setStatus] = useState<"none" | "correct" | "incorrect">(
