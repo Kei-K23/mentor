@@ -153,7 +153,6 @@ const Main = ({
         onCheck={onContinue}
         status={status}
         disabled={pending || !selectedOption}
-        lessonId={initialLessonId}
       />
     </>
   );
