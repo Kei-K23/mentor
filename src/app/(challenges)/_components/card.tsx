@@ -5,8 +5,6 @@ import { useKey } from "react-use";
 
 type CardProps = {
   id: number;
-  imageSrc: string | null;
-  audioSrc: string | null;
   onClick: () => void;
   text: string;
   shortcut: string;
