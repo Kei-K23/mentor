@@ -33,17 +33,18 @@ const NoEnoughHeartsModal = () => {
         <DialogHeader>
           <div className="flex items-center w-full justify-center mb-5">
             <Image
-              src={"/mascot_bad.svg"}
-              alt="modal image"
+              src={"/depression.png"}
+              alt="depression image"
               height={80}
               width={80}
             />
           </div>
           <DialogTitle className="text-center mb-2">
-            No enough hearts to continue playing!
+            No enough hearts to continue the challenges!
           </DialogTitle>
           <DialogDescription className="text-center">
-            Get Pro for unlimited hearts or exchanges your points to hearts.
+            Exchanges your points to refill hearts or reanswer the previous
+            solved challenges to gain heart.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="mb-4">

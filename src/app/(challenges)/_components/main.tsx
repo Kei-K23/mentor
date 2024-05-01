@@ -19,6 +19,7 @@ import {
   reduceHeart,
 } from "@/actions/challenge-progress-action";
 import { CheckCircle } from "lucide-react";
+import { useNoEnoughHeartsModalStore } from "@/store/use-no-enough-hearts-modal-store";
 
 type MainProps = {
   challenges: ChallengeWithChallengeProgress[];
@@ -36,6 +37,7 @@ const Main = ({
   initialPoints,
 }: MainProps) => {
   const router = useRouter();
+  const { open: openNoEnoughHeartsModal } = useNoEnoughHeartsModalStore();
 
   const [correctAudio, _correct, correctControl] = useAudio({
     src: "/correct.wav",
@@ -66,8 +68,6 @@ const Main = ({
 
   const onNext = () => {
     if (isNext) {
-      console.log(challenge.id);
-
       return router.push(`/challenges/${challenge.id + 1}`);
     }
   };
@@ -107,7 +107,7 @@ const Main = ({
         createChallengeProgress(challenge.id)
           .then((res) => {
             if (res?.info === "hearts") {
-              console.log("run out of hearts ");
+              openNoEnoughHeartsModal();
               return;
             }
 
@@ -126,7 +126,7 @@ const Main = ({
         reduceHeart(challenge.id)
           .then((res) => {
             if (res?.info === "hearts") {
-              console.log("run out of hearts ");
+              openNoEnoughHeartsModal();
               return;
             }
 

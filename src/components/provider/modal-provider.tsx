@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import ExitModal from "../modal/exit-modal";
+import NoEnoughHeartsModal from "../modal/no-enough-hearts-modal";
 
 const ModalProvider = () => {
   const [isClient, setIsClient] = useState(false);
@@ -14,6 +15,7 @@ const ModalProvider = () => {
   return (
     <>
       <ExitModal />
+      <NoEnoughHeartsModal />
     </>
   );
 };
