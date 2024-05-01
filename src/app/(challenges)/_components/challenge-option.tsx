@@ -3,7 +3,7 @@ import { ChallengeType } from "@prisma/client";
 import React, { useCallback } from "react";
 import { useKey } from "react-use";
 
-type CardProps = {
+type ChallengeOptionProps = {
   id: number;
   onClick: () => void;
   text: string;
@@ -14,7 +14,7 @@ type CardProps = {
   type: ChallengeType;
 };
 
-const Card = ({
+const ChallengeOption = ({
   onClick,
   text,
   shortcut,
@@ -22,7 +22,7 @@ const Card = ({
   disabled,
   status,
   type,
-}: CardProps) => {
+}: ChallengeOptionProps) => {
   const handleClick = useCallback(() => {
     if (disabled) return;
     onClick();
@@ -55,7 +55,7 @@ const Card = ({
         {type === "MULTIPLE_CHOICE" && <div />}
         <p
           className={cn(
-            "text-neutral-600 text-sm lg:text-base",
+            "text-slate-800 dark:text-slate-200 text-sm lg:text-base",
             selected && "text-sky-500",
             selected && status === "correct" && "text-green-500",
             selected && status === "incorrect" && "text-rose-500"
@@ -80,4 +80,4 @@ const Card = ({
   );
 };
 
-export default Card;
+export default ChallengeOption;

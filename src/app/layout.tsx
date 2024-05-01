@@ -4,6 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { openSans } from "./font";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
+import ModalProvider from "@/components/provider/modal-provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -28,6 +29,7 @@ export default function RootLayout({
           <ClerkProvider>
             {children}
             <Toaster />
+            <ModalProvider />
           </ClerkProvider>
         </ThemeProvider>
       </body>

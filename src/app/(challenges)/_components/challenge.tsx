@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import React from "react";
-import Card from "./card";
+import ChallengeOptionComponent from "./challenge-option";
 import { ChallengeOption, ChallengeType } from "@prisma/client";
 
 type ChallengeProps = {
@@ -25,7 +25,7 @@ const Challenge = ({
       className={cn("grid gap-2", type === "MULTIPLE_CHOICE" && "grid-cols-1")}
     >
       {options.map((option, i) => (
-        <Card
+        <ChallengeOptionComponent
           key={option.id}
           id={option.id}
           text={option.text}

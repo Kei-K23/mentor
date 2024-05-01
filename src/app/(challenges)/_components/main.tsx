@@ -9,6 +9,7 @@ import { ChallengeWithChallengeProgressAndOptions } from "@/types";
 import Header from "./header";
 import CodeBlock from "@/components/code-block/code-block";
 import BubbleTag from "./bubble-tag";
+import Challenge from "./challenge";
 
 type MainProps = {
   initialPercentage: number;
@@ -66,9 +67,12 @@ const Main = ({
             <div className="w-full lg:w-1/2">
               <BubbleTag question="Choose the correct one?" />
               <div>
-                {options.map((option) => (
-                  <div key={option.id}>{option.text}</div>
-                ))}
+                <Challenge
+                  options={challenge.challengeOptions!}
+                  status={status}
+                  onSelect={() => {}}
+                  type={challenge.type}
+                />
               </div>
             </div>
           </div>
