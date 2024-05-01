@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-const tableNames = ['Challenge'];
+const tableNames = ['Challenge', 'UserProgress'];
 
 const prisma = new PrismaClient();
 async function main() {

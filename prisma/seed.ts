@@ -1,4 +1,4 @@
-import { ChallengeType, Difficulty, PrismaClient } from '@prisma/client'
+import { ChallengeType, Difficulty, LanguageType, PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 async function main() {
     console.log("Start database seeding");
@@ -6,11 +6,13 @@ async function main() {
     await prisma.course.deleteMany();
     await prisma.challenge.deleteMany();
 
+
     const course = await prisma.course.create({
         data: {
             title: "Javascript",
             description: "Craft JavaScript interview questions",
-            imageUrl: "/js.svg"
+            imageUrl: "/js.svg",
+            languageType: LanguageType.JS
         },
     })
 
@@ -19,25 +21,45 @@ async function main() {
             {
                 title: "Php",
                 description: "Craft Php interview questions",
-                imageUrl: "/php.svg"
+                imageUrl: "/php.svg",
+                languageType: LanguageType.PHP
             },
             {
                 title: "Java",
                 description: "Craft Java interview questions",
-                imageUrl: "/java.svg"
+                imageUrl: "/java.svg",
+                languageType: LanguageType.JAVA
             },
             {
                 title: "Golang",
                 description: "Craft Golang interview questions",
-                imageUrl: "/go.svg"
+                imageUrl: "/go.svg",
+                languageType: LanguageType.GO
             },
         ]
     })
+
 
     await prisma.challenge.createMany({
         data: [
             {
                 title: "JS interview question 1",
+                code: `
+(function() {
+	'use Type Errorar person = {
+		name: 'John'
+	};
+	person.salary = '10000$';
+	person['country'] = 'USA';
+
+	Object.defineProperty(person, 'phoneNo', {
+		value: '8888888888',
+		enumerable: true
+	})
+
+	console.log(Object.keys(person));
+})();
+                `,
                 courseId: course.id,
                 difficulty: Difficulty.EASY,
                 order: 1,
@@ -153,7 +175,34 @@ async function main() {
                 type: ChallengeType.MULTIPLE_CHOICE
             },
         ]
+    });
+
+
+    await prisma.challengeOption.createMany({
+        data: [
+            {
+                challengeId: 1,
+                text: "Type Error",
+                correct: false
+            },
+            {
+                challengeId: 1,
+                text: "undefined",
+                correct: false
+            },
+            {
+                challengeId: 1,
+                text: `["name", "salary", "country", "phoneNo"]`,
+                correct: false
+            },
+            {
+                challengeId: 1,
+                text: `["name", "salary", "country"]`,
+                correct: true
+            },
+        ]
     })
+
 
     console.log("Database seeding finished");
 }

@@ -40,14 +40,6 @@ const Main = ({
     "none"
   );
 
-  const { open: OpenNoEnoughHeartsModal } = useNoEnoughHeartsModal();
-
-  useMount(() => {
-    if (initialPercentage === 100) {
-      OpenPracticeModal();
-    }
-  });
-
   const options = challenge?.challengeOptions ?? [];
 
   if (!challenge) {
@@ -59,73 +51,6 @@ const Main = ({
     challenge.type === "MULTIPLE_CHOICE"
       ? "Select the correct meaning"
       : challenge.question;
-
-  const onNext = () => {
-    setActiveIndex((current) => current + 1);
-  };
-
-  const onSelect = (id: number) => {
-    if (status !== "none") return;
-    setSelectedOption(id);
-  };
-
-  const onContinue = () => {
-    if (!selectedOption) return;
-
-    if (status === "incorrect") {
-      setStatus("none");
-      setSelectedOption(undefined);
-      return;
-    }
-
-    if (status === "correct") {
-      onNext();
-      setStatus("none");
-      setSelectedOption(undefined);
-      return;
-    }
-
-    const correctOption = options.find((option) => option.correct);
-
-    if (!correctOption) return;
-
-    if (correctOption.id === selectedOption) {
-      startTransition(() => {
-        upsertChallengeProgress(challenge.id)
-          .then((res) => {
-            if (res?.error === "hearts") {
-              OpenNoEnoughHeartsModal();
-              return;
-            }
-
-            correctControl.play();
-            setStatus("correct");
-            setPercentage((prev) => prev + 100 / challenges.length);
-
-            if (initialPercentage === 100) {
-              setHearts((prev) => Math.min(prev + 1, 5));
-            }
-          })
-          .catch(() => toast.error("Something went wrong. Please try again!"));
-      });
-    } else {
-      startTransition(() => {
-        reduceHeart(challenge.id)
-          .then((res) => {
-            if (res?.error === "hearts") {
-              OpenNoEnoughHeartsModal();
-              return;
-            }
-            incorrectControl.play();
-            setStatus("incorrect");
-            if (!res?.error) {
-              setHearts((prev) => Math.max(prev - 1, 0));
-            }
-          })
-          .catch(() => toast.error("Something went wrong. Please try again!"));
-      });
-    }
-  };
 
   return (
     <>
@@ -139,20 +64,15 @@ const Main = ({
               {title}
             </h1>
             <div>
-              <Challenge
-                options={options}
-                onSelect={onSelect}
-                status={status}
-                selectedOption={selectedOption}
-                disabled={pending}
-                type={challenge.type}
-              />
+              {options.map((option) => (
+                <div key={option.id}>{option.text}</div>
+              ))}
             </div>
           </div>
         </div>
       </div>
       <Footer
-        onCheck={onContinue}
+        onCheck={() => {}}
         status={status}
         disabled={pending || !selectedOption}
       />
