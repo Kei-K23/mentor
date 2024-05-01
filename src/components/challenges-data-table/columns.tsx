@@ -11,7 +11,6 @@ export const columns: ColumnDef<ChallengeWithChallengeProgress>[] = [
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => {
-      // TODO: change with icon
       return (
         <div>
           {row.original.id === row.original.challengeProgress?.challengeId ? (

@@ -7,6 +7,7 @@ import {
 } from "@/queries/challenges-queries";
 import { redirect } from "next/navigation";
 import { getUserProgress } from "@/queries/user-progress-queries";
+import { getChallengeProgressById } from "@/queries/challenges-progress-queries";
 
 type ChallengeIdPageProps = {
   params: {
@@ -19,14 +20,23 @@ const ChallengeIdPage = async ({ params }: ChallengeIdPageProps) => {
   const challengesData = await getChallengesForActiveCourses();
   const coursePercentageData = await getCoursePercentage();
   const userProgressData = await getUserProgress();
+  const challengeProgressData = await getChallengeProgressById(
+    +params.challengeId
+  );
 
-  const [challenge, challenges, coursePercentage, userProgress] =
-    await Promise.all([
-      challengeData,
-      challengesData,
-      coursePercentageData,
-      userProgressData,
-    ]);
+  const [
+    challenge,
+    challenges,
+    coursePercentage,
+    userProgress,
+    challengeProgress,
+  ] = await Promise.all([
+    challengeData,
+    challengesData,
+    coursePercentageData,
+    userProgressData,
+    challengeProgressData,
+  ]);
 
   if (
     !challenge ||
@@ -44,6 +54,8 @@ const ChallengeIdPage = async ({ params }: ChallengeIdPageProps) => {
     (c) => c.challengeProgress?.completed
   );
 
+  const isPractice = !!challengeProgress;
+
   if (!withinRange) {
     redirect("/courses");
   }
@@ -51,6 +63,7 @@ const ChallengeIdPage = async ({ params }: ChallengeIdPageProps) => {
   return (
     <div className="flex flex-col lg:h-full">
       <Main
+        isPractice={isPractice}
         completedChallenge={completedChallenge}
         firstChallengeId={challenges[0].id}
         lastChallengeId={challenges[challenges.length - 1].id}

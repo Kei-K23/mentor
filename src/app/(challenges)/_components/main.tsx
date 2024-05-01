@@ -23,6 +23,7 @@ import { useNoEnoughHeartsModalStore } from "@/store/use-no-enough-hearts-modal-
 import FinishedScreen from "./finished-screen";
 
 type MainProps = {
+  isPractice: boolean;
   challenges: ChallengeWithChallengeProgress[];
   completedChallenge: ChallengeWithChallengeProgress[];
   initialPercentage: number;
@@ -35,6 +36,7 @@ type MainProps = {
 };
 
 const Main = ({
+  isPractice,
   challenges,
   completedChallenge,
   initialHeart,
@@ -83,7 +85,7 @@ const Main = ({
     }
   };
 
-  if (challenges.length === completedChallenge.length) {
+  if (challenges.length === completedChallenge.length && !isPractice) {
     return (
       <FinishedScreen
         firstChallengeId={firstChallengeId}
