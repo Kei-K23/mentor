@@ -5,12 +5,18 @@ import React from "react";
 import { useKey, useMedia } from "react-use";
 
 type FooterProps = {
+  firstChallengeId?: number;
   onCheck: () => void;
   status: "none" | "correct" | "incorrect" | "completed";
   disabled?: boolean;
 };
 
-const Footer = ({ onCheck, status, disabled }: FooterProps) => {
+const Footer = ({
+  onCheck,
+  status,
+  disabled,
+  firstChallengeId,
+}: FooterProps) => {
   const isMobile = useMedia("(max-width: 1024px)");
 
   useKey("Enter", onCheck, {}, [onCheck]);
@@ -40,7 +46,9 @@ const Footer = ({ onCheck, status, disabled }: FooterProps) => {
           <Button
             variant={"default"}
             size={isMobile ? "sm" : "lg"}
-            onClick={() => (window.location.href = `/learn`)}
+            onClick={() =>
+              (window.location.href = `/challenges/${firstChallengeId}`)
+            }
           >
             Practice again
           </Button>

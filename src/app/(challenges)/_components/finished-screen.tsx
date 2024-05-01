@@ -1,4 +1,3 @@
-import { challengeOptions, challenges, userSubscriptions } from "@/db/schema";
 import Image from "next/image";
 import React, { useEffect } from "react";
 import ResultCard from "./result-card";
@@ -6,33 +5,27 @@ import Footer from "./footer";
 import { useRouter } from "next/navigation";
 import Confetti from "react-confetti";
 import { useAudio, useWindowSize } from "react-use";
+import { ChallengeWithChallengeProgress } from "@/types";
 
 type FinishedScreenProps = {
-  challenges: (typeof challenges.$inferSelect & {
-    completed: boolean;
-    challengeOptions: (typeof challengeOptions.$inferSelect)[];
-  })[];
+  challenges: ChallengeWithChallengeProgress[];
   hearts: number;
-  lessonId: number;
-  userSubscription:
-    | (typeof userSubscriptions.$inferSelect & {
-        isActive: boolean;
-      })
-    | null;
+  firstChallengeId?: number;
 };
 
 const FinishedScreen = ({
   challenges,
   hearts,
-  lessonId,
+  firstChallengeId,
 }: FinishedScreenProps) => {
   const router = useRouter();
   const { width, height } = useWindowSize();
-  const [finishAudio, _, control] = useAudio({ src: "finish.mp3" });
+  const [finishAudio, _, control] = useAudio({ src: "/finish.mp3" });
 
   useEffect(() => {
     control.play();
   }, []);
+
   return (
     <>
       {finishAudio}
@@ -45,18 +38,18 @@ const FinishedScreen = ({
       />
       <div className="flex flex-col gap-y-4 lg:gap-y-8 max-w-lg mx-auto text-center items-center justify-center h-full">
         <Image
-          src={"/finish.svg"}
-          alt="finish svg"
+          src={"/love.png"}
+          alt="love image"
           className="hidden lg:block"
-          height={100}
-          width={100}
+          height={140}
+          width={140}
         />
         <Image
-          src={"/finish.svg"}
-          alt="finish svg"
+          src={"/love.png"}
+          alt="love image"
           className="block lg:hidden"
-          height={50}
-          width={50}
+          height={100}
+          width={100}
         />
         <h1 className="text-xl lg:text-3xl font-bold text-neutral-700">
           Great job! <br /> You&apos;ve completed the lesson.
@@ -67,7 +60,7 @@ const FinishedScreen = ({
         </div>
       </div>
       <Footer
-        lessonId={lessonId}
+        firstChallengeId={firstChallengeId}
         status="completed"
         onCheck={() => router.push("/learn")}
       />

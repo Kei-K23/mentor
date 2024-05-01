@@ -20,6 +20,7 @@ import {
 } from "@/actions/challenge-progress-action";
 import { CheckCircle } from "lucide-react";
 import { useNoEnoughHeartsModalStore } from "@/store/use-no-enough-hearts-modal-store";
+import FinishedScreen from "./finished-screen";
 
 type MainProps = {
   challenges: ChallengeWithChallengeProgress[];
@@ -51,7 +52,7 @@ const Main = ({
     src: "/correct.wav",
   });
   const [incorrectAudio, _incorrect, incorrectControl] = useAudio({
-    src: "incorrect.wav",
+    src: "/incorrect.wav",
   });
   const [pending, startTransition] = useTransition();
 
@@ -83,8 +84,13 @@ const Main = ({
   };
 
   if (challenges.length === completedChallenge.length) {
-    // TODO: Finish screen
-    return <div>finish screen</div>;
+    return (
+      <FinishedScreen
+        firstChallengeId={firstChallengeId}
+        challenges={challenges}
+        hearts={hearts}
+      />
+    );
   }
 
   const onSelect = (id: number) => {
