@@ -35,6 +35,7 @@ const Header = ({
       return router.push(`/challenges/${challenge.id + 1}`);
     }
   };
+
   const onPrevious = () => {
     if (isPrevious) return router.push(`/challenges/${challenge.id - 1}`);
   };

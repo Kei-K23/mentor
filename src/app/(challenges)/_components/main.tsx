@@ -14,6 +14,7 @@ import CodeBlock from "@/components/code-block/code-block";
 import BubbleTag from "./bubble-tag";
 import Challenge from "./challenge";
 import { useRouter } from "next/navigation";
+import { createChallengeProgress } from "@/actions/challenge-progress-action";
 
 type MainProps = {
   challenges: ChallengeWithChallengeProgress[];
@@ -39,6 +40,7 @@ const Main = ({
     src: "incorrect.wav",
   });
   const [pending, startTransition] = useTransition();
+
   const [hearts, setHearts] = useState(initialHeart);
   const [points, setPoints] = useState(initialPoints);
   const [percentage, setPercentage] = useState(() =>
@@ -46,17 +48,72 @@ const Main = ({
   );
 
   const [challenge] = useState(initialChallengeWithChallengeProgressAndOptions);
+
   const [selectedOption, setSelectedOption] = useState<number>();
+
   const [status, setStatus] = useState<"none" | "correct" | "incorrect">(
     "none"
   );
-
   const options = challenge?.challengeOptions ?? [];
+  const isNext = challenges.length >= challenge.id + 1;
+
+  const onNext = () => {
+    if (isNext) {
+      console.log(challenge.id);
+
+      return router.push(`/challenges/${challenge.id + 1}`);
+    }
+  };
 
   if (!challenge) {
     // TODO: Finish screen
     return <div>finish screen</div>;
   }
+
+  const onSelect = (id: number) => {
+    if (!id || status !== "none") return;
+    setSelectedOption(id);
+  };
+
+  const onContinue = () => {
+    if (!selectedOption) return;
+
+    if (status === "correct") {
+      onNext();
+      setStatus("none");
+      setSelectedOption(undefined);
+      return;
+    }
+
+    if (status === "incorrect") {
+      setStatus("none");
+      setSelectedOption(undefined);
+      return;
+    }
+
+    const correctOption = challenge.challengeOptions?.find((cp) => cp.correct);
+
+    if (!correctOption) return;
+
+    if (selectedOption === correctOption.id) {
+      startTransition(() => {
+        createChallengeProgress(challenge.id)
+          .then((res) => {
+            if (res?.info === "hearts") {
+              console.log("run out of hearts ");
+              return;
+            }
+
+            correctControl.play();
+            setStatus("correct");
+            setPercentage((prev) => prev + 100 / challenges.length);
+          })
+          .catch(() => {
+            toast.error("Something went wrong! Try again.");
+          });
+      });
+    }
+  };
 
   return (
     <>
@@ -84,7 +141,8 @@ const Main = ({
                 <Challenge
                   options={options}
                   status={status}
-                  onSelect={() => {}}
+                  onSelect={onSelect}
+                  selectedOption={selectedOption}
                   type={challenge.type}
                 />
               </div>
@@ -93,7 +151,7 @@ const Main = ({
         </div>
       </div>
       <Footer
-        onCheck={() => {}}
+        onCheck={onContinue}
         status={status}
         disabled={pending || !selectedOption}
       />

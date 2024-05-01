@@ -55,7 +55,7 @@ const ChallengeOption = ({
         {type === "MULTIPLE_CHOICE" && <div />}
         <p
           className={cn(
-            "text-slate-800 dark:text-slate-200 text-sm lg:text-base",
+            "text-slate-800 dark:text-slate-200 text-sm font-bold lg:text-base",
             selected && "text-sky-500",
             selected && status === "correct" && "text-green-500",
             selected && status === "incorrect" && "text-rose-500"
