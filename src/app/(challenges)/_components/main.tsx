@@ -14,7 +14,10 @@ import CodeBlock from "@/components/code-block/code-block";
 import BubbleTag from "./bubble-tag";
 import Challenge from "./challenge";
 import { useRouter } from "next/navigation";
-import { createChallengeProgress } from "@/actions/challenge-progress-action";
+import {
+  createChallengeProgress,
+  reduceHeart,
+} from "@/actions/challenge-progress-action";
 import { CheckCircle } from "lucide-react";
 
 type MainProps = {
@@ -118,6 +121,25 @@ const Main = ({
             toast.error("Something went wrong! Try again.");
           });
       });
+    } else {
+      startTransition(() => {
+        reduceHeart(challenge.id)
+          .then((res) => {
+            if (res?.info === "hearts") {
+              console.log("run out of hearts ");
+              return;
+            }
+
+            incorrectControl.play();
+            setStatus("incorrect");
+            if (!res?.info) {
+              setHearts((prev) => Math.max(prev - 1, 0));
+            }
+          })
+          .catch(() => {
+            toast.error("Something went wrong! Try again.");
+          });
+      });
     }
   };
 
@@ -156,6 +178,7 @@ const Main = ({
                   onSelect={onSelect}
                   selectedOption={selectedOption}
                   type={challenge.type}
+                  disabled={pending}
                 />
               </div>
             </div>

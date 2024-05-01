@@ -101,3 +101,62 @@ export const createChallengeProgress = async (challengeId: number) => {
         throw new Error("Something went wrong");
     }
 }
+
+export const reduceHeart = async (challengeId: number) => {
+    try {
+
+        if (!challengeId) throw new Error("ChallengeId is required");
+
+        const { userId } = auth();
+
+        if (!userId) throw new Error("Unauthorized!");
+
+        const user = await getUserByExternalUserId(userId);
+
+        if (!user) throw new Error("User not found!");
+
+        const userProgress = await getUserProgress();
+
+        if (!userProgress || !userProgress.courseId) return null;
+
+        const challenge = await getChallengeById(challengeId);
+
+        if (!challenge || !challenge.challengeOptions) throw new Error("Challenge is empty!");
+
+        const existingChallengeProgress = await db.challengeProgress.findFirst({
+            where: {
+                userId: user.id,
+                challengeId: challenge.id
+            }
+        });
+
+        const isPractice = !!existingChallengeProgress;
+
+        if (isPractice) {
+            return { info: "practice" }
+        }
+
+        if (userProgress.hearts === 0) {
+            return { info: "hearts" };
+        }
+
+        // reduce the points
+        await db.userProgress.update({
+            where: {
+                userId: user.id,
+            },
+            data: {
+                hearts: Math.max(userProgress.hearts - 1, 0)
+            }
+        });
+
+        revalidatePath("/learn");
+        revalidatePath("/challenges");
+        revalidatePath(`/challenges/${challengeId}`);
+        revalidatePath("/quests");
+        revalidatePath("/leaderboard");
+    } catch (e) {
+        throw new Error("Something went wrong");
+    }
+}
+
