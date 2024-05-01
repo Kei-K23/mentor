@@ -5,13 +5,18 @@ import Footer from "./footer";
 
 import { toast } from "sonner";
 import { useAudio, useMount } from "react-use";
-import { ChallengeWithChallengeProgressAndOptions } from "@/types";
+import {
+  ChallengeWithChallengeProgress,
+  ChallengeWithChallengeProgressAndOptions,
+} from "@/types";
 import Header from "./header";
 import CodeBlock from "@/components/code-block/code-block";
 import BubbleTag from "./bubble-tag";
 import Challenge from "./challenge";
+import { useRouter } from "next/navigation";
 
 type MainProps = {
+  challenges: ChallengeWithChallengeProgress[];
   initialPercentage: number;
   initialChallengeWithChallengeProgressAndOptions: ChallengeWithChallengeProgressAndOptions;
   initialHeart: number;
@@ -19,11 +24,14 @@ type MainProps = {
 };
 
 const Main = ({
+  challenges,
   initialHeart,
   initialChallengeWithChallengeProgressAndOptions,
   initialPercentage,
   initialPoints,
 }: MainProps) => {
+  const router = useRouter();
+
   const [correctAudio, _correct, correctControl] = useAudio({
     src: "/correct.wav",
   });
@@ -32,12 +40,12 @@ const Main = ({
   });
   const [pending, startTransition] = useTransition();
   const [hearts, setHearts] = useState(initialHeart);
+  const [points, setPoints] = useState(initialPoints);
   const [percentage, setPercentage] = useState(() =>
     initialPercentage === 100 ? 0 : initialPercentage
   );
 
   const [challenge] = useState(initialChallengeWithChallengeProgressAndOptions);
-
   const [selectedOption, setSelectedOption] = useState<number>();
   const [status, setStatus] = useState<"none" | "correct" | "incorrect">(
     "none"
@@ -54,8 +62,14 @@ const Main = ({
     <>
       {correctAudio}
       {incorrectAudio}
-      <Header hearts={hearts} percentage={percentage} />
-      <div className="flex-1">
+      <Header
+        challenges={challenges}
+        challenge={challenge}
+        hearts={hearts}
+        points={points}
+        percentage={percentage}
+      />
+      <div className="flex-1 mb-10">
         <div className="h-full flex items-center justify-center">
           <div className="mt-10 lg:min-h-[350px] max-w-[1350px] w-full px-6  flex lg:flex-row flex-col gap-y-12 lg:gap-x-10">
             <div className="w-full lg:w-1/2">
@@ -68,7 +82,7 @@ const Main = ({
               <BubbleTag question="Choose the correct one?" />
               <div>
                 <Challenge
-                  options={challenge.challengeOptions!}
+                  options={options}
                   status={status}
                   onSelect={() => {}}
                   type={challenge.type}

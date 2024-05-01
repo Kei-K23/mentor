@@ -18,7 +18,7 @@ const Footer = ({ onCheck, status, disabled }: FooterProps) => {
   return (
     <footer
       className={cn(
-        "lg:h-[140px] h-[100px] border-t-2",
+        " h-[100px] border-t-2",
         status === "correct" && "bg-green-100 border-transparent",
         status === "incorrect" && "bg-rose-100 border-transparent"
       )}
