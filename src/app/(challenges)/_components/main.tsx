@@ -15,6 +15,7 @@ import BubbleTag from "./bubble-tag";
 import Challenge from "./challenge";
 import { useRouter } from "next/navigation";
 import { createChallengeProgress } from "@/actions/challenge-progress-action";
+import { CheckCircle } from "lucide-react";
 
 type MainProps = {
   challenges: ChallengeWithChallengeProgress[];
@@ -56,6 +57,9 @@ const Main = ({
   );
   const options = challenge?.challengeOptions ?? [];
   const isNext = challenges.length >= challenge.id + 1;
+
+  const isAlreadySolved =
+    challenge.challengeProgress?.challengeId === challenge.id;
 
   const onNext = () => {
     if (isNext) {
@@ -106,7 +110,9 @@ const Main = ({
 
             correctControl.play();
             setStatus("correct");
-            setPercentage((prev) => prev + 100 / challenges.length);
+            if (!isAlreadySolved) {
+              setPercentage((prev) => prev + 100 / challenges.length);
+            }
           })
           .catch(() => {
             toast.error("Something went wrong! Try again.");
@@ -130,8 +136,14 @@ const Main = ({
         <div className="h-full flex items-center justify-center">
           <div className="mt-10 lg:min-h-[350px] max-w-[1350px] w-full px-6  flex lg:flex-row flex-col gap-y-12 lg:gap-x-10">
             <div className="w-full lg:w-1/2">
-              <h3 className="text-lg mb-5 text-center lg:text-start font-bold">
-                {challenge.question}
+              <h3 className="text-lg mb-5 text-center lg:text-start font-bold flex items-center gap-x-4">
+                {challenge.question}{" "}
+                {isAlreadySolved && (
+                  <span className="flex items-center gap-x-2 text-muted-foreground text-base">
+                    <CheckCircle className="w-5 h-5 text-emerald-500 stroke-[2]" />
+                    solved
+                  </span>
+                )}
               </h3>
               {challenge?.code && <CodeBlock code={challenge.code} />}
             </div>
