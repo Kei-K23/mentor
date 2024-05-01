@@ -46,7 +46,9 @@ async function main() {
                 title: "JS interview question 1",
                 code: `
 (function() {
-	'use Type Errorar person = {
+	'use strict';
+
+	var person = {
 		name: 'John'
 	};
 	person.salary = '10000$';
@@ -54,7 +56,7 @@ async function main() {
 
 	Object.defineProperty(person, 'phoneNo', {
 		value: '8888888888',
-		enumerable: true
+		enumerable: false
 	})
 
 	console.log(Object.keys(person));
@@ -63,12 +65,11 @@ async function main() {
                 courseId: course.id,
                 difficulty: Difficulty.EASY,
                 order: 1,
-                question: "What is javascript?",
+                question: "What would be the output of following code ?",
                 type: ChallengeType.MULTIPLE_CHOICE
             },
             {
                 title: "JS interview question 1",
-
                 courseId: course.id,
                 difficulty: Difficulty.HARD,
                 order: 2,

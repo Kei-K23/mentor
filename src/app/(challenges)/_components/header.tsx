@@ -12,7 +12,7 @@ const Header = ({ hearts, percentage }: HeaderProps) => {
   //   const { open } = useExistModal();
 
   return (
-    <header className="lg:pt-[50px] pt-[20px] px-10 flex gap-x-7 items-center justify-between max-w-[1150px] w-full mx-auto">
+    <header className="lg:pt-[50px] pt-[20px] px-10 flex gap-x-7 items-center justify-between max-w-[1350px] w-full mx-auto">
       <X
         // onClick={open}
         className="text-neutral-500 hover:opacity-75 transition cursor-pointer w-8 h-8"

@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { useAudio, useMount } from "react-use";
 import { ChallengeWithChallengeProgressAndOptions } from "@/types";
 import Header from "./header";
+import CodeBlock from "@/components/code-block/code-block";
 
 type MainProps = {
   initialPercentage: number;
@@ -47,11 +48,6 @@ const Main = ({
     return <div>finish screen</div>;
   }
 
-  const title =
-    challenge.type === "MULTIPLE_CHOICE"
-      ? "Select the correct meaning"
-      : challenge.question;
-
   return (
     <>
       {correctAudio}
@@ -59,11 +55,14 @@ const Main = ({
       <Header hearts={hearts} percentage={percentage} />
       <div className="flex-1">
         <div className="h-full flex items-center justify-center">
-          <div className="lg:min-h-[350px] lg:w-[600px] w-full px-6 lg:px-0 flex flex-col gap-y-12">
-            <h1 className="text-lg lg:text-3xl text-center lg:text-start font-bold text-neutral-700">
-              {title}
-            </h1>
-            <div>
+          <div className="mt-10 lg:min-h-[350px] max-w-[1350px] w-full px-6 lg:px-0 flex lg:flex-row flex-col gap-y-12 lg:gap-x-10">
+            <div className="w-1/2">
+              <h3 className="text-lg mb-5 text-center lg:text-start font-bold">
+                {challenge.question}
+              </h3>
+              {challenge?.code && <CodeBlock code={challenge.code} />}
+            </div>
+            <div className="w-1/2">
               {options.map((option) => (
                 <div key={option.id}>{option.text}</div>
               ))}
