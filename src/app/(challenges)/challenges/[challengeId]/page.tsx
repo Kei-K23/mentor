@@ -28,13 +28,28 @@ const ChallengeIdPage = async ({ params }: ChallengeIdPageProps) => {
       userProgressData,
     ]);
 
-  if (!challenge || !challenges?.length || !userProgress?.courseId) {
+  if (
+    !challenge ||
+    !challenge.challengeOptions.length ||
+    !challenges?.length ||
+    !userProgress?.courseId ||
+    !params.challengeId
+  ) {
+    redirect("/courses");
+  }
+
+  const withinRange = !!challenges.find((c) => c.id === +params.challengeId);
+
+  if (!withinRange) {
     redirect("/courses");
   }
 
   return (
     <div className="flex flex-col lg:h-full">
       <Main
+        firstChallengeId={challenges[0].id}
+        lastChallengeId={challenges[challenges.length - 1].id}
+        isValidChallengeIdForActiveCourse={withinRange!}
         challenges={challenges}
         initialChallengeWithChallengeProgressAndOptions={challenge}
         initialPercentage={coursePercentage}

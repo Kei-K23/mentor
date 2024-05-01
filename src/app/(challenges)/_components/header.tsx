@@ -14,21 +14,23 @@ type HeaderProps = {
   hearts: number;
   points: number;
   percentage: number;
-  challenges: ChallengeWithChallengeProgress[];
   challenge: ChallengeWithChallengeProgressAndOptions;
+  firstChallengeId: number;
+  lastChallengeId: number;
 };
 
 const Header = ({
   hearts,
   percentage,
-  challenges,
   challenge,
   points,
+  firstChallengeId,
+  lastChallengeId,
 }: HeaderProps) => {
   const { open } = useExitModalStore();
   const router = useRouter();
-  const isPrevious = challenge.id - 1 > 0;
-  const isNext = challenges.length >= challenge.id + 1;
+  const isPrevious = challenge.id - 1 >= firstChallengeId;
+  const isNext = challenge.id + 1 <= lastChallengeId;
 
   const onNext = () => {
     if (isNext) {

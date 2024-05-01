@@ -27,6 +27,9 @@ type MainProps = {
   initialChallengeWithChallengeProgressAndOptions: ChallengeWithChallengeProgressAndOptions;
   initialHeart: number;
   initialPoints: number;
+  isValidChallengeIdForActiveCourse: boolean;
+  firstChallengeId: number;
+  lastChallengeId: number;
 };
 
 const Main = ({
@@ -35,6 +38,9 @@ const Main = ({
   initialChallengeWithChallengeProgressAndOptions,
   initialPercentage,
   initialPoints,
+  isValidChallengeIdForActiveCourse,
+  firstChallengeId,
+  lastChallengeId,
 }: MainProps) => {
   const router = useRouter();
   const { open: openNoEnoughHeartsModal } = useNoEnoughHeartsModalStore();
@@ -60,13 +66,15 @@ const Main = ({
   const [status, setStatus] = useState<"none" | "correct" | "incorrect">(
     "none"
   );
+
   const options = challenge?.challengeOptions ?? [];
-  const isNext = challenges.length >= challenge.id + 1;
+  const isNext = challenge.id + 1 <= lastChallengeId;
 
   const isAlreadySolved =
     challenge.challengeProgress?.challengeId === challenge.id;
 
   const onNext = () => {
+    if (!isValidChallengeIdForActiveCourse) return;
     if (isNext) {
       return router.push(`/challenges/${challenge.id + 1}`);
     }
@@ -148,7 +156,8 @@ const Main = ({
       {correctAudio}
       {incorrectAudio}
       <Header
-        challenges={challenges}
+        firstChallengeId={firstChallengeId}
+        lastChallengeId={lastChallengeId}
         challenge={challenge}
         hearts={hearts}
         points={points}
