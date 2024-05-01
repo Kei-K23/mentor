@@ -78,6 +78,7 @@ export const createChallengeProgress = async (challengeId: number) => {
                 userId: user.id,
                 challengeId: challenge.id,
                 completed: true,
+                courseId: userProgress.courseId
             }
         });
 
@@ -98,6 +99,8 @@ export const createChallengeProgress = async (challengeId: number) => {
         revalidatePath("/quests");
         revalidatePath("/leaderboard");
     } catch (e) {
+        console.log(e);
+
         throw new Error("Something went wrong");
     }
 }

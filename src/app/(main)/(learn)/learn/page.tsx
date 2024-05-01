@@ -44,7 +44,7 @@ const LearnPage = async () => {
       </StickyWrapper>
       <FeedWrapper>
         <Header title={userProgress.course?.title} />
-        <Progress value={coursePercentage} className="w-full" />
+        <Progress value={coursePercentage} className="w-full mb-8" />
         <ChallengeDataTable columns={columns} data={challenges} />
       </FeedWrapper>
     </div>

@@ -1,5 +1,6 @@
+import ActionTooltip from "@/components/action-tooltip";
 import { cn } from "@/lib/utils";
-import { CheckIcon } from "lucide-react";
+import { BookmarkCheckIcon, CheckIcon } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
@@ -11,6 +12,7 @@ type CardProps = {
   onClick: (id: number) => void;
   disabled: boolean;
   active: boolean;
+  isCompleted: boolean;
 };
 
 const Card = ({
@@ -21,20 +23,24 @@ const Card = ({
   disabled,
   active,
   description,
+  isCompleted,
 }: CardProps) => {
   return (
     <div
       onClick={() => onClick(id)}
       className={cn(
         "relative h-full border-2 rounded-xl border-b-4 hover:bg-black/5 cursor-pointer active:border-b-2 flex flex-col items-center justify-center p-3 pb-6 min-h-[217px] min-w-[200px] select-none",
-        disabled && "pointer-events-none opacity-50"
+        disabled && "pointer-events-none opacity-50",
+        active && "border-sky-300"
       )}
     >
       <div>
-        {active && (
-          <div className="absolute top-2 right-2 rounded-md bg-green-500 flex items-center justify-center p-1.5">
-            <CheckIcon className="w-4 h-4 stroke-[4] text-white" />
-          </div>
+        {isCompleted && (
+          <ActionTooltip text="Completed">
+            <div className="absolute top-2 left-2 rounded-md bg-sky-500 flex items-center justify-center p-1.5">
+              <BookmarkCheckIcon className="w-5 h-5 stroke-[3] text-white" />
+            </div>
+          </ActionTooltip>
         )}
       </div>
 

@@ -38,8 +38,9 @@ model Course {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  userProgress UserProgress?
-  challenges   Challenge[]
+  userProgress      UserProgress?
+  challengeProgress ChallengeProgress[]
+  challenges        Challenge[]
 }
 
 enum Difficulty {
@@ -86,9 +87,11 @@ model ChallengeProgress {
   id          Int     @id @default(autoincrement())
   userId      Int
   challengeId Int     @unique
+  courseId    Int
   completed   Boolean @default(false)
 
   challenge Challenge @relation(fields: [challengeId], references: [id])
+  course    Course    @relation(fields: [courseId], references: [id])
 }
 
 model UserProgress {

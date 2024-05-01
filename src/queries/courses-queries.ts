@@ -1,7 +1,12 @@
 import { db } from "@/db"
 
 export const getCourses = async () => {
-    return db.course.findMany()
+    return db.course.findMany({
+        include: {
+            challengeProgress: true,
+            challenges: true,
+        }
+    })
 }
 
 export const getCoursesById = async (id: number) => {
@@ -10,7 +15,7 @@ export const getCoursesById = async (id: number) => {
             id
         },
         include: {
-            challenges: true
+            challenges: true,
         }
     })
 }

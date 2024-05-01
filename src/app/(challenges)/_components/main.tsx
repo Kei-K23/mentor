@@ -4,7 +4,7 @@ import React, { useState, useTransition } from "react";
 import Footer from "./footer";
 
 import { toast } from "sonner";
-import { useAudio, useMount } from "react-use";
+import { useAudio } from "react-use";
 import {
   ChallengeWithChallengeProgress,
   ChallengeWithChallengeProgressAndOptions,
@@ -59,7 +59,7 @@ const Main = ({
   const [pending, startTransition] = useTransition();
 
   const [hearts, setHearts] = useState(initialHeart);
-  const [points, setPoints] = useState(initialPoints);
+  const [points] = useState(initialPoints);
   const [percentage, setPercentage] = useState(() =>
     initialPercentage === 100 ? 0 : initialPercentage
   );
@@ -104,7 +104,11 @@ const Main = ({
     if (!selectedOption) return;
 
     if (status === "correct") {
-      onNext();
+      if (lastChallengeId === challenge.id) {
+        router.push("/learn");
+      } else {
+        onNext();
+      }
       setStatus("none");
       setSelectedOption(undefined);
       return;
