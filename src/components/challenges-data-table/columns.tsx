@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { ChallengeWithChallengeProgress } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { CircleCheckBigIcon } from "lucide-react";
@@ -43,5 +44,21 @@ export const columns: ColumnDef<ChallengeWithChallengeProgress>[] = [
   {
     accessorKey: "difficulty",
     header: "Difficulty",
+    cell: ({ row }) => {
+      return (
+        <div>
+          <p
+            className={cn(
+              "font-bold",
+              row.original.difficulty === "EASY" && "text-emerald-600",
+              row.original.difficulty === "MEDIUM" && "text-yellow-500",
+              row.original.difficulty === "HARD" && "text-rose-600"
+            )}
+          >
+            {row.original.difficulty}
+          </p>
+        </div>
+      );
+    },
   },
 ];
