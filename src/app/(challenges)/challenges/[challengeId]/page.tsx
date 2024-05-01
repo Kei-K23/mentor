@@ -40,6 +40,10 @@ const ChallengeIdPage = async ({ params }: ChallengeIdPageProps) => {
 
   const withinRange = !!challenges.find((c) => c.id === +params.challengeId);
 
+  const completedChallenge = challenges?.filter(
+    (c) => c.challengeProgress?.completed
+  );
+
   if (!withinRange) {
     redirect("/courses");
   }
@@ -47,6 +51,7 @@ const ChallengeIdPage = async ({ params }: ChallengeIdPageProps) => {
   return (
     <div className="flex flex-col lg:h-full">
       <Main
+        completedChallenge={completedChallenge}
         firstChallengeId={challenges[0].id}
         lastChallengeId={challenges[challenges.length - 1].id}
         isValidChallengeIdForActiveCourse={withinRange!}

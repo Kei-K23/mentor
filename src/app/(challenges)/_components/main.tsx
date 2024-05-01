@@ -23,6 +23,7 @@ import { useNoEnoughHeartsModalStore } from "@/store/use-no-enough-hearts-modal-
 
 type MainProps = {
   challenges: ChallengeWithChallengeProgress[];
+  completedChallenge: ChallengeWithChallengeProgress[];
   initialPercentage: number;
   initialChallengeWithChallengeProgressAndOptions: ChallengeWithChallengeProgressAndOptions;
   initialHeart: number;
@@ -34,6 +35,7 @@ type MainProps = {
 
 const Main = ({
   challenges,
+  completedChallenge,
   initialHeart,
   initialChallengeWithChallengeProgressAndOptions,
   initialPercentage,
@@ -80,7 +82,7 @@ const Main = ({
     }
   };
 
-  if (!challenge) {
+  if (challenges.length === completedChallenge.length) {
     // TODO: Finish screen
     return <div>finish screen</div>;
   }
