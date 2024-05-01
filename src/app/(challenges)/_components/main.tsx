@@ -8,6 +8,7 @@ import { useAudio, useMount } from "react-use";
 import { ChallengeWithChallengeProgressAndOptions } from "@/types";
 import Header from "./header";
 import CodeBlock from "@/components/code-block/code-block";
+import BubbleTag from "./bubble-tag";
 
 type MainProps = {
   initialPercentage: number;
@@ -55,17 +56,20 @@ const Main = ({
       <Header hearts={hearts} percentage={percentage} />
       <div className="flex-1">
         <div className="h-full flex items-center justify-center">
-          <div className="mt-10 lg:min-h-[350px] max-w-[1350px] w-full px-6 lg:px-0 flex lg:flex-row flex-col gap-y-12 lg:gap-x-10">
-            <div className="w-1/2">
+          <div className="mt-10 lg:min-h-[350px] max-w-[1350px] w-full px-6  flex lg:flex-row flex-col gap-y-12 lg:gap-x-10">
+            <div className="w-full lg:w-1/2">
               <h3 className="text-lg mb-5 text-center lg:text-start font-bold">
                 {challenge.question}
               </h3>
               {challenge?.code && <CodeBlock code={challenge.code} />}
             </div>
-            <div className="w-1/2">
-              {options.map((option) => (
-                <div key={option.id}>{option.text}</div>
-              ))}
+            <div className="w-full lg:w-1/2">
+              <BubbleTag question="Choose the correct one?" />
+              <div>
+                {options.map((option) => (
+                  <div key={option.id}>{option.text}</div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

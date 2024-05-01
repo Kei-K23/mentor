@@ -9,15 +9,15 @@ const BubbleTag = ({ question }: BubbleTagProps) => {
   return (
     <div className="flex items-center gap-x-4 mb-6">
       <Image
-        src={"/mascot.svg"}
-        alt="mascot image"
+        src={"/question.png"}
+        alt="question image"
         width={60}
         height={60}
         className="hidden lg:block"
       />
       <Image
-        src={"/mascot.svg"}
-        alt="mascot image"
+        src={"/question.png"}
+        alt="question image"
         width={40}
         height={40}
         className="block lg:hidden"
