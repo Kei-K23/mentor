@@ -20,3 +20,19 @@ export const getUserProgress = async () => {
         }
     });
 }
+
+export const getUsersForLeaderBoard = async (limit: number) => {
+    const { userId } = auth();
+
+    if (!userId) return null;
+
+    return db.userProgress.findMany({
+        orderBy: {
+            points: "desc"
+        },
+        take: limit,
+        include: {
+            user: true
+        }
+    });
+}
