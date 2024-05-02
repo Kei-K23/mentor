@@ -2,7 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { getUserByExternalUserId } from "./user-queries";
 import { db } from "@/db";
 
-export const questsProgressForActiveUser = async () => {
+export const getQuestsProgress = async () => {
     const { userId } = auth();
 
     if (!userId) return null;
@@ -11,10 +11,28 @@ export const questsProgressForActiveUser = async () => {
 
     if (!currentUser) return null;
 
-    await db.questProgress.findMany({
+    return await db.questProgress.findMany({
         where: {
-            userId: currentUser.id,
             completed: true,
+            userId: currentUser.id
+        }
+    });
+}
+
+export const getQuestsProgressById = async (questId: number) => {
+    const { userId } = auth();
+
+    if (!userId) return null;
+
+    const currentUser = await getUserByExternalUserId(userId);
+
+    if (!currentUser) return null;
+
+    return await db.questProgress.findUnique({
+        where: {
+            questId: questId,
+            completed: true,
+            userId: currentUser.id
         }
     });
 }

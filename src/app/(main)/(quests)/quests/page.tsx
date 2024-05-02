@@ -1,13 +1,14 @@
 import FeedWrapper from "@/components/feed-wrapper";
 import StickyWrapper from "@/components/sticky-wrapper";
 import UserProgress from "@/components/user-progress";
-import Image from "next/image";
 import { redirect } from "next/navigation";
 import React from "react";
 import Quests from "@/components/quests";
 import { Metadata } from "next";
 import { getUserProgress } from "@/queries/user-progress-queries";
 import { getAllQuests } from "@/queries/quests-queries";
+import { Goal } from "lucide-react";
+import { getQuestsProgress } from "@/queries/quests-progress-queries";
 
 export const metadata: Metadata = {
   title: "Quests",
@@ -16,10 +17,12 @@ export const metadata: Metadata = {
 const QuestsPage = async () => {
   const userProgressData = getUserProgress();
   const questsData = getAllQuests();
+  const questProgressData = getQuestsProgress();
 
-  const [userProgress, quests] = await Promise.all([
+  const [userProgress, quests, questsProgress] = await Promise.all([
     userProgressData,
     questsData,
+    questProgressData,
   ]);
 
   if (!userProgress || !userProgress.course || !quests.length)
@@ -36,13 +39,7 @@ const QuestsPage = async () => {
       </StickyWrapper>
       <FeedWrapper>
         <div className="w-full flex flex-col items-center">
-          <Image
-            src={"/quests.svg"}
-            alt="quests"
-            height={90}
-            width={90}
-            className=""
-          />
+          <Goal width={90} height={90} className="stroke-[1.5]" />
           <h1 className="text-center font-bold text-neutral-800 text-2xl my-6">
             Quests
           </h1>

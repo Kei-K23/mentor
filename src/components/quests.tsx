@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { Progress } from "./ui/progress";
 import { Quest } from "@prisma/client";
+import { Button } from "./ui/button";
 
 type QuestsProps = {
   points: number;
@@ -26,6 +27,7 @@ const Quests = ({ points, quests }: QuestsProps) => {
               </p>
               <Progress value={progress} className="h-3" />
             </div>
+            {progress === 100 && <Button className="ml-5">Claim</Button>}
           </div>
         );
       })}

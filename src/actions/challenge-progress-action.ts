@@ -9,7 +9,6 @@ import { revalidatePath } from "next/cache";
 
 export const createChallengeProgress = async (challengeId: number) => {
     try {
-
         if (!challengeId) throw new Error("ChallengeId is required");
 
         const { userId } = auth();
@@ -99,8 +98,6 @@ export const createChallengeProgress = async (challengeId: number) => {
         revalidatePath("/quests");
         revalidatePath("/leaderboard");
     } catch (e) {
-        console.log(e);
-
         throw new Error("Something went wrong");
     }
 }
