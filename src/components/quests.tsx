@@ -58,7 +58,7 @@ const Quests = ({ points, quests, questsProgress }: QuestsProps) => {
             <div className="ml-5">
               {isClaim && (
                 <ActionTooltip text="Completed quest">
-                  <CheckCheckIcon className="w-8 h-8 stroke-[2] text-emerald-500" />
+                  <CheckCheckIcon className="w-6 h-6 md:w-8 md:h-8 stroke-[2] text-emerald-500" />
                 </ActionTooltip>
               )}
               {!isClaim && progress === 100 && (

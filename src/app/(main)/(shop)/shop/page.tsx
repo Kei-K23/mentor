@@ -31,7 +31,16 @@ const ShopPage = async () => {
       </StickyWrapper>
       <FeedWrapper>
         <div className="w-full flex flex-col items-center">
-          <Store width={90} height={90} className="stroke-[1.5]" />
+          <Store
+            width={90}
+            height={90}
+            className="stroke-[1.5] hidden md:block"
+          />
+          <Store
+            width={75}
+            height={75}
+            className="stroke-[1.5] block md:hidden"
+          />
           <h1 className="text-center font-bold text-slate-800 dark:text-slate-200 text-2xl my-6">
             Shop
           </h1>

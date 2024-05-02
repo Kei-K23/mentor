@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, Goal, Home, Medal, Store } from "lucide-react";
+import { Bell, Goal, Home, Medal, Store, User } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
@@ -68,6 +68,16 @@ const SideBar = () => {
             >
               <Store className="h-6 w-6" />
               Shop
+            </Link>
+            <Link
+              href="/profile"
+              className={cn(
+                "text-base flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary",
+                pathname === "/profile" && "bg-muted text-primary"
+              )}
+            >
+              <User className="h-6 w-6" />
+              Profile
             </Link>
           </nav>
         </div>

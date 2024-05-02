@@ -36,8 +36,21 @@ const Items = ({ hearts, points }: ItemsProps) => {
     <ul className="w-full">
       <div className="flex items-center w-full p-4 gap-x-4 border-t-2">
         <div className="flex items-center">
-          <span className="text-2xl font-semibold">5</span> <X />
-          <Image src={"/heart.svg"} alt="heart" height={40} width={40} />
+          <span className="text-lg md:text-2xl font-semibold">5</span> <X />
+          <Image
+            src={"/heart.svg"}
+            alt="heart"
+            height={40}
+            width={40}
+            className="hidden md:block"
+          />
+          <Image
+            src={"/heart.svg"}
+            alt="heart"
+            height={30}
+            width={30}
+            className="block md:hidden"
+          />
         </div>
         <div className="flex-1">
           <p className="text-slate-700 dark:text-slate-300 text-base font-bold">
@@ -60,8 +73,21 @@ const Items = ({ hearts, points }: ItemsProps) => {
       </div>
       <div className="flex items-center w-full p-4 gap-x-4 border-t-2">
         <div className="flex items-center">
-          <span className="text-2xl font-semibold">1</span> <X />
-          <Image src={"/heart.svg"} alt="heart" height={40} width={40} />
+          <span className="text-lg md:text-2xl font-semibold">1</span> <X />
+          <Image
+            src={"/heart.svg"}
+            alt="heart"
+            height={40}
+            width={40}
+            className="hidden md:block"
+          />
+          <Image
+            src={"/heart.svg"}
+            alt="heart"
+            height={30}
+            width={30}
+            className="block md:hidden"
+          />
         </div>
         <div className="flex-1">
           <p className="text-slate-700 dark:text-slate-300 text-base font-bold">

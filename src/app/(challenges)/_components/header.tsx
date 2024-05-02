@@ -46,7 +46,7 @@ const Header = ({
     <header className="pt-[20px] px-10 flex gap-x-7 items-center justify-between max-w-[1350px] w-full mx-auto">
       <X
         onClick={open}
-        className="text-slate-700 dark:text-slate-300 hover:opacity-75 transition cursor-pointer w-8 h-8"
+        className="text-slate-700 dark:text-slate-300 hover:opacity-75 transition cursor-pointer w-7 h-7"
       />
       <div className="flex gap-x-4 items-center">
         <ArrowLeftCircle

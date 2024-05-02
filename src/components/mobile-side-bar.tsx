@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { Goal, Home, Medal, Menu, Store } from "lucide-react";
+import { Goal, Home, Medal, Menu, Store, User } from "lucide-react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -75,6 +75,16 @@ const MobileSideBar = () => {
           >
             <Store className="h-6 w-6" />
             Shop
+          </Link>
+          <Link
+            href="/profile"
+            className={cn(
+              "mx-[-0.65rem] flex items-center gap-4 rounded-xl  px-3 py-2 text-muted-foreground hover:text-foreground",
+              pathname === "/profile" && "bg-muted text-foreground"
+            )}
+          >
+            <User className="h-6 w-6" />
+            Profile
           </Link>
         </nav>
         <div className="mt-auto">

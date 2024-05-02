@@ -39,7 +39,16 @@ const QuestsPage = async () => {
       </StickyWrapper>
       <FeedWrapper>
         <div className="w-full flex flex-col items-center">
-          <Goal width={90} height={90} className="stroke-[1.5]" />
+          <Goal
+            width={90}
+            height={90}
+            className="stroke-[1.5] hidden md:block"
+          />
+          <Goal
+            width={75}
+            height={75}
+            className="stroke-[1.5] block md:hidden"
+          />
           <h1 className="text-center font-bold text-slate-800 dark:text-slate-200 text-2xl my-6">
             Quests
           </h1>

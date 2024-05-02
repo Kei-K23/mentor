@@ -38,6 +38,7 @@ const ExitModal = () => {
           <div className="flex flex-col gap-y-4 w-full">
             <Button onClick={close}>Keep challenging</Button>
             <Button
+              variant={"ghost"}
               onClick={() => {
                 router.push("/learn");
                 close();
