@@ -18,7 +18,8 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  userProgress UserProgress?
+  userProgress  UserProgress?
+  questProgress QuestProgress[]
 }
 
 enum LanguageType {
@@ -103,4 +104,22 @@ model UserProgress {
 
   user   User   @relation(fields: [userId], references: [id])
   course Course @relation(fields: [courseId], references: [id])
+}
+
+model Quest {
+  id     Int    @id @default(autoincrement())
+  title  String @db.Text
+  points Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model QuestProgress {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  questId   Int     @unique
+  completed Boolean @default(false)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

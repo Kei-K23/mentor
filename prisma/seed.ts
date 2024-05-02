@@ -1,3 +1,4 @@
+import { db } from '@/db';
 import { ChallengeType, Difficulty, LanguageType, PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 async function main() {
@@ -517,6 +518,30 @@ func main() {
         ]
     });
 
+    await db.quest.createMany({
+        data: [
+            {
+                title: "Earn 20 xp",
+                points: 20,
+            },
+            {
+                title: "Earn 50 xp",
+                points: 50,
+            },
+            {
+                title: "Earn 100 xp",
+                points: 100,
+            },
+            {
+                title: "Earn 500 xp",
+                points: 500,
+            },
+            {
+                title: "Earn 1000 xp",
+                points: 1000,
+            },
+        ]
+    })
 
     console.log("Database seeding finished");
 }
