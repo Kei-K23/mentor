@@ -104,8 +104,14 @@ const Main = ({
     if (!selectedOption) return;
 
     if (status === "correct") {
-      if (lastChallengeId === challenge.id) {
-        router.push("/learn");
+      if (lastChallengeId === challenge.id && isPractice) {
+        const unCompletedChallenge = challenges.find(
+          (c) => !c.challengeProgress?.completed
+        );
+        if (unCompletedChallenge) {
+          return router.push(`/challenges/${unCompletedChallenge?.id}`);
+        }
+        return router.push("/learn");
       } else {
         onNext();
       }
