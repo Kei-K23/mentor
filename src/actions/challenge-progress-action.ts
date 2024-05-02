@@ -21,7 +21,7 @@ export const createChallengeProgress = async (challengeId: number) => {
 
         const userProgress = await getUserProgress();
 
-        if (!userProgress || !userProgress.courseId) return null;
+        if (!userProgress || !userProgress.courseId) throw new Error("User progress not found!");
 
         const challenge = await getChallengeById(challengeId);
 

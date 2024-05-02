@@ -40,7 +40,7 @@ const Items = ({ hearts, points }: ItemsProps) => {
           <Image src={"/heart.svg"} alt="heart" height={40} width={40} />
         </div>
         <div className="flex-1">
-          <p className="text-neutral-700 text-base font-bold">
+          <p className="text-slate-700 dark:text-slate-300 text-base font-bold">
             Full refill hearts
           </p>
         </div>
@@ -64,7 +64,9 @@ const Items = ({ hearts, points }: ItemsProps) => {
           <Image src={"/heart.svg"} alt="heart" height={40} width={40} />
         </div>
         <div className="flex-1">
-          <p className="text-neutral-700 text-base font-bold">Refill heart</p>
+          <p className="text-slate-700 dark:text-slate-300 text-base font-bold">
+            Refill heart
+          </p>
         </div>
         <Button
           onClick={() => onRefillHeart(POINT_TO_FILL)}

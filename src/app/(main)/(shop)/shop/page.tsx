@@ -32,7 +32,7 @@ const ShopPage = async () => {
       <FeedWrapper>
         <div className="w-full flex flex-col items-center">
           <Store width={90} height={90} className="stroke-[1.5]" />
-          <h1 className="text-center font-bold text-neutral-800 text-2xl my-6">
+          <h1 className="text-center font-bold text-slate-800 dark:text-slate-200 text-2xl my-6">
             Shop
           </h1>
           <p className="text-muted-foreground text-center text-lg mb-6">

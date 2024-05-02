@@ -40,7 +40,7 @@ const LeaderBoardPage = async () => {
       <FeedWrapper>
         <div className="w-full flex flex-col items-center">
           <Medal width={90} height={90} className="stroke-[1.5]" />
-          <h1 className="text-center font-bold text-neutral-800 text-2xl my-6">
+          <h1 className="text-center font-bold text-slate-800 dark:text-slate-200 text-2xl my-6">
             Leaderboard
           </h1>
           <p className="text-muted-foreground text-center text-lg mb-6">
@@ -50,7 +50,7 @@ const LeaderBoardPage = async () => {
           {usersForLeaderBoard?.map((userProgress, i) => (
             <div
               key={userProgress.userId}
-              className="flex items-center w-full p-2 px-4 rounded-xl hover:bg-gray-200/50"
+              className="flex items-center w-full p-2 px-4 rounded-xl hover:bg-gray-200/50 dark:hover:bg-gray-800/50"
             >
               <p className="font-bold text-sky-600 mr-4">{i + 1}</p>
               <Avatar className="bg-sky-500 h-12 w-12 ml-3 mr-5">
@@ -60,7 +60,7 @@ const LeaderBoardPage = async () => {
                   className="object-cover"
                 />
               </Avatar>
-              <p className="font-bold text-neutral-800 flex-1">
+              <p className="font-bold text-slate-800 dark:text-slate-200 flex-1">
                 {userProgress.user.username}
               </p>
               <div className="flex items-center gap-x-1">
