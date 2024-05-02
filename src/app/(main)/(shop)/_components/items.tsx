@@ -1,5 +1,6 @@
 "use client";
 
+import { refillHeart } from "@/actions/challenge-progress-action";
 import { Button } from "@/components/ui/button";
 import { POINT_TO_FILL, POINT_TO_FULL_FILL } from "@/shared/constant";
 import { X } from "lucide-react";
@@ -15,11 +16,19 @@ type ItemsProps = {
 const Items = ({ hearts, points }: ItemsProps) => {
   const [pending, startTransition] = useTransition();
 
-  const onRefillHeart = () => {
+  const onRefillHeart = (p: number) => {
     if (pending || hearts === 5 || points < POINT_TO_FILL) return;
 
     startTransition(() => {
-      //   refillHeart().catch(() => toast.error("Something went wrong"));
+      refillHeart(p)
+        .then((res) => {
+          if (res?.info === "hearts") {
+            return toast.error("No enough points to fill");
+          }
+
+          toast.success("Hearts refilled");
+        })
+        .catch((e) => toast.error(e));
     });
   };
 
@@ -36,7 +45,7 @@ const Items = ({ hearts, points }: ItemsProps) => {
           </p>
         </div>
         <Button
-          onClick={onRefillHeart}
+          onClick={() => onRefillHeart(POINT_TO_FULL_FILL)}
           disabled={pending || hearts === 5 || points < POINT_TO_FULL_FILL}
         >
           {hearts === 5 ? (
@@ -58,7 +67,7 @@ const Items = ({ hearts, points }: ItemsProps) => {
           <p className="text-neutral-700 text-base font-bold">Refill heart</p>
         </div>
         <Button
-          onClick={onRefillHeart}
+          onClick={() => onRefillHeart(POINT_TO_FILL)}
           disabled={pending || hearts === 5 || points < POINT_TO_FILL}
         >
           {hearts === 5 ? (

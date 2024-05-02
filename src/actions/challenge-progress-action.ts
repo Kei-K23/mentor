@@ -120,7 +120,7 @@ export const reduceHeart = async (challengeId: number) => {
 
         const userProgress = await getUserProgress();
 
-        if (!userProgress || !userProgress.courseId) return null;
+        if (!userProgress || !userProgress.courseId) throw new Error("User progress not found!");
 
         const challenge = await getChallengeById(challengeId);
 
@@ -156,6 +156,48 @@ export const reduceHeart = async (challengeId: number) => {
         revalidatePath("/learn");
         revalidatePath("/challenges");
         revalidatePath(`/challenges/${challengeId}`);
+        revalidatePath("/quests");
+        revalidatePath("/leaderboard");
+    } catch (e) {
+        throw new Error("Something went wrong");
+    }
+}
+
+
+export const refillHeart = async (points: number) => {
+    try {
+
+        const { userId } = auth();
+
+        if (!userId) throw new Error("Unauthorized!");
+
+        const user = await getUserByExternalUserId(userId);
+
+        if (!user) throw new Error("User not found!");
+
+        const userProgress = await getUserProgress();
+
+        if (!userProgress) throw new Error("User progress not found!");
+
+        if (userProgress.hearts === 5) {
+            return { info: "hearts" };
+        }
+
+        if (userProgress.points < points) throw new Error("No enough points to exchange the hearts.");
+
+        await db.userProgress.update({
+            where: {
+                userId: user.id,
+            },
+            data: {
+                hearts: Math.min(points === 50 ? userProgress.hearts + 5 : userProgress.hearts + 1, 5),
+                points: Math.max(userProgress.points - points, 0)
+            }
+        })
+
+        revalidatePath("/learn");
+        revalidatePath("/challenges");
+        revalidatePath("/shop");
         revalidatePath("/quests");
         revalidatePath("/leaderboard");
     } catch (e) {
