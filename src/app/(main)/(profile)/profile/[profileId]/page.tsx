@@ -15,6 +15,7 @@ import FeedWrapper from "@/components/feed-wrapper";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
 import List from "../../_components/list";
+import { auth } from "@clerk/nextjs/server";
 
 type ProfileIdPageProps = {
   params: {
@@ -26,6 +27,8 @@ const ProfileIdPage = async ({ params }: ProfileIdPageProps) => {
   if (!params.profileId) {
     return null;
   }
+
+  const { userId } = auth();
 
   const userProgressByExternalIdData = getUserProgressByExternalId(
     params.profileId
@@ -79,7 +82,10 @@ const ProfileIdPage = async ({ params }: ProfileIdPageProps) => {
                 {userProgressByExternalId?.points ?? 0} xp
               </div>
             </div>
-            <BioForm initialBio={externalUser.bio!} />
+            <BioForm
+              notEditable={externalUser.externalUserId !== userId}
+              initialBio={externalUser.bio!}
+            />
             <SolvedChallenges
               easy={challengeProgressStatusForExternalUserId?.easy ?? 0}
               medium={challengeProgressStatusForExternalUserId?.medium ?? 0}

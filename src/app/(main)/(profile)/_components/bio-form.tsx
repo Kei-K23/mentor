@@ -7,14 +7,21 @@ import { toast } from "sonner";
 
 type BioFormProps = {
   initialBio: string;
+  notEditable?: boolean;
 };
 
-const BioForm = ({ initialBio }: BioFormProps) => {
+const BioForm = ({ initialBio, notEditable = false }: BioFormProps) => {
   const [isEdit, setIsEdit] = useState(false);
   const [pending, startTransition] = useTransition();
   const [bio, setBio] = useState(initialBio ?? "");
 
   const createBio = (bio: string) => {
+    if (notEditable) return;
+
+    if (initialBio === bio) {
+      return setIsEdit(false);
+    }
+
     startTransition(() => {
       createUserBio(bio)
         .then(() => {
@@ -44,9 +51,12 @@ const BioForm = ({ initialBio }: BioFormProps) => {
       ) : (
         <p
           className="text-muted-foreground text-center text-lg"
-          onClick={() => setIsEdit(true)}
+          onClick={() => {
+            if (notEditable) return;
+            setIsEdit(true);
+          }}
         >
-          {bio === "" ? "No bio provide" : bio}
+          {bio === "" ? "This user is not provide bio." : bio}
         </p>
       )}
     </div>
