@@ -62,7 +62,7 @@ const ProfilePage = async () => {
             </h1>
             <div className="flex items-center ">
               <Image src={"/points.svg"} alt="points" width={28} height={28} />
-              {userProgress?.points}
+              {userProgress?.points ?? 0} xp
             </div>
           </div>
           <BioForm initialBio={user.bio!} />

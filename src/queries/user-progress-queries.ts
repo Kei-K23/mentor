@@ -21,6 +21,21 @@ export const getUserProgress = async () => {
     });
 }
 
+export const getUserProgressByExternalId = async (externalUserId: string) => {
+    const currentUser = await getUserByExternalUserId(externalUserId);
+
+    if (!currentUser) return null;
+
+    return db.userProgress.findUnique({
+        where: {
+            userId: currentUser.id
+        },
+        include: {
+            course: true
+        }
+    });
+}
+
 export const getUsersForLeaderBoard = async (limit: number) => {
     const { userId } = auth();
 

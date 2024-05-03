@@ -10,6 +10,7 @@ import {
 import { Medal } from "lucide-react";
 import { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
 
@@ -69,9 +70,12 @@ const LeaderBoardPage = async () => {
                   className="object-cover"
                 />
               </Avatar>
-              <p className="font-bold text-slate-800 dark:text-slate-200 flex-1">
+              <Link
+                href={`/profile/${userProgress.user.externalUserId}`}
+                className="font-bold text-slate-800 dark:text-slate-200 flex-1"
+              >
                 {userProgress.user.username}
-              </p>
+              </Link>
               <div className="flex items-center gap-x-1">
                 <Image
                   src={"/points.svg"}

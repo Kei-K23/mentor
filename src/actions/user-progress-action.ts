@@ -7,6 +7,7 @@ import { getUserByExternalUserId } from "@/queries/user-queries";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 
+// TODO: js course is not work
 export const createUserProgress = async (courseId: number) => {
     try {
 
@@ -55,8 +56,9 @@ export const createUserProgress = async (courseId: number) => {
         revalidatePath("/learn");
         revalidatePath("/challenges");
         return;
-    } catch (e) {
+    } catch (e: any) {
         console.log(e);
+        console.log(e.message);
 
         throw new Error("Something went wrong!");
     }
