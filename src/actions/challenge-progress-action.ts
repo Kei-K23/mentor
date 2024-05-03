@@ -44,8 +44,7 @@ export const createChallengeProgress = async (challengeId: number) => {
         if (isPractice) {
             await db.challengeProgress.update({
                 where: {
-                    userId: user.id,
-                    challengeId: challenge.id,
+                    id: existingChallengeProgress.id
                 },
                 data: {
                     completed: true,
@@ -98,6 +97,8 @@ export const createChallengeProgress = async (challengeId: number) => {
         revalidatePath("/quests");
         revalidatePath("/leaderboard");
     } catch (e) {
+        console.log(e);
+
         throw new Error("Something went wrong");
     }
 }

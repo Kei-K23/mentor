@@ -12,7 +12,7 @@ export const getChallengeProgressById = async (challengeId: number) => {
 
     if (!user) return null;
 
-    return await db.challengeProgress.findUnique({
+    return await db.challengeProgress.findFirst({
         where: {
             challengeId,
             userId: user.id

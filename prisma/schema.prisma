@@ -72,7 +72,7 @@ model Challenge {
   updatedAt DateTime @updatedAt
 
   challengeOptions  ChallengeOption[]
-  challengeProgress ChallengeProgress?
+  challengeProgress ChallengeProgress[]
 }
 
 model ChallengeOption {
@@ -87,7 +87,7 @@ model ChallengeOption {
 model ChallengeProgress {
   id          Int     @id @default(autoincrement())
   userId      Int
-  challengeId Int     @unique
+  challengeId Int
   courseId    Int
   completed   Boolean @default(false)
 

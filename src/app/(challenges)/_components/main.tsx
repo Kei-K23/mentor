@@ -21,8 +21,10 @@ import {
 import { CheckCircle } from "lucide-react";
 import { useNoEnoughHeartsModalStore } from "@/store/use-no-enough-hearts-modal-store";
 import FinishedScreen from "./finished-screen";
+import { User } from "@prisma/client";
 
 type MainProps = {
+  user: User;
   isPractice: boolean;
   challenges: ChallengeWithChallengeProgress[];
   completedChallenge: ChallengeWithChallengeProgress[];
@@ -36,6 +38,7 @@ type MainProps = {
 };
 
 const Main = ({
+  user,
   isPractice,
   challenges,
   completedChallenge,
@@ -75,8 +78,10 @@ const Main = ({
   const options = challenge?.challengeOptions ?? [];
   const isNext = challenge.id + 1 <= lastChallengeId;
 
-  const isAlreadySolved =
-    challenge.challengeProgress?.challengeId === challenge.id;
+  const isAlreadySolved = challenge.challengeProgress?.some(
+    (cp) =>
+      cp.challengeId === challenge.id && cp.completed && cp.userId === user.id
+  );
 
   const onNext = () => {
     if (!isValidChallengeIdForActiveCourse) return;
@@ -84,6 +89,9 @@ const Main = ({
       return router.push(`/challenges/${challenge.id + 1}`);
     }
   };
+
+  console.log("Test 1", challenges.length === completedChallenge.length);
+  console.log("Test 2", isPractice);
 
   if (challenges.length === completedChallenge.length && !isPractice) {
     return (
@@ -106,11 +114,13 @@ const Main = ({
     if (status === "correct") {
       if (lastChallengeId === challenge.id && isPractice) {
         const unCompletedChallenge = challenges.find(
-          (c) => !c.challengeProgress?.completed
+          (c) => !c.challengeProgress?.find((cp) => !cp.completed)
         );
+
         if (unCompletedChallenge) {
           return router.push(`/challenges/${unCompletedChallenge?.id}`);
         }
+
         return router.push("/learn");
       } else {
         onNext();

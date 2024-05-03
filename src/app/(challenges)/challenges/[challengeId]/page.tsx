@@ -8,6 +8,8 @@ import {
 import { redirect } from "next/navigation";
 import { getUserProgress } from "@/queries/user-progress-queries";
 import { getChallengeProgressById } from "@/queries/challenges-progress-queries";
+import { auth } from "@clerk/nextjs/server";
+import { getUserByExternalUserId } from "@/queries/user-queries";
 
 type ChallengeIdPageProps = {
   params: {
@@ -16,13 +18,13 @@ type ChallengeIdPageProps = {
 };
 
 const ChallengeIdPage = async ({ params }: ChallengeIdPageProps) => {
-  const challengeData = await getChallengeById(+params.challengeId);
-  const challengesData = await getChallengesForActiveCourses();
-  const coursePercentageData = await getCoursePercentage();
-  const userProgressData = await getUserProgress();
-  const challengeProgressData = await getChallengeProgressById(
-    +params.challengeId
-  );
+  const { userId } = auth();
+  const userData = getUserByExternalUserId(userId!);
+  const challengeData = getChallengeById(+params.challengeId);
+  const challengesData = getChallengesForActiveCourses();
+  const coursePercentageData = getCoursePercentage();
+  const userProgressData = getUserProgress();
+  const challengeProgressData = getChallengeProgressById(+params.challengeId);
 
   const [
     challenge,
@@ -30,12 +32,14 @@ const ChallengeIdPage = async ({ params }: ChallengeIdPageProps) => {
     coursePercentage,
     userProgress,
     challengeProgress,
+    user,
   ] = await Promise.all([
     challengeData,
     challengesData,
     coursePercentageData,
     userProgressData,
     challengeProgressData,
+    userData,
   ]);
 
   if (
@@ -50,8 +54,8 @@ const ChallengeIdPage = async ({ params }: ChallengeIdPageProps) => {
 
   const withinRange = !!challenges.find((c) => c.id === +params.challengeId);
 
-  const completedChallenge = challenges?.filter(
-    (c) => c.challengeProgress?.completed
+  const completedChallenge = challenges?.filter((c) =>
+    c.challengeProgress.find((cp) => cp.userId === user?.id && cp.completed)
   );
 
   const isPractice = !!challengeProgress;
@@ -63,6 +67,7 @@ const ChallengeIdPage = async ({ params }: ChallengeIdPageProps) => {
   return (
     <div className="flex flex-col lg:h-full">
       <Main
+        user={user!}
         isPractice={isPractice}
         completedChallenge={completedChallenge}
         firstChallengeId={challenges[0].id}
@@ -70,7 +75,7 @@ const ChallengeIdPage = async ({ params }: ChallengeIdPageProps) => {
         isValidChallengeIdForActiveCourse={withinRange!}
         challenges={challenges}
         initialChallengeWithChallengeProgressAndOptions={challenge}
-        initialPercentage={coursePercentage}
+        initialPercentage={coursePercentage ?? 0}
         initialHeart={userProgress.hearts}
         initialPoints={userProgress.points}
       />

@@ -13,7 +13,12 @@ export const columns: ColumnDef<ChallengeWithChallengeProgress>[] = [
     cell: ({ row }) => {
       return (
         <div>
-          {row.original.id === row.original.challengeProgress?.challengeId ? (
+          {row.original.challengeProgress?.some(
+            (cp) =>
+              cp.challengeId === challenge.id &&
+              cp.completed &&
+              cp.userId === user.id
+          ) ? (
             <CircleCheckBigIcon className="w-5 h-5 text-emerald-600 stroke-[3]" />
           ) : (
             ""

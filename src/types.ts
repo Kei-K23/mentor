@@ -1,11 +1,11 @@
 import { Challenge, ChallengeOption, ChallengeProgress, Course } from "@prisma/client";
 
 export type ChallengeWithChallengeProgress = Challenge & {
-    challengeProgress: ChallengeProgress | null;
+    challengeProgress: ChallengeProgress[] | null;
 }
 
 export type ChallengeWithChallengeProgressAndOptions = Challenge & {
-    challengeProgress: ChallengeProgress | null;
+    challengeProgress: ChallengeProgress[] | null;
     challengeOptions: ChallengeOption[] | null;
 }
 

@@ -34,12 +34,21 @@ export const getChallengesForActiveCourses = async () => {
 }
 
 export const getCoursePercentage = async () => {
+
+    const { userId } = auth();
+
+    if (!userId) return null;
+
+    const user = await getUserByExternalUserId(userId);
+
+    if (!user) return null;
+
     const challenges = await getChallengesForActiveCourses();
 
     if (!challenges) return 0;
 
     const coursePercentage =
-        (challenges.filter((challenge) => challenge.challengeProgress?.completed)
+        (challenges.filter((challenge) => challenge.challengeProgress.some(cp => cp.userId === user.id && cp.completed))
             .length /
             challenges.length) *
         100;
