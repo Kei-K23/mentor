@@ -7,9 +7,9 @@ import { auth } from "@clerk/nextjs/server";
 
 const CoursesPage = async () => {
   const { userId } = auth();
-  const coursesData = await getCourses();
-  const userProgressData = await getUserProgress();
-  const userData = await getUserByExternalUserId(userId!);
+  const coursesData = getCourses();
+  const userProgressData = getUserProgress();
+  const userData = getUserByExternalUserId(userId!);
 
   const [courses, userProgress, user] = await Promise.all([
     coursesData,

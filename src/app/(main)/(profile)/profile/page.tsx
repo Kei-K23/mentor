@@ -2,19 +2,21 @@ import FeedWrapper from "@/components/feed-wrapper";
 import StickyWrapper from "@/components/sticky-wrapper";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
-import UserProgress from "@/components/user-progress";
-import {
-  getUserProgress,
-  getUsersForLeaderBoard,
-} from "@/queries/user-progress-queries";
 import { getUserByExternalUserId } from "@/queries/user-queries";
 import { auth } from "@clerk/nextjs/server";
-import { Medal } from "lucide-react";
 import { Metadata } from "next";
-import Image from "next/image";
-import { redirect } from "next/navigation";
 import React from "react";
 import BioForm from "../_components/bio-form";
+import { getChallengeProgressStatus } from "@/queries/challenges-progress-queries";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { getUserProgress } from "@/queries/user-progress-queries";
+import Image from "next/image";
+import SolvedChallenges from "../_components/solved-challenges";
+import List from "../../(courses)/_components/list";
+import { getCourses, getFinishedCourses } from "@/queries/courses-queries";
+import ActiveCourseCard from "../_components/active-course-card";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "LeaderBoard",
@@ -27,9 +29,18 @@ const ProfilePage = async () => {
     return auth().redirectToSignIn();
   }
 
+  const userProgressData = getUserProgress();
   const userData = getUserByExternalUserId(userId);
+  const challengeProgressStatusData = getChallengeProgressStatus();
+  const coursesData = getCourses();
 
-  const [user] = await Promise.all([userData]);
+  const [user, challengeProgressStatus, userProgress, courses] =
+    await Promise.all([
+      userData,
+      challengeProgressStatusData,
+      userProgressData,
+      coursesData,
+    ]);
 
   if (!user) {
     return auth().redirectToSignIn();
@@ -45,11 +56,40 @@ const ProfilePage = async () => {
           <Avatar className="bg-sky-500 h-[75px] w-[75px] md:h-[100px] md:w-[100px] ml-3 mr-5">
             <AvatarImage src={user.imageUrl!} className="object-cover" />
           </Avatar>
-          <h1 className="text-center font-bold text-slate-800 dark:text-slate-200 text-2xl mt-6 mb-4">
-            {user.username}
-          </h1>
+          <div className="flex items-center gap-x-4 mt-4 mb-2">
+            <h1 className="text-center font-bold text-slate-800 dark:text-slate-200 text-2xl ">
+              {user.username}
+            </h1>
+            <div className="flex items-center ">
+              <Image src={"/points.svg"} alt="points" width={28} height={28} />
+              {userProgress?.points}
+            </div>
+          </div>
           <BioForm initialBio={user.bio!} />
+          <SolvedChallenges
+            easy={challengeProgressStatus?.easy ?? 0}
+            medium={challengeProgressStatus?.medium ?? 0}
+            hard={challengeProgressStatus?.hard ?? 0}
+          />
           <Separator className="mb-4 h-0.5 rounded-full" />
+          <div className="w-full">
+            <h1 className="text-lg font-bold mb-3">Current active course</h1>
+            {userProgress?.course ? (
+              <ActiveCourseCard
+                active={true}
+                imageSrc={userProgress?.course.imageUrl}
+                title={userProgress?.course.title}
+                description={userProgress.course.description}
+              />
+            ) : (
+              <div className="space-y-2">
+                <h3>No active course yet!</h3>
+                <Link href={"/courses"} className={cn(buttonVariants({}))}>
+                  Explore our courses
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
       </FeedWrapper>
     </div>
