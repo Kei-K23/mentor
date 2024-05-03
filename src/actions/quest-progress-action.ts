@@ -45,11 +45,14 @@ export const createQuestProgress = async (questId: number, points: number) => {
             }
         });
 
+        revalidatePath("/");
         revalidatePath("/learn");
         revalidatePath("/challenges");
         revalidatePath("/quests");
         revalidatePath("/leaderboard");
     } catch (e) {
+        console.log(e);
+
         throw new Error("Something went wrong");
     }
 }

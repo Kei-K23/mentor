@@ -7,7 +7,6 @@ import {
 } from "@/queries/challenges-queries";
 import { redirect } from "next/navigation";
 import { getUserProgress } from "@/queries/user-progress-queries";
-import { getChallengeProgressById } from "@/queries/challenges-progress-queries";
 import { auth } from "@clerk/nextjs/server";
 import { getUserByExternalUserId } from "@/queries/user-queries";
 
@@ -24,23 +23,15 @@ const ChallengeIdPage = async ({ params }: ChallengeIdPageProps) => {
   const challengesData = getChallengesForActiveCourses();
   const coursePercentageData = getCoursePercentage();
   const userProgressData = getUserProgress();
-  const challengeProgressData = getChallengeProgressById(+params.challengeId);
 
-  const [
-    challenge,
-    challenges,
-    coursePercentage,
-    userProgress,
-    challengeProgress,
-    user,
-  ] = await Promise.all([
-    challengeData,
-    challengesData,
-    coursePercentageData,
-    userProgressData,
-    challengeProgressData,
-    userData,
-  ]);
+  const [challenge, challenges, coursePercentage, userProgress, user] =
+    await Promise.all([
+      challengeData,
+      challengesData,
+      coursePercentageData,
+      userProgressData,
+      userData,
+    ]);
 
   if (
     !challenge ||

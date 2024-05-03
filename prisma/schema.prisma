@@ -118,7 +118,7 @@ model Quest {
 model QuestProgress {
   id        Int     @id @default(autoincrement())
   userId    Int
-  questId   Int     @unique
+  questId   Int
   completed Boolean @default(false)
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)

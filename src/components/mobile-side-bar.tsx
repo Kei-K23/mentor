@@ -15,8 +15,13 @@ import { Goal, Home, Medal, Menu, Store, User } from "lucide-react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { Badge } from "./ui/badge";
 
-const MobileSideBar = () => {
+type MobileSideBarProps = {
+  completedQuestsLength: number;
+};
+
+const MobileSideBar = ({ completedQuestsLength }: MobileSideBarProps) => {
   const pathname = usePathname();
 
   return (
@@ -65,6 +70,7 @@ const MobileSideBar = () => {
           >
             <Goal className="h-6 w-6" />
             Quests
+            <Badge className="ml-auto">{completedQuestsLength}</Badge>
           </Link>
           <Link
             href="/shop"

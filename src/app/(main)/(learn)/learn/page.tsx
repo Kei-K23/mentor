@@ -14,9 +14,9 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 const LearnPage = async () => {
-  const userProgressData = await getUserProgress();
-  const challengesData = await getChallengesForActiveCourses();
-  const coursePercentageData = await getCoursePercentage();
+  const userProgressData = getUserProgress();
+  const challengesData = getChallengesForActiveCourses();
+  const coursePercentageData = getCoursePercentage();
 
   const [userProgress, challenges, coursePercentage] = await Promise.all([
     userProgressData,

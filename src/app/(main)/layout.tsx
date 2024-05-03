@@ -1,54 +1,46 @@
-import Link from "next/link";
-import {
-  Bell,
-  CircleUser,
-  Home,
-  LineChart,
-  Menu,
-  Package,
-  Package2,
-  Search,
-  ShoppingCart,
-  Users,
-} from "lucide-react";
-
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import SideBar from "@/components/side-bar";
 import MobileSideBar from "@/components/mobile-side-bar";
 import SearchHeader from "@/components/search-header";
-import { UserButton } from "@clerk/nextjs";
 import { ModeToggle } from "@/components/mode-toggle";
 import UserButtonContainer from "@/components/user-button-container";
+import { getQuestsProgress } from "@/queries/quests-progress-queries";
+import { getAllQuests } from "@/queries/quests-queries";
+import { getUserProgress } from "@/queries/user-progress-queries";
 
-export default function MainLayout({
+export default async function MainLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const questProgressData = getQuestsProgress();
+  const questsData = getAllQuests();
+  const userProgressData = getUserProgress();
+
+  const [questProgress, quests, userProgress] = await Promise.all([
+    questProgressData,
+    questsData,
+    userProgressData,
+  ]);
+
+  const completedQuests = !userProgress
+    ? 0
+    : quests.filter((q) => {
+        const isClaim = !!questProgress?.find(
+          (questProgress) =>
+            questProgress.completed && questProgress.questId === q.id
+        );
+
+        const progress = (userProgress?.points / q.points) * 100;
+
+        return !isClaim && progress >= 100;
+      }).length;
+
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
-      <SideBar />
+      <SideBar completedQuestsLength={completedQuests} />
       <div className="flex flex-col">
         <header className="z-10 sticky top-0 flex h-14 items-center gap-4 border-b bg-slate-50 dark:bg-slate-900 px-4 lg:h-[60px] lg:px-6">
-          <MobileSideBar />
+          <MobileSideBar completedQuestsLength={completedQuests} />
           <div className="w-full flex-1">
             <SearchHeader />
           </div>

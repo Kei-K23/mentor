@@ -42,7 +42,6 @@ const Quests = ({ points, quests, questsProgress }: QuestsProps) => {
             questProgress.completed && questProgress.questId === q.id
         );
         const progress = isClaim ? 100 : (points / q.points) * 100;
-        console.log(q.title, progress);
 
         return (
           <div

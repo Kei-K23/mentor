@@ -28,7 +28,7 @@ export const getQuestsProgressById = async (questId: number) => {
 
     if (!currentUser) return null;
 
-    return await db.questProgress.findUnique({
+    return await db.questProgress.findFirst({
         where: {
             questId: questId,
             completed: true,

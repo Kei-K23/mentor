@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, Goal, Home, Medal, Store, User } from "lucide-react";
+import { Goal, Home, Medal, Store, User } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
@@ -14,8 +14,13 @@ import {
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { Badge } from "./ui/badge";
 
-const SideBar = () => {
+type SideBarProps = {
+  completedQuestsLength: number;
+};
+
+const SideBar = ({ completedQuestsLength }: SideBarProps) => {
   const pathname = usePathname();
 
   return (
@@ -56,8 +61,9 @@ const SideBar = () => {
                 pathname === "/quests" && "bg-muted text-primary"
               )}
             >
-              <Goal className="h-6 w-6" />
+              <Goal className="h-6 w-6 " />
               Quests
+              <Badge className="ml-auto">{completedQuestsLength}</Badge>
             </Link>
             <Link
               href="/shop"

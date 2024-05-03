@@ -1,10 +1,7 @@
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 import { useExitModalStore } from "@/store/use-exit-modal-store";
-import {
-  ChallengeWithChallengeProgress,
-  ChallengeWithChallengeProgressAndOptions,
-} from "@/types";
+import { ChallengeWithChallengeProgressAndOptions } from "@/types";
 import { ArrowLeftCircle, ArrowRightCircle, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -43,17 +40,17 @@ const Header = ({
   };
 
   return (
-    <header className="pt-[20px] px-10 flex gap-x-7 items-center justify-between max-w-[1350px] w-full mx-auto">
+    <header className="pt-[20px] px-10 flex gap-x-3 md:gap-x-7 items-center justify-between max-w-[1350px] w-full mx-auto">
       <X
         onClick={open}
-        className="text-slate-700 dark:text-slate-300 hover:opacity-75 transition cursor-pointer w-7 h-7"
+        className="text-slate-700 dark:text-slate-300 hover:opacity-75 transition cursor-pointer w-6 h-6 md:w-7 md:h-7"
       />
-      <div className="flex gap-x-4 items-center">
+      <div className="flex gap-x-3 items-center">
         <ArrowLeftCircle
           aria-disabled={!isPrevious}
           onClick={onPrevious}
           className={cn(
-            "text-slate-700 dark:text-slate-300 hover:opacity-75 transition cursor-pointer w-7 h-7",
+            "text-slate-700 dark:text-slate-300 hover:opacity-75 transition cursor-pointer w-6 h-6 md:w-7 md:h-7",
             !isPrevious && "pointer-events-none opacity-70"
           )}
         />
@@ -61,12 +58,12 @@ const Header = ({
           aria-disabled={!isNext}
           onClick={onNext}
           className={cn(
-            "text-slate-700 dark:text-slate-300 hover:opacity-75 transition cursor-pointer w-7 h-7",
+            "text-slate-700 dark:text-slate-300 hover:opacity-75 transition cursor-pointer w-6 h-6 md:w-7 md:h-7",
             !isNext && "pointer-events-none opacity-70"
           )}
         />
       </div>
-      <Progress value={percentage} />
+      <Progress value={percentage} className="hidden md:block" />
 
       <div className="flex items-center gap-x-6">
         <div className="text-rose-500 flex items-center font-bold">
