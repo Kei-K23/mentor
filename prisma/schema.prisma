@@ -39,7 +39,7 @@ model Course {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  userProgress      UserProgress?
+  userProgress      UserProgress[]
   challengeProgress ChallengeProgress[]
   challenges        Challenge[]
 }
@@ -98,7 +98,7 @@ model ChallengeProgress {
 model UserProgress {
   id       Int @id @default(autoincrement())
   userId   Int @unique
-  courseId Int @unique
+  courseId Int
   hearts   Int @default(5)
   points   Int @default(0)
 

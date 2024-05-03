@@ -15,7 +15,7 @@ const Card = ({ id, imageSrc, title, description }: CardProps) => {
   return (
     <div
       className={cn(
-        "relative h-full border-2 rounded-xl border-b-4 hover:bg-black/5 cursor-pointer active:border-b-2 flex flex-col items-center justify-center p-3 pb-6 min-h-[217px] min-w-[200px] select-none"
+        "relative h-full border-2 rounded-xl border-b-4 hover:bg-black/5 dark:hover:bg-slate-900/60 cursor-pointer active:border-b-2 flex flex-col items-center justify-center p-3 pb-6 min-h-[217px] min-w-[200px] select-none"
       )}
     >
       <div>

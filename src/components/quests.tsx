@@ -42,6 +42,7 @@ const Quests = ({ points, quests, questsProgress }: QuestsProps) => {
             questProgress.completed && questProgress.questId === q.id
         );
         const progress = isClaim ? 100 : (points / q.points) * 100;
+        console.log(q.title, progress);
 
         return (
           <div
@@ -61,7 +62,7 @@ const Quests = ({ points, quests, questsProgress }: QuestsProps) => {
                   <CheckCheckIcon className="w-6 h-6 md:w-8 md:h-8 stroke-[2] text-emerald-500" />
                 </ActionTooltip>
               )}
-              {!isClaim && progress === 100 && (
+              {!isClaim && progress >= 100 && (
                 <Button
                   onClick={() => onClick(q.id, q.points)}
                   disabled={pending}

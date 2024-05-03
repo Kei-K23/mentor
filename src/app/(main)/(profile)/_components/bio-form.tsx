@@ -1,6 +1,7 @@
 "use client";
 
 import { createUserBio } from "@/actions/user-action";
+import ActionTooltip from "@/components/action-tooltip";
 import { Input } from "@/components/ui/input";
 import React, { useState, useTransition } from "react";
 import { toast } from "sonner";
@@ -49,15 +50,17 @@ const BioForm = ({ initialBio, notEditable = false }: BioFormProps) => {
           onChange={(e) => setBio(e.target.value)}
         />
       ) : (
-        <p
-          className="text-muted-foreground text-center text-lg"
-          onClick={() => {
-            if (notEditable) return;
-            setIsEdit(true);
-          }}
-        >
-          {bio === "" ? "This user is not provide bio." : bio}
-        </p>
+        <ActionTooltip text="Click to update the bio" side="right">
+          <p
+            className="text-muted-foreground text-center text-lg"
+            onClick={() => {
+              if (notEditable) return;
+              setIsEdit(true);
+            }}
+          >
+            {bio === "" ? "This user is not provide bio." : bio}
+          </p>
+        </ActionTooltip>
       )}
     </div>
   );

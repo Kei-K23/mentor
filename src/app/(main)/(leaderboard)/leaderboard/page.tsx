@@ -1,3 +1,4 @@
+import ActionTooltip from "@/components/action-tooltip";
 import FeedWrapper from "@/components/feed-wrapper";
 import StickyWrapper from "@/components/sticky-wrapper";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
@@ -70,12 +71,14 @@ const LeaderBoardPage = async () => {
                   className="object-cover"
                 />
               </Avatar>
-              <Link
-                href={`/profile/${userProgress.user.externalUserId}`}
-                className="font-bold text-slate-800 dark:text-slate-200 flex-1"
-              >
-                {userProgress.user.username}
-              </Link>
+              <ActionTooltip text="View profile">
+                <Link
+                  href={`/profile/${userProgress.user.externalUserId}`}
+                  className="font-bold text-slate-800 dark:text-slate-200 flex-1 hover:text-sky-500 dark:hover:text-sky-500"
+                >
+                  {userProgress.user.username}
+                </Link>
+              </ActionTooltip>
               <div className="flex items-center gap-x-1">
                 <Image
                   src={"/points.svg"}
