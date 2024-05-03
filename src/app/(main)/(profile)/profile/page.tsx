@@ -8,18 +8,18 @@ import { Metadata } from "next";
 import React from "react";
 import BioForm from "../_components/bio-form";
 import { getChallengeProgressStatus } from "@/queries/challenges-progress-queries";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { getUserProgress } from "@/queries/user-progress-queries";
 import Image from "next/image";
 import SolvedChallenges from "../_components/solved-challenges";
-import List from "../../(courses)/_components/list";
-import { getCourses, getFinishedCourses } from "@/queries/courses-queries";
+import { getCourses } from "@/queries/courses-queries";
 import ActiveCourseCard from "../_components/active-course-card";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import List from "../_components/list";
 
 export const metadata: Metadata = {
-  title: "LeaderBoard",
+  title: "Profile",
 };
 
 const ProfilePage = async () => {
@@ -72,23 +72,32 @@ const ProfilePage = async () => {
             hard={challengeProgressStatus?.hard ?? 0}
           />
           <Separator className="mb-4 h-0.5 rounded-full" />
-          <div className="w-full">
-            <h1 className="text-lg font-bold mb-3">Current active course</h1>
-            {userProgress?.course ? (
-              <ActiveCourseCard
-                active={true}
-                imageSrc={userProgress?.course.imageUrl}
-                title={userProgress?.course.title}
-                description={userProgress.course.description}
-              />
-            ) : (
-              <div className="space-y-2">
-                <h3>No active course yet!</h3>
-                <Link href={"/courses"} className={cn(buttonVariants({}))}>
-                  Explore our courses
-                </Link>
-              </div>
-            )}
+          <div className="w-full space-y-10">
+            <div className="w-full">
+              <h1 className="text-lg font-bold mb-3">Current active course</h1>
+              {userProgress?.course ? (
+                <div className="pt-4">
+                  <ActiveCourseCard
+                    active={true}
+                    imageSrc={userProgress?.course.imageUrl}
+                    title={userProgress?.course.title}
+                    description={userProgress.course.description}
+                  />
+                </div>
+              ) : (
+                <div className="space-y-2 pt-4">
+                  <h3>No active course yet!</h3>
+                  <Link href={"/courses"} className={cn(buttonVariants({}))}>
+                    Explore our courses
+                  </Link>
+                </div>
+              )}
+            </div>
+            <div className="w-full">
+              <h1 className="text-lg font-bold mb-3">Completed courses</h1>
+              {/* // TODO: check routing and create user progress need for this */}
+              <List courses={courses} user={user} />
+            </div>
           </div>
         </div>
       </FeedWrapper>
