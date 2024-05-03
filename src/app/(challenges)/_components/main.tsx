@@ -25,7 +25,7 @@ import { User } from "@prisma/client";
 
 type MainProps = {
   user: User;
-  isPractice: boolean;
+  initialIsPractice: boolean;
   challenges: ChallengeWithChallengeProgress[];
   completedChallenge: ChallengeWithChallengeProgress[];
   initialPercentage: number;
@@ -39,7 +39,7 @@ type MainProps = {
 
 const Main = ({
   user,
-  isPractice,
+  initialIsPractice,
   challenges,
   completedChallenge,
   initialHeart,
@@ -66,6 +66,7 @@ const Main = ({
   const [percentage, setPercentage] = useState(() =>
     initialPercentage === 100 ? 0 : initialPercentage
   );
+  const [isPractice] = useState(initialIsPractice);
 
   const [challenge] = useState(initialChallengeWithChallengeProgressAndOptions);
 
@@ -89,7 +90,6 @@ const Main = ({
       return router.push(`/challenges/${challenge.id + 1}`);
     }
   };
-
   console.log("Test 1", challenges.length === completedChallenge.length);
   console.log("Test 2", isPractice);
 
@@ -112,7 +112,7 @@ const Main = ({
     if (!selectedOption) return;
 
     if (status === "correct") {
-      if (lastChallengeId === challenge.id && isPractice) {
+      if (lastChallengeId === challenge.id && !isPractice) {
         const unCompletedChallenge = challenges.find(
           (c) => !c.challengeProgress?.find((cp) => !cp.completed)
         );
@@ -120,7 +120,7 @@ const Main = ({
         if (unCompletedChallenge) {
           return router.push(`/challenges/${unCompletedChallenge?.id}`);
         }
-
+      } else if (lastChallengeId === challenge.id && !isPractice) {
         return router.push("/learn");
       } else {
         onNext();

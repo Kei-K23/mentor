@@ -58,7 +58,7 @@ const ChallengeIdPage = async ({ params }: ChallengeIdPageProps) => {
     c.challengeProgress.find((cp) => cp.userId === user?.id && cp.completed)
   );
 
-  const isPractice = !!challengeProgress;
+  const isPractice = completedChallenge.length === challenges.length;
 
   if (!withinRange) {
     redirect("/courses");
@@ -68,7 +68,7 @@ const ChallengeIdPage = async ({ params }: ChallengeIdPageProps) => {
     <div className="flex flex-col lg:h-full">
       <Main
         user={user!}
-        isPractice={isPractice}
+        initialIsPractice={isPractice}
         completedChallenge={completedChallenge}
         firstChallengeId={challenges[0].id}
         lastChallengeId={challenges[challenges.length - 1].id}

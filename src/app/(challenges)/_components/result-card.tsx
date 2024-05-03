@@ -20,7 +20,7 @@ const ResultCard = ({ values, variant }: ResultCardProps) => {
     >
       <div
         className={cn(
-          "p-1.5 text-white rounded-t-xl font-bold text-center uppercase text-xs",
+          "p-1.5 rounded-t-xl font-bold text-center uppercase text-xs",
           variant === "points" && "bg-orange-500",
           variant === "hearts" && "bg-rose-600"
         )}
@@ -29,7 +29,7 @@ const ResultCard = ({ values, variant }: ResultCardProps) => {
       </div>
       <div
         className={cn(
-          "rounded-2xl bg-white items-center flex justify-center p-6 font-bold text-lg",
+          "rounded-2xl bg-white dark:bg-slate-900 items-center flex justify-center p-6 font-bold text-lg",
           variant === "points" && "text-orange-500",
           variant === "hearts" && "text-rose-500"
         )}
