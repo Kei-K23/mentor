@@ -10,14 +10,12 @@ export const columns: ColumnDef<ChallengeWithChallengeProgress>[] = [
   {
     accessorKey: "status",
     header: "Status",
+    // TODO : check to make sure status condition is work without user id
     cell: ({ row }) => {
       return (
         <div>
           {row.original.challengeProgress?.some(
-            (cp) =>
-              cp.challengeId === challenge.id &&
-              cp.completed &&
-              cp.userId === user.id
+            (cp) => cp.challengeId === row.original.id && cp.completed
           ) ? (
             <CircleCheckBigIcon className="w-5 h-5 text-emerald-600 stroke-[3]" />
           ) : (

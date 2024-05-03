@@ -24,7 +24,7 @@ export const getChallengesForActiveCourses = async () => {
             challengeProgress: {
                 where: {
                     userId: user.id,
-                }
+                },
             },
         },
         orderBy: {
