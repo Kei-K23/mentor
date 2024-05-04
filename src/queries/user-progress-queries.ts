@@ -41,6 +41,7 @@ export const getUsersForLeaderBoard = async (limit: number) => {
 
     if (!userId) return null;
 
+
     return db.userProgress.findMany({
         orderBy: {
             points: "desc"
@@ -50,4 +51,5 @@ export const getUsersForLeaderBoard = async (limit: number) => {
             user: true
         }
     });
+
 }

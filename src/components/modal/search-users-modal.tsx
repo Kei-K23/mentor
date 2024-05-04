@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Dialog,
@@ -12,20 +12,29 @@ import {
   Command,
   CommandEmpty,
   CommandGroup,
-  CommandInput,
-  CommandItem,
   CommandList,
-  CommandSeparator,
 } from "@/components/ui/command";
 
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useSearchUsersStore } from "@/store/use-search-users-store";
+import { UserProgressWithUser } from "@/types";
+import { Input } from "../ui/input";
+import UserItem from "../user-item";
 
 const SearchUserModal = () => {
   const router = useRouter();
-
+  const [username, setUsername] = useState<string>();
   const { isOpen, close } = useSearchUsersStore();
+  const [users, setUsers] = useState<UserProgressWithUser[]>();
+
+  useEffect(() => {
+    (async () => {
+      const res = await fetch(`/api/users?name=${username}`);
+      const data = await res.json();
+      setUsers(data ?? []);
+    })();
+  }, [username, isOpen]);
 
   return (
     <Dialog open={isOpen} onOpenChange={close}>
@@ -44,13 +53,25 @@ const SearchUserModal = () => {
           </DialogTitle>
         </DialogHeader>
         <Command>
-          <CommandInput placeholder="Type a command or search..." />
+          <Input
+            placeholder="Search users..."
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
           <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
-            <CommandGroup heading="Users">
-              <CommandItem>Calendar</CommandItem>
-              <CommandItem>Search Emoji</CommandItem>
-              <CommandItem>Calculator</CommandItem>
+            <CommandGroup heading={`Users : ${users?.length}`}>
+              {users?.length ? (
+                users?.map((user, index) => (
+                  <UserItem
+                    key={user.id}
+                    index={index}
+                    userProgress={user}
+                    onClose={close}
+                  />
+                ))
+              ) : (
+                <CommandEmpty>No users found.</CommandEmpty>
+              )}
             </CommandGroup>
           </CommandList>
         </Command>

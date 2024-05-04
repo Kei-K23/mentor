@@ -9,9 +9,10 @@ import { UserProgressWithUser } from "@/types";
 type UserItemProps = {
   userProgress: UserProgressWithUser;
   index: number;
+  onClose?: () => void;
 };
 
-const UserItem = ({ userProgress, index }: UserItemProps) => {
+const UserItem = ({ userProgress, index, onClose }: UserItemProps) => {
   return (
     <div
       key={userProgress.userId}
@@ -27,6 +28,7 @@ const UserItem = ({ userProgress, index }: UserItemProps) => {
       </Avatar>
       <ActionTooltip text="View profile">
         <Link
+          onClick={onClose}
           href={`/profile/${userProgress.user.externalUserId}`}
           className="font-bold text-slate-800 dark:text-slate-200 flex-1 hover:text-sky-500 dark:hover:text-sky-500"
         >
