@@ -29,7 +29,7 @@ const LandingPage = () => {
         </p>
         <ClerkLoading>
           <Button>
-            <Loader className="w-6 h-6 animate-spin text-muted-foreground" />
+            <Loader className="w-6 h-6 animate-spin" />
           </Button>
         </ClerkLoading>
         <ClerkLoaded>
