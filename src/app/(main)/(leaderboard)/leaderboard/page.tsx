@@ -1,9 +1,12 @@
 import ActionTooltip from "@/components/action-tooltip";
 import FeedWrapper from "@/components/feed-wrapper";
+import Quests from "@/components/quests";
 import StickyWrapper from "@/components/sticky-wrapper";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import UserProgress from "@/components/user-progress";
+import { getQuestsProgress } from "@/queries/quests-progress-queries";
+import { getAllQuests } from "@/queries/quests-queries";
 import {
   getUserProgress,
   getUsersForLeaderBoard,
@@ -22,11 +25,16 @@ export const metadata: Metadata = {
 const LeaderBoardPage = async () => {
   const userProgressData = getUserProgress();
   const usersForLeaderBoardData = getUsersForLeaderBoard(10);
+  const questsData = getAllQuests();
+  const questProgressData = getQuestsProgress();
 
-  const [userProgress, usersForLeaderBoard] = await Promise.all([
-    userProgressData,
-    usersForLeaderBoardData,
-  ]);
+  const [userProgress, usersForLeaderBoard, quests, questProgress] =
+    await Promise.all([
+      userProgressData,
+      usersForLeaderBoardData,
+      questsData,
+      questProgressData,
+    ]);
 
   if (!userProgress || !userProgress.course) return redirect("/courses");
 
@@ -37,6 +45,12 @@ const LeaderBoardPage = async () => {
           activeCourse={userProgress.course}
           hearts={userProgress.hearts}
           points={userProgress.points}
+        />
+        <Quests
+          quests={quests}
+          points={userProgress.points}
+          questsProgress={questProgress ?? []}
+          onlyShowUncompleted={true}
         />
       </StickyWrapper>
       <FeedWrapper>

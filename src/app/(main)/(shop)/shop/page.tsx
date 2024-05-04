@@ -1,13 +1,15 @@
 import FeedWrapper from "@/components/feed-wrapper";
 import StickyWrapper from "@/components/sticky-wrapper";
 import UserProgress from "@/components/user-progress";
-import Image from "next/image";
 import { redirect } from "next/navigation";
 import React from "react";
 import { Metadata } from "next";
 import { getUserProgress } from "@/queries/user-progress-queries";
 import Items from "../_components/items";
 import { Store } from "lucide-react";
+import Quests from "@/components/quests";
+import { getAllQuests } from "@/queries/quests-queries";
+import { getQuestsProgress } from "@/queries/quests-progress-queries";
 
 export const metadata: Metadata = {
   title: "Shop",
@@ -15,8 +17,14 @@ export const metadata: Metadata = {
 
 const ShopPage = async () => {
   const userProgressData = getUserProgress();
+  const questsData = getAllQuests();
+  const questProgressData = getQuestsProgress();
 
-  const [userProgress] = await Promise.all([userProgressData]);
+  const [userProgress, quests, questProgress] = await Promise.all([
+    userProgressData,
+    questsData,
+    questProgressData,
+  ]);
 
   if (!userProgress || !userProgress.course) return redirect("/courses");
 
@@ -27,6 +35,12 @@ const ShopPage = async () => {
           activeCourse={userProgress.course}
           hearts={userProgress.hearts}
           points={userProgress.points}
+        />
+        <Quests
+          quests={quests}
+          points={userProgress.points}
+          questsProgress={questProgress ?? []}
+          onlyShowUncompleted={true}
         />
       </StickyWrapper>
       <FeedWrapper>

@@ -24,9 +24,11 @@ const Footer = ({
   return (
     <footer
       className={cn(
-        " h-[100px] border-t-2",
-        status === "correct" && "bg-green-100 border-transparent",
-        status === "incorrect" && "bg-rose-100 border-transparent"
+        " h-[85px] border-t-2 py-4",
+        status === "correct" &&
+          "bg-green-100 dark:bg-green-800/50 border-transparent",
+        status === "incorrect" &&
+          "bg-rose-100 dark:bg-rose-800/50 border-transparent"
       )}
     >
       <div className="max-w-[1140px] h-full mx-auto flex items-center justify-between px-6 lg:px-10">

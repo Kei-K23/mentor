@@ -17,6 +17,8 @@ const BioForm = ({ initialBio, notEditable = false }: BioFormProps) => {
   const [bio, setBio] = useState(initialBio ?? "");
 
   const createBio = (bio: string) => {
+    if (bio === "") return;
+
     if (notEditable) return;
 
     if (initialBio === bio) {

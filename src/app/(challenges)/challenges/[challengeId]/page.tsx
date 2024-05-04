@@ -56,7 +56,7 @@ const ChallengeIdPage = async ({ params }: ChallengeIdPageProps) => {
   }
 
   return (
-    <div className="flex flex-col lg:h-full">
+    <div className="flex flex-col h-full">
       <Main
         user={user!}
         initialIsPractice={isPractice}

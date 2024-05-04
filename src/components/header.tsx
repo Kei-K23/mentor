@@ -9,7 +9,7 @@ type HeaderProps = {
 
 const Header = ({ title }: HeaderProps) => {
   return (
-    <div className="sticky top-0 lg:pt-[5px] dark:text-slate-200 text-slate-800 flex items-center justify-between border-b-2 mb-8 pb-1">
+    <div className="sticky top-0 lg:pt-[16px] dark:text-slate-200 text-slate-800 flex items-center justify-between border-b-2 mb-8 pb-1">
       <Link href={"/courses"}>
         <Button size={"sm"} variant={"ghost"}>
           <ArrowLeft className="w-5 h-5" />
