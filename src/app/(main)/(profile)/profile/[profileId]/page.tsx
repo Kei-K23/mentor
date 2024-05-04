@@ -16,6 +16,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
 import List from "../../_components/list";
 import { auth } from "@clerk/nextjs/server";
+import { notFound } from "next/navigation";
 
 type ProfileIdPageProps = {
   params: {
@@ -51,7 +52,7 @@ const ProfileIdPage = async ({ params }: ProfileIdPageProps) => {
   ]);
 
   if (!externalUser) {
-    return null;
+    return notFound();
   }
 
   return (
