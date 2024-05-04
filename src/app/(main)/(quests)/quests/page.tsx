@@ -5,10 +5,14 @@ import { redirect } from "next/navigation";
 import React from "react";
 import Quests from "@/components/quests";
 import { Metadata } from "next";
-import { getUserProgress } from "@/queries/user-progress-queries";
+import {
+  getUserProgress,
+  getUsersForLeaderBoard,
+} from "@/queries/user-progress-queries";
 import { getAllQuests } from "@/queries/quests-queries";
 import { Goal } from "lucide-react";
 import { getQuestsProgress } from "@/queries/quests-progress-queries";
+import WrapperLeaderBoard from "@/components/wrapper-leaderboard";
 
 export const metadata: Metadata = {
   title: "Quests",
@@ -18,12 +22,15 @@ const QuestsPage = async () => {
   const userProgressData = getUserProgress();
   const questsData = getAllQuests();
   const questProgressData = getQuestsProgress();
+  const usersForLeaderBoardData = getUsersForLeaderBoard(3);
 
-  const [userProgress, quests, questsProgress] = await Promise.all([
-    userProgressData,
-    questsData,
-    questProgressData,
-  ]);
+  const [userProgress, quests, questsProgress, usersForLeaderBoard] =
+    await Promise.all([
+      userProgressData,
+      questsData,
+      questProgressData,
+      usersForLeaderBoardData,
+    ]);
 
   if (!userProgress || !userProgress.course || !quests.length)
     return redirect("/courses");
@@ -36,6 +43,7 @@ const QuestsPage = async () => {
           hearts={userProgress.hearts}
           points={userProgress.points}
         />
+        <WrapperLeaderBoard usersForLeaderBoard={usersForLeaderBoard ?? []} />
       </StickyWrapper>
       <FeedWrapper>
         <div className="w-full flex flex-col items-center">

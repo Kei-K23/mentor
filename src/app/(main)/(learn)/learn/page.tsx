@@ -6,13 +6,17 @@ import Quests from "@/components/quests";
 import StickyWrapper from "@/components/sticky-wrapper";
 import { Progress } from "@/components/ui/progress";
 import UserProgress from "@/components/user-progress";
+import WrapperLeaderBoard from "@/components/wrapper-leaderboard";
 import {
   getChallengesForActiveCourses,
   getCoursePercentage,
 } from "@/queries/challenges-queries";
 import { getQuestsProgress } from "@/queries/quests-progress-queries";
 import { getAllQuests } from "@/queries/quests-queries";
-import { getUserProgress } from "@/queries/user-progress-queries";
+import {
+  getUserProgress,
+  getUsersForLeaderBoard,
+} from "@/queries/user-progress-queries";
 import { redirect } from "next/navigation";
 import React from "react";
 
@@ -22,15 +26,23 @@ const LearnPage = async () => {
   const coursePercentageData = getCoursePercentage();
   const questsData = getAllQuests();
   const questProgressData = getQuestsProgress();
+  const usersForLeaderBoardData = getUsersForLeaderBoard(3);
 
-  const [userProgress, challenges, coursePercentage, quests, questProgress] =
-    await Promise.all([
-      userProgressData,
-      challengesData,
-      coursePercentageData,
-      questsData,
-      questProgressData,
-    ]);
+  const [
+    userProgress,
+    challenges,
+    coursePercentage,
+    quests,
+    questProgress,
+    usersForLeaderBoard,
+  ] = await Promise.all([
+    userProgressData,
+    challengesData,
+    coursePercentageData,
+    questsData,
+    questProgressData,
+    usersForLeaderBoardData,
+  ]);
 
   if (
     !userProgress ||
@@ -49,6 +61,7 @@ const LearnPage = async () => {
           hearts={userProgress.hearts}
           points={userProgress.points}
         />
+        <WrapperLeaderBoard usersForLeaderBoard={usersForLeaderBoard ?? []} />
         <Quests
           quests={quests}
           points={userProgress.points}

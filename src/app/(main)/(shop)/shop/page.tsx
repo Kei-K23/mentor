@@ -4,12 +4,16 @@ import UserProgress from "@/components/user-progress";
 import { redirect } from "next/navigation";
 import React from "react";
 import { Metadata } from "next";
-import { getUserProgress } from "@/queries/user-progress-queries";
+import {
+  getUserProgress,
+  getUsersForLeaderBoard,
+} from "@/queries/user-progress-queries";
 import Items from "../_components/items";
 import { Store } from "lucide-react";
 import Quests from "@/components/quests";
 import { getAllQuests } from "@/queries/quests-queries";
 import { getQuestsProgress } from "@/queries/quests-progress-queries";
+import WrapperLeaderBoard from "@/components/wrapper-leaderboard";
 
 export const metadata: Metadata = {
   title: "Shop",
@@ -19,12 +23,15 @@ const ShopPage = async () => {
   const userProgressData = getUserProgress();
   const questsData = getAllQuests();
   const questProgressData = getQuestsProgress();
+  const usersForLeaderBoardData = getUsersForLeaderBoard(3);
 
-  const [userProgress, quests, questProgress] = await Promise.all([
-    userProgressData,
-    questsData,
-    questProgressData,
-  ]);
+  const [userProgress, quests, questProgress, usersForLeaderBoard] =
+    await Promise.all([
+      userProgressData,
+      questsData,
+      questProgressData,
+      usersForLeaderBoardData,
+    ]);
 
   if (!userProgress || !userProgress.course) return redirect("/courses");
 
@@ -36,6 +43,7 @@ const ShopPage = async () => {
           hearts={userProgress.hearts}
           points={userProgress.points}
         />
+        <WrapperLeaderBoard usersForLeaderBoard={usersForLeaderBoard ?? []} />
         <Quests
           quests={quests}
           points={userProgress.points}

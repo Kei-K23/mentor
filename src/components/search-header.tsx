@@ -12,7 +12,7 @@ const SearchHeader = () => {
     <>
       <ActionTooltip text="Search users" side="bottom">
         <Button onClick={open} variant={"ghost"}>
-          <Search className="w-5 h-5" />
+          <Search className="w-5 h-5 text-muted-foreground" />
         </Button>
       </ActionTooltip>
     </>
