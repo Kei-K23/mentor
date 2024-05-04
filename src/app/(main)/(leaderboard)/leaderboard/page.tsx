@@ -1,9 +1,8 @@
-import ActionTooltip from "@/components/action-tooltip";
 import FeedWrapper from "@/components/feed-wrapper";
 import Quests from "@/components/quests";
 import StickyWrapper from "@/components/sticky-wrapper";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
+import UserItem from "@/components/user-item";
 import UserProgress from "@/components/user-progress";
 import { getQuestsProgress } from "@/queries/quests-progress-queries";
 import { getAllQuests } from "@/queries/quests-queries";
@@ -13,8 +12,6 @@ import {
 } from "@/queries/user-progress-queries";
 import { Medal } from "lucide-react";
 import { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
 
@@ -73,38 +70,11 @@ const LeaderBoardPage = async () => {
           </p>
           <Separator className="mb-4 h-0.5 rounded-full" />
           {usersForLeaderBoard?.map((userProgress, i) => (
-            <div
-              key={userProgress.userId}
-              className="flex items-center w-full p-2 px-4 rounded-xl hover:bg-gray-200/50 dark:hover:bg-gray-800/50"
-            >
-              <p className="font-bold text-sky-600 mr-4">{i + 1}</p>
-              <Avatar className="bg-sky-500 h-12 w-12 ml-3 mr-5">
-                {/* TODO: handle if user img is null */}
-                <AvatarImage
-                  src={userProgress.user.imageUrl!}
-                  className="object-cover"
-                />
-              </Avatar>
-              <ActionTooltip text="View profile">
-                <Link
-                  href={`/profile/${userProgress.user.externalUserId}`}
-                  className="font-bold text-slate-800 dark:text-slate-200 flex-1 hover:text-sky-500 dark:hover:text-sky-500"
-                >
-                  {userProgress.user.username}
-                </Link>
-              </ActionTooltip>
-              <div className="flex items-center gap-x-1">
-                <Image
-                  src={"/points.svg"}
-                  alt="points"
-                  height={25}
-                  width={25}
-                />
-                <p className="text-muted-foreground">
-                  {userProgress.points} XP
-                </p>
-              </div>
-            </div>
+            <UserItem
+              key={userProgress.id}
+              userProgress={userProgress}
+              index={i}
+            />
           ))}
         </div>
       </FeedWrapper>
