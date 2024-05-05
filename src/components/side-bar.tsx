@@ -89,7 +89,7 @@ const SideBar = ({ completedQuestsLength }: SideBarProps) => {
             <Card x-chunk="dashboard-02-chunk-0">
               <CardHeader className="p-2 pt-0 md:p-4">
                 <CardTitle className="flex items-center">
-                  Mentor Beta version 0.1
+                  Mentor Beta version 0.0.1
                   <ActionTooltip text="Hide">
                     <Button size={"sm"} variant={"ghost"} onClick={close}>
                       <X className="w-4 h-4" />
