@@ -1,3 +1,4 @@
+import CommentSheet from "@/components/comment-sheet";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 import { useExitModalStore } from "@/store/use-exit-modal-store";
@@ -85,6 +86,9 @@ const Header = ({
             className="mr-2"
           />
           {points}
+        </div>
+        <div className="ml-4">
+          <CommentSheet challengeId={challenge.id} />
         </div>
       </div>
     </header>

@@ -1,20 +1,16 @@
 "use client";
 
-import { Goal, Home, Medal, Store, User } from "lucide-react";
+import { Goal, Home, Medal, Store, User, X } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "./ui/card";
+import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Badge } from "./ui/badge";
+import ActionTooltip from "./action-tooltip";
+import { useFooterCardStore } from "@/store/use-footer-card-store";
 
 type SideBarProps = {
   completedQuestsLength: number;
@@ -22,6 +18,7 @@ type SideBarProps = {
 
 const SideBar = ({ completedQuestsLength }: SideBarProps) => {
   const pathname = usePathname();
+  const { isOpen, close } = useFooterCardStore();
 
   return (
     <div className=" hidden border-r bg-muted/40 md:block">
@@ -87,22 +84,31 @@ const SideBar = ({ completedQuestsLength }: SideBarProps) => {
             </Link>
           </nav>
         </div>
-        <div className="mt-auto p-4">
-          <Card x-chunk="dashboard-02-chunk-0">
-            <CardHeader className="p-2 pt-0 md:p-4">
-              <CardTitle>Upgrade to Pro</CardTitle>
-              <CardDescription>
-                Unlock all features and get unlimited access to our support
-                team.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
+        {isOpen && (
+          <div className="mt-auto p-4">
+            <Card x-chunk="dashboard-02-chunk-0">
+              <CardHeader className="p-2 pt-0 md:p-4">
+                <CardTitle className="flex items-center">
+                  Mentor Beta version 0.1
+                  <ActionTooltip text="Hide">
+                    <Button size={"sm"} variant={"ghost"} onClick={close}>
+                      <X className="w-4 h-4" />
+                    </Button>
+                  </ActionTooltip>
+                </CardTitle>
+                <CardDescription>
+                  This is the open-source project for awesome dev community. New
+                  features and more stable version will be released soon.
+                </CardDescription>
+              </CardHeader>
+              {/* <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
               <Button size="sm" className="w-full">
                 Upgrade
               </Button>
-            </CardContent>
-          </Card>
-        </div>
+            </CardContent> */}
+            </Card>
+          </div>
+        )}
       </div>
     </div>
   );

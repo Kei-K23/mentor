@@ -11,11 +11,13 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { Goal, Home, Medal, Menu, Store, User } from "lucide-react";
+import { Goal, Home, Medal, Menu, Store, User, X } from "lucide-react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Badge } from "./ui/badge";
+import ActionTooltip from "./action-tooltip";
+import { useFooterCardStore } from "@/store/use-footer-card-store";
 
 type MobileSideBarProps = {
   completedQuestsLength: number;
@@ -23,6 +25,7 @@ type MobileSideBarProps = {
 
 const MobileSideBar = ({ completedQuestsLength }: MobileSideBarProps) => {
   const pathname = usePathname();
+  const { isOpen, close } = useFooterCardStore();
 
   return (
     <Sheet>
@@ -93,22 +96,31 @@ const MobileSideBar = ({ completedQuestsLength }: MobileSideBarProps) => {
             Profile
           </Link>
         </nav>
-        <div className="mt-auto">
-          <Card>
-            <CardHeader>
-              <CardTitle>Upgrade to Pro</CardTitle>
-              <CardDescription>
-                Unlock all features and get unlimited access to our support
-                team.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
+        {isOpen && (
+          <div className="mt-auto p-4">
+            <Card x-chunk="dashboard-02-chunk-0">
+              <CardHeader className="p-2 pt-0 md:p-4">
+                <CardTitle className="flex items-center">
+                  Mentor Beta version 0.1
+                  <ActionTooltip text="Hide">
+                    <Button size={"sm"} variant={"ghost"} onClick={close}>
+                      <X className="w-4 h-4" />
+                    </Button>
+                  </ActionTooltip>
+                </CardTitle>
+                <CardDescription>
+                  This is the open-source project for awesome dev community. New
+                  features and more stable version will be released soon.
+                </CardDescription>
+              </CardHeader>
+              {/* <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
               <Button size="sm" className="w-full">
                 Upgrade
               </Button>
-            </CardContent>
-          </Card>
-        </div>
+            </CardContent> */}
+            </Card>
+          </div>
+        )}
       </SheetContent>
     </Sheet>
   );

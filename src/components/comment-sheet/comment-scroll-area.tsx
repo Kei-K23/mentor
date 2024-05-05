@@ -54,9 +54,16 @@ const CommentScrollArea = ({ challengeId }: CommentScrollAreaProps) => {
 
   return (
     <ScrollArea className="flex-1 flex flex-col w-full h-full space-y-5 mb-4">
-      {comments.map((comment, i) => (
-        <CommentItem key={i} comment={comment} />
-      ))}
+      {comments.length ? (
+        comments.map((comment, i) => <CommentItem key={i} comment={comment} />)
+      ) : (
+        <div>
+          <p>No comments yet!</p>
+          <p className="text-xs text-muted-foreground">
+            Your comment can be first comment.
+          </p>
+        </div>
+      )}
     </ScrollArea>
   );
 };
