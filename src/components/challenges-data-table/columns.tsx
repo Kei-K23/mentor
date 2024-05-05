@@ -3,8 +3,9 @@
 import { cn } from "@/lib/utils";
 import { ChallengeWithChallengeProgress } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
-import { CircleCheckBigIcon } from "lucide-react";
+import { CircleCheckBigIcon, NotebookPen } from "lucide-react";
 import Link from "next/link";
+import { Button } from "../ui/button";
 
 export const columns: ColumnDef<ChallengeWithChallengeProgress>[] = [
   {
@@ -40,10 +41,6 @@ export const columns: ColumnDef<ChallengeWithChallengeProgress>[] = [
     },
   },
   {
-    accessorKey: "type",
-    header: "Type",
-  },
-  {
     accessorKey: "difficulty",
     header: "Difficulty",
     cell: ({ row }) => {
@@ -60,6 +57,16 @@ export const columns: ColumnDef<ChallengeWithChallengeProgress>[] = [
             {row.original.difficulty}
           </p>
         </div>
+      );
+    },
+  },
+  {
+    id: "actions",
+    cell: ({}) => {
+      return (
+        <Button size={"sm"} variant={"ghost"}>
+          <NotebookPen />
+        </Button>
       );
     },
   },

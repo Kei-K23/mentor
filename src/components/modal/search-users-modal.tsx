@@ -23,7 +23,6 @@ import { Input } from "../ui/input";
 import UserItem from "../user-item";
 
 const SearchUserModal = () => {
-  const router = useRouter();
   const [username, setUsername] = useState<string>();
   const { isOpen, close } = useSearchUsersStore();
   const [users, setUsers] = useState<UserProgressWithUser[]>();

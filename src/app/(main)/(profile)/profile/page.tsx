@@ -53,9 +53,10 @@ const ProfilePage = async () => {
       </StickyWrapper>
       <FeedWrapper>
         <div className="w-full flex flex-col items-center">
-          <Avatar className="bg-sky-500 h-[75px] w-[75px] md:h-[100px] md:w-[100px] ml-3 mr-5">
+          <Avatar className="bg-sky-500 h-[75px] w-[75px] md:h-[100px] md:w-[100px] ml-3 mr-5 ">
             <AvatarImage src={user.imageUrl!} className="object-cover" />
           </Avatar>
+
           <div className="flex items-center gap-x-4 mt-4 mb-2">
             <h1 className="text-center font-bold text-slate-800 dark:text-slate-200 text-2xl ">
               {user.username}
