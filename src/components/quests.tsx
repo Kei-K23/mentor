@@ -35,6 +35,8 @@ const Quests = ({
     });
   };
 
+  let uncompletedQuestsToShow = 3; // Track the number of uncompleted quests to show
+
   return (
     <div className="w-full">
       {quests.map((q, i) => {
@@ -47,22 +49,21 @@ const Quests = ({
         const uncompleted = progress < 100 || !isClaim;
 
         if (onlyShowUncompleted) {
-          if (i < 3) {
-            console.log("index :", i);
-
+          // Show only uncompleted quests and respect the limit of 3
+          if (uncompleted && uncompletedQuestsToShow > 0) {
+            uncompletedQuestsToShow--;
             return (
-              uncompleted && (
-                <QuestItem
-                  key={q.id}
-                  quest={q}
-                  progress={progress}
-                  onClick={onClick}
-                  pending={pending}
-                  isClaim={isClaim}
-                />
-              )
+              <QuestItem
+                key={q.id}
+                quest={q}
+                progress={progress}
+                onClick={onClick}
+                pending={pending}
+                isClaim={isClaim}
+              />
             );
           }
+          return null; // Skip completed quests or if the limit is reached
         } else {
           return (
             <QuestItem

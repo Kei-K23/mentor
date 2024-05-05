@@ -42,11 +42,11 @@ const Header = ({
 
   return (
     <header className="pt-[20px] px-10 flex gap-x-3 md:gap-x-7 items-center justify-between max-w-[1350px] w-full mx-auto">
-      <X
-        onClick={open}
-        className="text-slate-700 dark:text-slate-300 hover:opacity-75 transition cursor-pointer w-6 h-6 md:w-7 md:h-7"
-      />
       <div className="flex gap-x-3 items-center">
+        <X
+          onClick={open}
+          className="text-slate-700 dark:text-slate-300 hover:opacity-75 transition cursor-pointer w-6 h-6 md:w-7 md:h-7"
+        />
         <ArrowLeftCircle
           aria-disabled={!isPrevious}
           onClick={onPrevious}
@@ -64,16 +64,15 @@ const Header = ({
           )}
         />
       </div>
-      <Progress value={percentage} className="hidden md:block" />
-
-      <div className="flex items-center gap-x-6">
+      <Progress value={percentage} className="flex-1 hidden md:block" />
+      <div className="flex items-center gap-x-3 md:gap-x-6">
         <div className="text-rose-500 flex items-center font-bold">
           <Image
             src={"/heart.svg"}
             alt="heart icon"
             height={28}
             width={28}
-            className="mr-2"
+            className="mr-1 md:mr-2"
           />
           {hearts}
         </div>
@@ -83,11 +82,11 @@ const Header = ({
             alt="points icon"
             height={28}
             width={28}
-            className="mr-2"
+            className="mr-1 md:mr-2"
           />
           {points}
         </div>
-        <div className="ml-4">
+        <div className="ml-3">
           <CommentSheet challengeId={challenge.id} />
         </div>
       </div>

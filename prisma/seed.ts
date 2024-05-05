@@ -6,6 +6,7 @@ async function main() {
 
     await prisma.course.deleteMany();
     await prisma.challenge.deleteMany();
+    await prisma.quest.deleteMany();
 
 
     const cours1 = await prisma.course.create({
