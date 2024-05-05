@@ -3,9 +3,9 @@
 import { cn } from "@/lib/utils";
 import { ChallengeWithChallengeProgress } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
-import { CircleCheckBigIcon, NotebookPen } from "lucide-react";
+import { CircleCheckBigIcon } from "lucide-react";
 import Link from "next/link";
-import { Button } from "../ui/button";
+import CommentSheet from "../comment-sheet";
 
 export const columns: ColumnDef<ChallengeWithChallengeProgress>[] = [
   {
@@ -62,12 +62,10 @@ export const columns: ColumnDef<ChallengeWithChallengeProgress>[] = [
   },
   {
     id: "actions",
-    cell: ({}) => {
-      return (
-        <Button size={"sm"} variant={"ghost"}>
-          <NotebookPen />
-        </Button>
-      );
+    cell: ({ row }) => {
+      const id = row.original.id;
+
+      return <CommentSheet challengeId={id} />;
     },
   },
 ];
