@@ -21,12 +21,14 @@ const formSchema = z.object({
 
 type CommentFormProps = {
   userId: string;
+  username: string;
   userImageUrl: string;
   challengeId: number;
 };
 
 const CommentForm = ({
   userId,
+  username,
   userImageUrl,
   challengeId,
 }: CommentFormProps) => {
@@ -45,12 +47,15 @@ const CommentForm = ({
       createComment({
         comment: values.comment,
         userId,
+        username,
         userImageUrl,
         challengeId,
         createdAt: new Date(),
         updatedAt: new Date(),
       })
-        .then(() => form.reset())
+        .then(() => {
+          form.reset();
+        })
         .catch((e) => toast.error(e));
     });
   }

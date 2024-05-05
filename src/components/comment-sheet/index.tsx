@@ -33,6 +33,7 @@ const CommentSheet = ({ challengeId }: CommentSheetProps) => {
         </SheetHeader>
         <CommentScrollArea challengeId={challengeId} />
         <CommentForm
+          username={user?.username!}
           userId={user?.id!}
           userImageUrl={user?.imageUrl!}
           challengeId={challengeId}

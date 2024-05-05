@@ -3,8 +3,15 @@
 import React, { useEffect, useState } from "react";
 import { ScrollArea } from "../ui/scroll-area";
 import { FirebaseCommentDocType } from "@/types";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "@/firebase";
+import CommentItem from "./comment-item";
 
 type CommentScrollAreaProps = {
   challengeId: number;
@@ -15,7 +22,11 @@ const CommentScrollArea = ({ challengeId }: CommentScrollAreaProps) => {
 
   // TODO: limit and pagination for comments
   const collRef = collection(db, "comments");
-  const q = query(collRef, where("challengeId", "==", challengeId));
+  const q = query(
+    collRef,
+    where("challengeId", "==", challengeId),
+    orderBy("createdAt", "asc")
+  );
 
   useEffect(() => {
     if (!challengeId) return;
@@ -42,12 +53,9 @@ const CommentScrollArea = ({ challengeId }: CommentScrollAreaProps) => {
   }, [challengeId]);
 
   return (
-    <ScrollArea className="flex-1 space-y-5">
-      {comments.map((comment) => (
-        <div key={comment.id}>
-          <p>{comment.comment}</p>
-          <p>{comment.userId}</p>
-        </div>
+    <ScrollArea className="flex-1 flex flex-col w-full h-full space-y-5 mb-4">
+      {comments.map((comment, i) => (
+        <CommentItem key={i} comment={comment} />
       ))}
     </ScrollArea>
   );
