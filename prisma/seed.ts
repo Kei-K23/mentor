@@ -1,5 +1,5 @@
 import { db } from '@/db';
-import { ChallengeType, Difficulty, LanguageType, PrismaClient } from '@prisma/client'
+import { ChallengeType, Difficulty, PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 async function main() {
     console.log("Start database seeding");
@@ -13,7 +13,7 @@ async function main() {
             title: "Javascript",
             description: "Craft JavaScript interview questions",
             imageUrl: "/js.svg",
-            languageType: LanguageType.JS
+            languageType: 'javascript'
         },
     })
     const cours2 = await prisma.course.create({
@@ -21,7 +21,7 @@ async function main() {
             title: "Php",
             description: "Craft Php interview questions",
             imageUrl: "/php.svg",
-            languageType: LanguageType.PHP
+            languageType: "php"
         },
     })
     const cours3 = await prisma.course.create({
@@ -29,7 +29,7 @@ async function main() {
             title: "Java",
             description: "Craft Java interview questions",
             imageUrl: "/java.svg",
-            languageType: LanguageType.JAVA
+            languageType: 'java'
         },
     })
     const cours4 = await prisma.course.create({
@@ -37,7 +37,7 @@ async function main() {
             title: "Golang",
             description: "Craft Golang interview questions",
             imageUrl: "/go.svg",
-            languageType: LanguageType.GO
+            languageType: "go"
         },
     })
 
