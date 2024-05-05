@@ -35,6 +35,7 @@ type MainProps = {
   isValidChallengeIdForActiveCourse: boolean;
   firstChallengeId: number;
   lastChallengeId: number;
+  codeLanguageType?: string;
 };
 
 const Main = ({
@@ -49,6 +50,7 @@ const Main = ({
   isValidChallengeIdForActiveCourse,
   firstChallengeId,
   lastChallengeId,
+  codeLanguageType,
 }: MainProps) => {
   const router = useRouter();
   const { open: openNoEnoughHeartsModal } = useNoEnoughHeartsModalStore();
@@ -206,7 +208,9 @@ const Main = ({
                   </span>
                 )}
               </h3>
-              {challenge?.code && <CodeBlock code={challenge.code} />}
+              {challenge?.code && (
+                <CodeBlock language={codeLanguageType} code={challenge.code} />
+              )}
             </div>
             <div className="w-full lg:w-1/2">
               <BubbleTag question="Choose the correct one?" />

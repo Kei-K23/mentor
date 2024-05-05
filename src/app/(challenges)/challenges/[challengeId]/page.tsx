@@ -74,6 +74,7 @@ const ChallengeIdPage = async ({ params }: ChallengeIdPageProps) => {
         initialPercentage={coursePercentage ?? 0}
         initialHeart={userProgress.hearts}
         initialPoints={userProgress.points}
+        codeLanguageType={userProgress.course.languageType!}
       />
     </div>
   );

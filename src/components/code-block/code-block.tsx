@@ -4,11 +4,17 @@ import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 type CodeBlockProps = {
   code: string;
+  language?: string;
 };
 
-const CodeBlock = ({ code }: CodeBlockProps) => {
+const CodeBlock = ({ code, language }: CodeBlockProps) => {
   return (
-    <SyntaxHighlighter style={oneDark} showLineNumbers showInlineLineNumbers>
+    <SyntaxHighlighter
+      language={language}
+      style={oneDark}
+      showLineNumbers
+      showInlineLineNumbers
+    >
       {code}
     </SyntaxHighlighter>
   );
