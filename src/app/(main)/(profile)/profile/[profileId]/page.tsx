@@ -17,6 +17,11 @@ import Image from "next/image";
 import List from "../../_components/list";
 import { auth } from "@clerk/nextjs/server";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Profile",
+};
 
 type ProfileIdPageProps = {
   params: {

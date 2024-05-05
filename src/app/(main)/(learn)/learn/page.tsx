@@ -17,8 +17,13 @@ import {
   getUserProgress,
   getUsersForLeaderBoard,
 } from "@/queries/user-progress-queries";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import React from "react";
+
+export const metadata: Metadata = {
+  title: "Learn",
+};
 
 const LearnPage = async () => {
   const userProgressData = getUserProgress();

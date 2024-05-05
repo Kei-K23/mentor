@@ -13,7 +13,7 @@ const CodeBlock = ({ code }: CodeBlockProps) => {
 
   useEffect(() => {
     if (!codeRef.current) return;
-    hljs.highlightBlock(codeRef?.current);
+    hljs.highlightElement(codeRef?.current);
   }, []);
 
   return (

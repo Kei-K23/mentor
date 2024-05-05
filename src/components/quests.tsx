@@ -37,7 +37,7 @@ const Quests = ({
 
   return (
     <div className="w-full">
-      {quests.map((q) => {
+      {quests.map((q, i) => {
         const isClaim = !!questsProgress.find(
           (questProgress) =>
             questProgress.completed && questProgress.questId === q.id
@@ -47,30 +47,34 @@ const Quests = ({
         const uncompleted = progress < 100 || !isClaim;
 
         if (onlyShowUncompleted) {
+          if (i < 3) {
+            console.log("index :", i);
+
+            return (
+              uncompleted && (
+                <QuestItem
+                  key={q.id}
+                  quest={q}
+                  progress={progress}
+                  onClick={onClick}
+                  pending={pending}
+                  isClaim={isClaim}
+                />
+              )
+            );
+          }
+        } else {
           return (
-            uncompleted && (
-              <QuestItem
-                key={q.id}
-                quest={q}
-                progress={progress}
-                onClick={onClick}
-                pending={pending}
-                isClaim={isClaim}
-              />
-            )
+            <QuestItem
+              key={q.id}
+              quest={q}
+              progress={progress}
+              onClick={onClick}
+              pending={pending}
+              isClaim={isClaim}
+            />
           );
         }
-
-        return (
-          <QuestItem
-            key={q.id}
-            quest={q}
-            progress={progress}
-            onClick={onClick}
-            pending={pending}
-            isClaim={isClaim}
-          />
-        );
       })}
     </div>
   );

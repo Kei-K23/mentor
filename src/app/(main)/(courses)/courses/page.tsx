@@ -4,6 +4,11 @@ import React from "react";
 import List from "../_components/list";
 import { getUserByExternalUserId } from "@/queries/user-queries";
 import { auth } from "@clerk/nextjs/server";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Courses",
+};
 
 const CoursesPage = async () => {
   const { userId } = auth();

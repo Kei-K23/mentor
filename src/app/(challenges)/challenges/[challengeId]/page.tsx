@@ -9,6 +9,11 @@ import { redirect } from "next/navigation";
 import { getUserProgress } from "@/queries/user-progress-queries";
 import { auth } from "@clerk/nextjs/server";
 import { getUserByExternalUserId } from "@/queries/user-queries";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Challenges",
+};
 
 type ChallengeIdPageProps = {
   params: {
