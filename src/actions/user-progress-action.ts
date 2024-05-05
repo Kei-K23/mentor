@@ -57,8 +57,6 @@ export const createUserProgress = async (courseId: number) => {
         revalidatePath("/challenges");
         return;
     } catch (e: any) {
-        console.log(e);
-        console.log(e.message);
 
         throw new Error("Something went wrong!");
     }

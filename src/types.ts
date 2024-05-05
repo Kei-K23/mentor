@@ -17,3 +17,12 @@ export type CourseWithChallengeProgressAndChallenges = Course & {
 export type UserProgressWithUser = UserProgress & {
     user: User
 }
+
+export type CreateCommentType = {
+    comment: string;
+    userId: string;
+    challengeId: number;
+    userImageUrl: string;
+    createdAt: Date;
+    updatedAt: Date;
+}

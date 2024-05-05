@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import React from "react";
+import React, { useTransition } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -11,11 +11,13 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Send } from "lucide-react";
+import { toast } from "sonner";
+import { createComment } from "@/firebase/actions/comments-action";
+import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   comment: z.string().min(1, {
@@ -23,7 +25,18 @@ const formSchema = z.object({
   }),
 });
 
-const CommentForm = () => {
+type CommentFormProps = {
+  userId: string;
+  userImageUrl: string;
+  challengeId: number;
+};
+
+const CommentForm = ({
+  userId,
+  userImageUrl,
+  challengeId,
+}: CommentFormProps) => {
+  const [pending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -32,9 +45,20 @@ const CommentForm = () => {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    if (values.comment === "") return;
+    if (!userId || !challengeId) return;
+    startTransition(() => {
+      createComment({
+        comment: values.comment,
+        userId,
+        userImageUrl,
+        challengeId,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      })
+        .then(() => form.reset())
+        .catch((e) => toast.error(e));
+    });
   }
 
   return (
@@ -48,14 +72,25 @@ const CommentForm = () => {
           name="comment"
           render={({ field }) => (
             <FormItem className="flex-1">
-              <FormControl>
-                <Input placeholder="Comment..." {...field} />
+              <FormControl aria-disabled={pending}>
+                <Input
+                  disabled={pending}
+                  placeholder="Comment..."
+                  {...field}
+                  autoFocus
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit" variant={"secondary"} size={"sm"}>
+        <Button
+          disabled={pending}
+          type="submit"
+          variant={"secondary"}
+          size={"sm"}
+          className={cn(pending && "pointer-events-none")}
+        >
           <Send className="w-4 h-4" />{" "}
         </Button>
       </form>

@@ -1,7 +1,6 @@
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -11,12 +10,16 @@ import React from "react";
 import { Button } from "../ui/button";
 import { NotebookPen } from "lucide-react";
 import CommentForm from "./comment-form";
+import CommentScrollArea from "./comment-scroll-area";
+import { useAuth, useUser } from "@clerk/nextjs";
 
 type CommentSheetProps = {
   challengeId: number;
 };
 
 const CommentSheet = ({ challengeId }: CommentSheetProps) => {
+  const { user } = useUser();
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -28,8 +31,12 @@ const CommentSheet = ({ challengeId }: CommentSheetProps) => {
         <SheetHeader>
           <SheetTitle>Comment section</SheetTitle>
         </SheetHeader>
-        <div className="flex-1"></div>
-        <CommentForm />
+        <CommentScrollArea />
+        <CommentForm
+          userId={user?.id!}
+          userImageUrl={user?.imageUrl!}
+          challengeId={challengeId}
+        />
       </SheetContent>
     </Sheet>
   );

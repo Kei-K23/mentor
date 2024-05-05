@@ -30,7 +30,7 @@ const BioForm = ({ initialBio, notEditable = false }: BioFormProps) => {
         .then(() => {
           toast.success("Updated bio successfully");
         })
-        .catch((e) => toast.error(e.message));
+        .catch((e) => toast.error(e));
       setIsEdit(false);
     });
   };
