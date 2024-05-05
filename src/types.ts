@@ -18,7 +18,8 @@ export type UserProgressWithUser = UserProgress & {
     user: User
 }
 
-export type CreateCommentType = {
+export type FirebaseCommentDocType = {
+    id?: string;
     comment: string;
     userId: string;
     challengeId: number;
