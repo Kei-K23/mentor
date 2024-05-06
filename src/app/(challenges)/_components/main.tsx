@@ -92,8 +92,6 @@ const Main = ({
       return router.push(`/challenges/${challenge.id + 1}`);
     }
   };
-  console.log("Test 1", challenges.length === completedChallenge.length);
-  console.log("Test 2", isPractice);
 
   if (challenges.length === completedChallenge.length && !isPractice) {
     return (

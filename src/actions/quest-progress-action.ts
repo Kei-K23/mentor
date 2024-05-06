@@ -51,8 +51,6 @@ export const createQuestProgress = async (questId: number, points: number) => {
         revalidatePath("/quests");
         revalidatePath("/leaderboard");
     } catch (e) {
-        console.log(e);
-
         throw new Error("Something went wrong");
     }
 }

@@ -97,8 +97,6 @@ export const createChallengeProgress = async (challengeId: number) => {
         revalidatePath("/quests");
         revalidatePath("/leaderboard");
     } catch (e) {
-        console.log(e);
-
         throw new Error("Something went wrong");
     }
 }
