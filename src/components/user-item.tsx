@@ -30,7 +30,7 @@ const UserItem = ({ userProgress, index, onClose }: UserItemProps) => {
         <Link
           onClick={onClose}
           href={`/profile/${userProgress.user.externalUserId}`}
-          className="font-bold text-slate-800 dark:text-slate-200 flex-1 hover:text-sky-500 dark:hover:text-sky-500"
+          className="font-bold text-slate-800 truncate dark:text-slate-200 flex-1 hover:text-sky-500 dark:hover:text-sky-500"
         >
           {userProgress.user.username}
         </Link>

@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { ScrollArea } from "../ui/scroll-area";
 import { FirebaseCommentDocType } from "@/types";
 import {
   collection,
@@ -20,13 +19,14 @@ type CommentScrollAreaProps = {
 const CommentScrollArea = ({ challengeId }: CommentScrollAreaProps) => {
   const [comments, setComments] = useState<FirebaseCommentDocType[]>([]);
   const scrollRef = useRef<HTMLDivElement | null>(null);
+  const scrollTopRef = useRef<HTMLDivElement | null>(null);
 
   // TODO: limit and pagination for comments
   const collRef = collection(db, "comments");
   const q = query(
     collRef,
     where("challengeId", "==", challengeId),
-    orderBy("createdAt", "asc")
+    orderBy("createdAt", "desc")
   );
 
   // data fetching from firebase
@@ -37,14 +37,13 @@ const CommentScrollArea = ({ challengeId }: CommentScrollAreaProps) => {
       if (snapshot.size > 0) {
         // TODO: handle the type correctly
         // @ts-ignore
-        setComments(snapshot.docs);
         snapshot.docs.map((doc) => {
           const data = {
             id: doc.id,
             ...doc.data(),
           } as FirebaseCommentDocType;
 
-          setComments((prev) => [...prev, data]);
+          setComments((prev) => [data, ...prev]);
         });
       }
     });
@@ -65,7 +64,10 @@ const CommentScrollArea = ({ challengeId }: CommentScrollAreaProps) => {
   }, [comments.length]);
 
   return (
-    <ScrollArea className="flex-1 flex flex-col w-full h-full space-y-5 mb-4">
+    <div
+      ref={scrollTopRef}
+      className="flex-1 flex flex-col w-full py-4 overflow-y-auto"
+    >
       {comments.length ? (
         comments.map((comment, i) => <CommentItem key={i} comment={comment} />)
       ) : (
@@ -77,7 +79,7 @@ const CommentScrollArea = ({ challengeId }: CommentScrollAreaProps) => {
         </div>
       )}
       <div ref={scrollRef} />
-    </ScrollArea>
+    </div>
   );
 };
 

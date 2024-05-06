@@ -33,7 +33,7 @@ export const columns: ColumnDef<ChallengeWithChallengeProgress>[] = [
       return (
         <Link
           href={`/challenges/${row.original.id}`}
-          className="text-base font-semibold hover:text-sky-500"
+          className="text-base truncate font-semibold hover:text-sky-500"
         >
           {row.original.id}. {row.original.title}
         </Link>
