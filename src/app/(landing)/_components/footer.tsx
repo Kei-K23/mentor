@@ -5,7 +5,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="w-full static bottom-0 border-t border-t-slate-200 dark:border-t-slate-700 h-14 flex items-center justify-between px-5">
+    <footer className="w-full sticky bottom-0 border-t border-t-slate-200 dark:border-t-slate-700 h-14 flex items-center justify-between px-5 bg-background">
       <Link
         href={"/terms"}
         className={cn(

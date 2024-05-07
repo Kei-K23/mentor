@@ -16,7 +16,8 @@ import UserButtonContainer from "@/components/user-button-container";
 
 const Header = () => {
   return (
-    <header className="sticky top-0 w-full border-b border-b-slate-200 dark:border-b-slate-700 h-14 z-50">
+    // TODO: check is glassmorphism background UI good?
+    <header className="sticky top-0 w-full border-b border-b-slate-200 dark:border-b-slate-700 h-14 z-50 bg-slate-900 bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-10">
       <nav className="px-5 lg:max-w-screen-lg mx-auto h-full flex items-center justify-between">
         <Link href={"/"} className="flex items-center gap-2">
           <Image src={"/icon.png"} alt="icon image" width={36} height={36} />
