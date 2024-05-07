@@ -11,7 +11,7 @@ import { Button } from "../ui/button";
 import { NotebookPen } from "lucide-react";
 import CommentForm from "./comment-form";
 import CommentScrollArea from "./comment-scroll-area";
-import { useAuth, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 
 type CommentSheetProps = {
   challengeId: number;
@@ -19,6 +19,8 @@ type CommentSheetProps = {
 
 const CommentSheet = ({ challengeId }: CommentSheetProps) => {
   const { user } = useUser();
+
+  // TODO: check user exist or not if need
 
   return (
     <Sheet>
@@ -31,7 +33,10 @@ const CommentSheet = ({ challengeId }: CommentSheetProps) => {
         <SheetHeader>
           <SheetTitle>Comment section</SheetTitle>
         </SheetHeader>
-        <CommentScrollArea challengeId={challengeId} />
+        <CommentScrollArea
+          currentUserId={user?.id!}
+          challengeId={challengeId}
+        />
         <CommentForm
           username={user?.username!}
           userId={user?.id!}

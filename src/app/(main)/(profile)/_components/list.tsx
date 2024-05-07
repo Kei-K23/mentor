@@ -23,7 +23,7 @@ const List = ({ courses, user }: ListProps) => {
   return (
     <div className="pt-4 grid sm:grid-cols-2 lg:grid-cols-[repeat(auto-fill,minmax(210px,1fr))] gap-4 w-full ">
       {!completedCourse.length ? (
-        <h3>No active course yet!</h3>
+        <h3>No completed course yet!</h3>
       ) : (
         completedCourse.map((course) => (
           <Card
