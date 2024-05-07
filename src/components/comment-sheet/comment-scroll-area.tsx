@@ -24,6 +24,7 @@ const CommentScrollArea = ({
   const [comments, setComments] = useState<FirebaseCommentDocType[]>([]);
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const scrollTopRef = useRef<HTMLDivElement | null>(null);
+  const [isEdit, setIsEdit] = useState("");
 
   // Query for fetching comments
   const collRef = collection(db, "comments");
@@ -77,6 +78,8 @@ const CommentScrollArea = ({
       {comments.length ? (
         comments.map((comment) => (
           <CommentItem
+            isEdit={isEdit}
+            setIsEdit={setIsEdit}
             currentUserId={currentUserId}
             key={comment.id}
             comment={comment}
@@ -92,6 +95,8 @@ const CommentScrollArea = ({
         <>
           <CommentItem
             currentUserId={currentUserId}
+            isEdit={isEdit}
+            setIsEdit={setIsEdit}
             comment={{
               comment: "This is test 1",
               challengeId: challengeId,
@@ -105,6 +110,8 @@ const CommentScrollArea = ({
           />
           <CommentItem
             currentUserId={currentUserId}
+            isEdit={isEdit}
+            setIsEdit={setIsEdit}
             comment={{
               comment: "This is test 2",
               challengeId: challengeId,
@@ -118,6 +125,8 @@ const CommentScrollArea = ({
           />
           <CommentItem
             currentUserId={currentUserId}
+            isEdit={isEdit}
+            setIsEdit={setIsEdit}
             comment={{
               comment: "This is test 3",
               challengeId: challengeId,
