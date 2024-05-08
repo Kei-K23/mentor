@@ -92,53 +92,12 @@ const CommentScrollArea = ({
         //     Your comment can be the first comment.
         //   </p>
         // </div>
-        <>
-          <CommentItem
-            currentUserId={currentUserId}
-            isEdit={isEdit}
-            setIsEdit={setIsEdit}
-            comment={{
-              comment: "This is test 1",
-              challengeId: challengeId,
-              createdAt: new Date(),
-              id: "1",
-              userId: "user_2g2wd7jc5JzHuOzXeJnxrP9mkhB",
-              username: "test test test test test test test teset teste sf",
-              updatedAt: new Date(),
-              userImageUrl: "",
-            }}
-          />
-          <CommentItem
-            currentUserId={currentUserId}
-            isEdit={isEdit}
-            setIsEdit={setIsEdit}
-            comment={{
-              comment: "This is test 2",
-              challengeId: challengeId,
-              createdAt: new Date(),
-              id: "2",
-              userId: "user_2g2wd7jc5JzHuOzXeJnxrP9mkhB",
-              username: "test",
-              updatedAt: new Date(),
-              userImageUrl: "",
-            }}
-          />
-          <CommentItem
-            currentUserId={currentUserId}
-            isEdit={isEdit}
-            setIsEdit={setIsEdit}
-            comment={{
-              comment: "This is test 3",
-              challengeId: challengeId,
-              createdAt: new Date(),
-              id: "3",
-              userId: "user_2g2wd7jc5JzHuOzXeJnxrP9mkhB",
-              username: "test",
-              updatedAt: new Date(),
-              userImageUrl: "",
-            }}
-          />
-        </>
+        <div>
+          <p>Comments feature is under maintenance for better performance.</p>
+          <p className="text-xs text-muted-foreground">
+            This will be back soon.
+          </p>
+        </div>
       )}
       <div ref={scrollRef} />
     </div>

@@ -74,6 +74,18 @@ Make sure to set the following environment variables:
 
 We welcome contributions from the community! If you find a bug or have an idea for an improvement, please open an issue or submit a pull request. Detail contribution guidelines will be available soon.
 
+## TODO
+
+This is the todo list to complete for version 1.
+
+- [ ] Update user leaderboard status design
+- [ ] Add features private profile and profile view count
+- [ ] Apply pagination and limiting fetching for comments from Firebase
+- [ ] Add blogs system
+- [ ] Add user friend system
+- [ ] Add point gift system to send points from one account to another
+- [ ] Avatar system that users can buy avatars with their points
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
