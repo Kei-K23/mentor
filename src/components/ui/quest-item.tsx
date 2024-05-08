@@ -24,7 +24,7 @@ const QuestItem = ({
 }: QuestItemProps) => {
   return (
     <div
-      className="flex items-center w-full gap-x-4 p-4 border-t-2"
+      className="flex items-center w-full gap-x-4 p-4 last:border-b-0 border-b-2"
       key={quest.title}
     >
       <Image src={"/points.svg"} alt="points" width={60} height={60} />

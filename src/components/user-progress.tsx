@@ -13,7 +13,7 @@ type UserProgressProps = {
 
 const UserProgress = ({ activeCourse, hearts, points }: UserProgressProps) => {
   return (
-    <div className="w-full flex items-center justify-between gap-x-2">
+    <div className="flex items-center justify-between gap-x-2">
       <ActionTooltip text="Current active course">
         <Link href={"/courses"}>
           <Button size={"sm"} variant={"ghost"}>

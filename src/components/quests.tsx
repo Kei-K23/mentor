@@ -39,6 +39,9 @@ const Quests = ({
 
   return (
     <div className="w-full">
+      {onlyShowUncompleted && (
+        <h3 className="text-muted-foreground font-bold mb-3">Quests</h3>
+      )}
       {quests.map((q, i) => {
         const isClaim = !!questsProgress.find(
           (questProgress) =>

@@ -38,11 +38,6 @@ const ShopPage = async () => {
   return (
     <div className="flex flex-row-reverse gap-[48px] px-6 py-4">
       <StickyWrapper>
-        <UserProgress
-          activeCourse={userProgress.course}
-          hearts={userProgress.hearts}
-          points={userProgress.points}
-        />
         <WrapperLeaderBoard usersForLeaderBoard={usersForLeaderBoard ?? []} />
         <Quests
           quests={quests}
