@@ -86,10 +86,18 @@ const Main = ({
       cp.challengeId === challenge.id && cp.completed && cp.userId === user.id
   );
 
+  const onNextPage = () => {
+    const currentIndex = challenges.findIndex((c) => c.id === challenge.id);
+    const nextChallenge = challenges[currentIndex + 1];
+    if (nextChallenge) {
+      return router.push(`/challenges/${nextChallenge.id}`);
+    }
+  };
+
   const onNext = () => {
     if (!isValidChallengeIdForActiveCourse) return;
     if (isNext) {
-      return router.push(`/challenges/${challenge.id + 1}`);
+      onNextPage();
     }
   };
 
@@ -186,6 +194,7 @@ const Main = ({
       {correctAudio}
       {incorrectAudio}
       <Header
+        challenges={challenges}
         firstChallengeId={firstChallengeId}
         lastChallengeId={lastChallengeId}
         challenge={challenge}

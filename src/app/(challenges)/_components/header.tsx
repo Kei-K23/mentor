@@ -2,7 +2,10 @@ import CommentSheet from "@/components/comment-sheet";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 import { useExitModalStore } from "@/store/use-exit-modal-store";
-import { ChallengeWithChallengeProgressAndOptions } from "@/types";
+import {
+  ChallengeWithChallengeProgress,
+  ChallengeWithChallengeProgressAndOptions,
+} from "@/types";
 import { ArrowLeftCircle, ArrowRightCircle, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -13,6 +16,7 @@ type HeaderProps = {
   points: number;
   percentage: number;
   challenge: ChallengeWithChallengeProgressAndOptions;
+  challenges: ChallengeWithChallengeProgress[];
   firstChallengeId: number;
   lastChallengeId: number;
 };
@@ -21,6 +25,7 @@ const Header = ({
   hearts,
   percentage,
   challenge,
+  challenges,
   points,
   firstChallengeId,
   lastChallengeId,
@@ -30,14 +35,32 @@ const Header = ({
   const isPrevious = challenge.id - 1 >= firstChallengeId;
   const isNext = challenge.id + 1 <= lastChallengeId;
 
+  const onNextPage = () => {
+    const currentIndex = challenges.findIndex((c) => c.id === challenge.id);
+    const nextChallenge = challenges[currentIndex + 1];
+    if (nextChallenge) {
+      return router.push(`/challenges/${nextChallenge.id}`);
+    }
+  };
+
+  const onPrevPage = () => {
+    const currentIndex = challenges.findIndex((c) => c.id === challenge.id);
+    const prevChallenge = challenges[currentIndex - 1];
+    if (prevChallenge) {
+      return router.push(`/challenges/${prevChallenge.id}`);
+    }
+  };
+
   const onNext = () => {
     if (isNext) {
-      return router.push(`/challenges/${challenge.id + 1}`);
+      onNextPage();
     }
   };
 
   const onPrevious = () => {
-    if (isPrevious) return router.push(`/challenges/${challenge.id - 1}`);
+    if (isPrevious) {
+      onPrevPage();
+    }
   };
 
   return (
