@@ -35,30 +35,32 @@ const CommentScrollArea = ({
   );
 
   // Fetching comments from Firebase
-  // useEffect(() => {
-  //   if (!challengeId) return;
+  useEffect(() => {
+    if (!challengeId) return;
 
-  //   const unsubscribe = onSnapshot(q, (snapshot) => {
-  //     const newComments: FirebaseCommentDocType[] = [];
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const newComments: FirebaseCommentDocType[] = [];
 
-  //     snapshot.docs.forEach((doc) => {
-  //       const data = {
-  //         id: doc.id,
-  //         ...doc.data(),
-  //       } as FirebaseCommentDocType;
+      snapshot.docs.forEach((doc) => {
+        const data = {
+          id: doc.id,
+          ...doc.data(),
+        } as FirebaseCommentDocType;
 
-  //       // Check if the comment already exists in state
-  //       if (!comments.find((comment) => comment.id === data.id)) {
-  //         newComments.push(data);
-  //       }
-  //     });
+        // Check if the comment already exists in state
+        if (!comments.find((comment) => comment.id === data.id)) {
+          newComments.push(data);
+        }
+      });
 
-  //     // Update comments state with new unique comments
-  //     setComments((prevComments) => [...prevComments, ...newComments]);
-  //   });
+      // Update comments state with new unique comments
+      setComments(newComments);
+    });
 
-  //   return () => unsubscribe();
-  // }, [challengeId, comments.length]); // Added comments to the dependency array
+    return () => {
+      unsubscribe();
+    };
+  }, [challengeId]);
 
   // Auto scroll to bottom when new comments are added
   useEffect(() => {
@@ -82,6 +84,7 @@ const CommentScrollArea = ({
             setIsEdit={setIsEdit}
             currentUserId={currentUserId}
             key={comment.id}
+            setComments={setComments}
             comment={comment}
           />
         ))

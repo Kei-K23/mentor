@@ -19,6 +19,7 @@ type CommentItemProps = {
   currentUserId: string;
   setIsEdit: (isEdit: string) => void;
   isEdit: string;
+  setComments: (comment: FirebaseCommentDocType[]) => void;
 };
 
 const CommentItem = ({
@@ -26,6 +27,7 @@ const CommentItem = ({
   currentUserId,
   isEdit,
   setIsEdit,
+  setComments,
 }: CommentItemProps) => {
   const [pending, startTransition] = useTransition();
   const [newComment, setNewComment] = useState(comment.comment);
@@ -36,7 +38,15 @@ const CommentItem = ({
         commentId: comment.id!,
         userId: currentUserId,
         challengeId: comment.challengeId,
-      }).catch((e) => toast.error(e));
+      })
+        .then(() => {
+          // @ts-ignore
+          setComments((prevComments) =>
+            // @ts-ignore
+            prevComments.filter((c) => c.id !== comment.id!)
+          );
+        })
+        .catch((e) => toast.error(e));
     });
   };
 
@@ -58,7 +68,7 @@ const CommentItem = ({
 
   if (comment.comment) {
     return (
-      <div className="mb-6 last:mb-0 hover:bg-slate-800/50 p-3 rounded-md">
+      <div className="mb-6 last:mb-0 hover:bg-slate-200 dark:hover:bg-slate-800/50 p-3 rounded-md">
         <div className="flex items-start">
           <Avatar>
             <AvatarImage src={comment.userImageUrl} className="object-cover" />

@@ -56,7 +56,11 @@ const CommentForm = ({
         .then(() => {
           form.reset();
         })
-        .catch((e) => toast.error(e));
+        .catch((e) => {
+          console.log(e);
+
+          toast.error(e);
+        });
     });
   }
 

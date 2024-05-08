@@ -15,6 +15,7 @@ const CodeBlock = ({ code, language }: CodeBlockProps) => {
       showLineNumbers
       showInlineLineNumbers
     >
+      {}
       {code}
     </SyntaxHighlighter>
   );

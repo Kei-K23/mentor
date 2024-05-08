@@ -11,6 +11,8 @@ export const createComment = async (comment: FirebaseCommentDocType) => {
             throw new Error("Could not create comment");
         }
     } catch (e: any) {
+        console.log(e);
+
         throw new Error("Something went wrong")
     }
 }
