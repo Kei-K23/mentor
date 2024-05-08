@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils";
 import { Badge } from "./ui/badge";
 import ActionTooltip from "./action-tooltip";
 import { useFooterCardStore } from "@/store/use-footer-card-store";
+import AdsCard from "./ads-card";
 
 type MobileSideBarProps = {
   completedQuestsLength: number;
@@ -96,31 +97,7 @@ const MobileSideBar = ({ completedQuestsLength }: MobileSideBarProps) => {
             Profile
           </Link>
         </nav>
-        {isOpen && (
-          <div className="mt-auto p-4">
-            <Card x-chunk="dashboard-02-chunk-0">
-              <CardHeader className="p-2 pt-0 md:p-4">
-                <CardTitle className="flex items-center">
-                  Mentor Beta version 0.0.1
-                  <ActionTooltip text="Hide">
-                    <Button size={"sm"} variant={"ghost"} onClick={close}>
-                      <X className="w-4 h-4" />
-                    </Button>
-                  </ActionTooltip>
-                </CardTitle>
-                <CardDescription>
-                  This is the open-source project for awesome dev community. New
-                  features and more stable version will be released soon.
-                </CardDescription>
-              </CardHeader>
-              {/* <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
-              <Button size="sm" className="w-full">
-                Upgrade
-              </Button>
-            </CardContent> */}
-            </Card>
-          </div>
-        )}
+        {isOpen && <AdsCard />}
       </SheetContent>
     </Sheet>
   );

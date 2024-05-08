@@ -89,18 +89,18 @@ const CommentScrollArea = ({
           />
         ))
       ) : (
-        // <div>
-        //   <p>No comments yet!</p>
-        //   <p className="text-xs text-muted-foreground">
-        //     Your comment can be the first comment.
-        //   </p>
-        // </div>
         <div>
-          <p>Comments feature is under maintenance for better performance.</p>
+          <p>No comments yet!</p>
           <p className="text-xs text-muted-foreground">
-            This will be back soon.
+            Your comment can be the first comment.
           </p>
         </div>
+        // <div>
+        //   <p>Comments feature is under maintenance for better performance.</p>
+        //   <p className="text-xs text-muted-foreground">
+        //     This will be back soon.
+        //   </p>
+        // </div>
       )}
       <div ref={scrollRef} />
     </div>
