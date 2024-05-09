@@ -48,7 +48,7 @@ const List = ({ courses, activeCourseId, user }: ListProps) => {
             isCompleted={isCompleted}
             title={course.title}
             description={course.description}
-            imageSrc={course.imageUrl}
+            imageSrc={course?.imageUrl}
             onClick={onClick}
             disabled={pending}
             active={course.id === activeCourseId}

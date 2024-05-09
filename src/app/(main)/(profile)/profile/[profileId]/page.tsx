@@ -107,7 +107,7 @@ const ProfileIdPage = async ({ params }: ProfileIdPageProps) => {
                   <div className="pt-4">
                     <ActiveCourseCard
                       active={true}
-                      imageSrc={userProgressByExternalId?.course.imageUrl}
+                      imageSrc={userProgressByExternalId?.course?.imageUrl}
                       title={userProgressByExternalId?.course.title}
                       description={userProgressByExternalId.course.description}
                     />

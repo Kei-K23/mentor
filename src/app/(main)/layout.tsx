@@ -7,6 +7,9 @@ import { getQuestsProgress } from "@/queries/quests-progress-queries";
 import { getAllQuests } from "@/queries/quests-queries";
 import { getUserProgress } from "@/queries/user-progress-queries";
 import UserProgress from "@/components/user-progress";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
 
 export default async function MainLayout({
   children,
@@ -44,11 +47,25 @@ export default async function MainLayout({
           <MobileSideBar completedQuestsLength={completedQuests} />
           <div className="w-full flex-1 flex items-center gap-x-4">
             <SearchHeader />
-            <UserProgress
-              activeCourse={userProgress?.course!}
-              hearts={userProgress?.hearts!}
-              points={userProgress?.points!}
-            />
+            {userProgress ? (
+              <UserProgress
+                activeCourse={userProgress?.course!}
+                hearts={userProgress?.hearts!}
+                points={userProgress?.points!}
+              />
+            ) : (
+              <Link
+                href={"/courses"}
+                className={cn(
+                  buttonVariants({
+                    variant: "ghost",
+                    size: "sm",
+                  })
+                )}
+              >
+                Choose your prefer course to learn
+              </Link>
+            )}
           </div>
           <div className="flex items-center gap-x-4">
             <UserButtonContainer />

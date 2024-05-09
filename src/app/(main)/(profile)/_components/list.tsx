@@ -31,7 +31,7 @@ const List = ({ courses, user }: ListProps) => {
             id={course.id}
             title={course.title}
             description={course.description}
-            imageSrc={course.imageUrl}
+            imageSrc={course?.imageUrl}
           />
         ))
       )}

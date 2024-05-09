@@ -18,8 +18,8 @@ const UserProgress = ({ activeCourse, hearts, points }: UserProgressProps) => {
         <Link href={"/courses"}>
           <Button size={"sm"} variant={"ghost"}>
             <Image
-              src={activeCourse.imageUrl!}
-              alt={activeCourse.title}
+              src={activeCourse?.imageUrl!}
+              alt={activeCourse?.title}
               className="rounded-md border"
               width={32}
               height={32}

@@ -83,7 +83,7 @@ const ProfilePage = async () => {
                 <div className="pt-4">
                   <ActiveCourseCard
                     active={true}
-                    imageSrc={userProgress?.course.imageUrl}
+                    imageSrc={userProgress?.course?.imageUrl}
                     title={userProgress?.course.title}
                     description={userProgress.course.description}
                   />
