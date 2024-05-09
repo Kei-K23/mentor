@@ -32,7 +32,7 @@ const UserItem = ({ userProgress, index, onClose }: UserItemProps) => {
       <Avatar className="bg-sky-500 h-12 w-12 ml-3 mr-5">
         {/* TODO: handle if user img is null */}
         <AvatarImage
-          src={userProgress.user.imageUrl!}
+          src={userProgress.user?.imageUrl ?? "/robot.png"}
           className="object-cover"
         />
       </Avatar>

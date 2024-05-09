@@ -3,7 +3,6 @@ import Quests from "@/components/quests";
 import StickyWrapper from "@/components/sticky-wrapper";
 import { Separator } from "@/components/ui/separator";
 import UserItem from "@/components/user-item";
-import UserProgress from "@/components/user-progress";
 import { getQuestsProgress } from "@/queries/quests-progress-queries";
 import { getAllQuests } from "@/queries/quests-queries";
 import {
@@ -21,7 +20,7 @@ export const metadata: Metadata = {
 
 const LeaderBoardPage = async () => {
   const userProgressData = getUserProgress();
-  const usersForLeaderBoardData = getUsersForLeaderBoard(10);
+  const usersForLeaderBoardData = getUsersForLeaderBoard();
   const questsData = getAllQuests();
   const questProgressData = getQuestsProgress();
 

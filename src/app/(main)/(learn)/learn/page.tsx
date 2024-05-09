@@ -5,7 +5,6 @@ import Header from "@/components/header";
 import Quests from "@/components/quests";
 import StickyWrapper from "@/components/sticky-wrapper";
 import { Progress } from "@/components/ui/progress";
-import UserProgress from "@/components/user-progress";
 import WrapperLeaderBoard from "@/components/wrapper-leaderboard";
 import {
   getChallengesForActiveCourses,

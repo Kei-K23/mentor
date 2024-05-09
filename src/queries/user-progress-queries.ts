@@ -36,20 +36,29 @@ export const getUserProgressByExternalId = async (externalUserId: string) => {
     });
 }
 
-export const getUsersForLeaderBoard = async (limit: number) => {
+export const getUsersForLeaderBoard = async (limit?: number) => {
     const { userId } = auth();
 
     if (!userId) return null;
 
-
-    return db.userProgress.findMany({
-        orderBy: {
-            points: "desc"
-        },
-        take: limit,
-        include: {
-            user: true
-        }
-    });
-
+    if (limit) {
+        return db.userProgress.findMany({
+            orderBy: {
+                points: "desc"
+            },
+            take: limit,
+            include: {
+                user: true
+            }
+        });
+    } else {
+        return db.userProgress.findMany({
+            orderBy: {
+                points: "desc"
+            },
+            include: {
+                user: true
+            }
+        });
+    }
 }

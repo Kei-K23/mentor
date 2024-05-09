@@ -70,7 +70,7 @@ const ProfileIdPage = async ({ params }: ProfileIdPageProps) => {
           <div className="w-full flex flex-col items-center">
             <Avatar className="bg-sky-500 h-[75px] w-[75px] md:h-[100px] md:w-[100px] ml-3 mr-5">
               <AvatarImage
-                src={externalUser.imageUrl!}
+                src={externalUser?.imageUrl ?? "/robot.png"}
                 className="object-cover"
               />
             </Avatar>

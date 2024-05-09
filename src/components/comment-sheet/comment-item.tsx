@@ -71,7 +71,10 @@ const CommentItem = ({
       <div className="mb-6 last:mb-0 hover:bg-slate-200 dark:hover:bg-slate-800/50 p-3 rounded-md">
         <div className="flex items-start">
           <Avatar>
-            <AvatarImage src={comment.userImageUrl} className="object-cover" />
+            <AvatarImage
+              src={comment?.userImageUrl ?? "/robot.png"}
+              className="object-cover"
+            />
           </Avatar>
           <div className="ml-2 w-full">
             <div className="flex items-center">
