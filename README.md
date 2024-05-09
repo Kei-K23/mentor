@@ -78,6 +78,7 @@ We welcome contributions from the community! If you find a bug or have an idea f
 
 This is the todo list to complete for version 1.
 
+- [ ] Add errors management
 - [ ] Update user leaderboard status design
 - [ ] Add features private profile and profile view count
 - [ ] Apply pagination and limiting fetching for comments from Firebase
