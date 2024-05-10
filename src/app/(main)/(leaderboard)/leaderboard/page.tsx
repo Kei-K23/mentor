@@ -4,13 +4,13 @@ import { columns } from "@/components/leaderboard-data-table/columns";
 import Quests from "@/components/quests";
 import StickyWrapper from "@/components/sticky-wrapper";
 import { Separator } from "@/components/ui/separator";
-import UserItem from "@/components/user-item";
 import { getQuestsProgress } from "@/queries/quests-progress-queries";
 import { getAllQuests } from "@/queries/quests-queries";
 import {
   getUserProgress,
   getUsersForLeaderBoard,
 } from "@/queries/user-progress-queries";
+import { useUser } from "@clerk/nextjs";
 import { Medal } from "lucide-react";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
@@ -65,13 +65,6 @@ const LeaderBoardPage = async () => {
             See where you stand among other challengers in the community.
           </p>
           <Separator className="mb-4 h-0.5 rounded-full" />
-          {/* {usersForLeaderBoard?.map((userProgress, i) => (
-            <UserItem
-              key={userProgress.id}
-              userProgress={userProgress}
-              index={i}
-            />
-          ))} */}
           {usersForLeaderBoard?.length ? (
             <LeaderBoardDataTable
               data={usersForLeaderBoard}

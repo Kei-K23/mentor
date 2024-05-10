@@ -44,11 +44,12 @@ Key Features:
 
 ### Installation
 
-1. Clone the repository: `git clone https://github.com/Kei-K23/mentor`
-2. Navigate to the project directory: `cd mentor`
-3. Install dependencies: `npm install`
-4. Configure environment variables.
-5. Start the application locally: `npm run dev`
+1. Setup Clerk web hooks for user create, update and delete.
+2. Install dependencies: `npm install`
+3. Build database schema: `npm run db:push`
+4. Generate prisma schema types: `npx prisma generate`
+5. Run seeding script: `npm run db:seed`
+6. Start the application locally: `npm run dev`
 
 ### Configuration
 
@@ -72,7 +73,7 @@ Make sure to set the following environment variables:
 
 ## Contributing
 
-We welcome contributions from the community! If you find a bug or have an idea for an improvement, please open an issue or submit a pull request. Detail contribution guidelines will be available soon.
+We welcome contributions from the community! If you find a bug or have an idea for an improvement, please open an issue or submit a pull request. [CONTRIBUTION-GUIDE.md](CONTRIBUTION-GUIDE.md)
 
 ## TODO
 
