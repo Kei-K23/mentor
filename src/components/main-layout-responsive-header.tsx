@@ -52,13 +52,13 @@ const MainLayoutResponsiveHeader = ({
                 className="flex items-center justify-between  w-full "
               >
                 <Image
-                  src={userProgress.course?.imageUrl!}
-                  alt={userProgress.course?.title}
+                  src={userProgress?.course?.imageUrl!}
+                  alt={userProgress?.course?.title}
                   className="rounded-md border"
                   width={32}
                   height={32}
                 />
-                {userProgress.course?.title}
+                {userProgress?.course?.title}
               </Button>
             </Link>
           </MenubarItem>
