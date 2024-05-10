@@ -45,7 +45,6 @@ const ProfilePage = async () => {
   if (!user) {
     return auth().redirectToSignIn();
   }
-
   return (
     <div className="flex flex-row-reverse gap-[48px] px-6 py-4">
       <StickyWrapper>

@@ -18,6 +18,7 @@ import List from "../../_components/list";
 import { auth } from "@clerk/nextjs/server";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import BackRedirect from "../../_components/back-redirect";
 
 export const metadata: Metadata = {
   title: "Profile",
@@ -61,7 +62,7 @@ const ProfileIdPage = async ({ params }: ProfileIdPageProps) => {
   }
 
   return (
-    <div>
+    <div className="relative">
       <div className="flex flex-row-reverse gap-[48px] px-6 py-4">
         <StickyWrapper>
           <div />
@@ -129,6 +130,7 @@ const ProfileIdPage = async ({ params }: ProfileIdPageProps) => {
             </div>
           </div>
         </FeedWrapper>
+        <BackRedirect />
       </div>
     </div>
   );
