@@ -37,7 +37,7 @@ const List = ({ courses, activeCourseId, user }: ListProps) => {
     <div className="pt-6 grid sm:grid-cols-2 lg:grid-cols-[repeat(auto-fill,minmax(210px,1fr))] gap-4 w-full ">
       {courses.map((course) => {
         const challengeProgressFromCourse = course.challengeProgress.filter(
-          (cp) => cp.completed && cp.userId === user.id
+          (cp) => cp.completed && cp.userId === user?.id
         );
         const isCompleted =
           challengeProgressFromCourse.length === course.challenges.length;
