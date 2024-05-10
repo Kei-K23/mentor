@@ -10,6 +10,8 @@ import UserProgress from "@/components/user-progress";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
+import MainLayoutHeader from "@/components/main-layout-header";
+import MainLayoutResponsiveHeader from "@/components/main-layout-responsive-header";
 
 export default async function MainLayout({
   children,
@@ -45,29 +47,11 @@ export default async function MainLayout({
       <div className="flex flex-col">
         <header className="z-10 sticky top-0 flex h-14 items-center gap-4 border-b bg-slate-50 dark:bg-slate-900 px-4 lg:h-[60px] lg:px-6">
           <MobileSideBar completedQuestsLength={completedQuests} />
-          <div className="w-full flex-1 flex items-center gap-x-4">
-            <SearchHeader />
-            {userProgress ? (
-              <UserProgress
-                activeCourse={userProgress?.course!}
-                hearts={userProgress?.hearts!}
-                points={userProgress?.points!}
-              />
-            ) : (
-              <Link
-                href={"/courses"}
-                className={cn(
-                  buttonVariants({
-                    variant: "ghost",
-                    size: "sm",
-                  })
-                )}
-              >
-                Choose your prefer course to learn
-              </Link>
-            )}
+          <div className="md:w-full md:flex-1 ">
+            <MainLayoutHeader userProgress={userProgress!} />
+            <MainLayoutResponsiveHeader userProgress={userProgress!} />
           </div>
-          <div className="flex items-center gap-x-4">
+          <div className="flex items-center gap-x-4 ml-auto">
             <UserButtonContainer />
             <ModeToggle />
           </div>
