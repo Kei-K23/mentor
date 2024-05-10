@@ -1,4 +1,6 @@
 import FeedWrapper from "@/components/feed-wrapper";
+import { LeaderBoardDataTable } from "@/components/leaderboard-data-table";
+import { columns } from "@/components/leaderboard-data-table/columns";
 import Quests from "@/components/quests";
 import StickyWrapper from "@/components/sticky-wrapper";
 import { Separator } from "@/components/ui/separator";
@@ -63,13 +65,21 @@ const LeaderBoardPage = async () => {
             See where you stand among other challengers in the community.
           </p>
           <Separator className="mb-4 h-0.5 rounded-full" />
-          {usersForLeaderBoard?.map((userProgress, i) => (
+          {/* {usersForLeaderBoard?.map((userProgress, i) => (
             <UserItem
               key={userProgress.id}
               userProgress={userProgress}
               index={i}
             />
-          ))}
+          ))} */}
+          {usersForLeaderBoard?.length ? (
+            <LeaderBoardDataTable
+              data={usersForLeaderBoard}
+              columns={columns}
+            />
+          ) : (
+            <p className="text-center text-muted-foreground">No users</p>
+          )}
         </div>
       </FeedWrapper>
     </div>
