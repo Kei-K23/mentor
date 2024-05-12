@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import ExitModal from "../modal/exit-modal";
 import NoEnoughHeartsModal from "../modal/no-enough-hearts-modal";
 import SearchUserModal from "../modal/search-users-modal";
+import ProfileViewAvatarModal from "../modal/profile-view-avatar-modal";
 
 const ModalProvider = () => {
   const [isClient, setIsClient] = useState(false);
@@ -18,6 +19,7 @@ const ModalProvider = () => {
       <ExitModal />
       <NoEnoughHeartsModal />
       <SearchUserModal />
+      <ProfileViewAvatarModal />
     </>
   );
 };

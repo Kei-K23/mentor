@@ -15,7 +15,6 @@ import {
   CommandList,
 } from "@/components/ui/command";
 
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useSearchUsersStore } from "@/store/use-search-users-store";
 import { UserProgressWithUser } from "@/types";

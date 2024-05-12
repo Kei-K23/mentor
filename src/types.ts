@@ -1,4 +1,4 @@
-import { Challenge, ChallengeOption, ChallengeProgress, Course, User, UserProgress } from "@prisma/client";
+import { Challenge, ChallengeOption, ChallengeProgress, Course, User, UserProfileView, UserProgress } from "@prisma/client";
 
 export type ChallengeWithChallengeProgress = Challenge & {
     challengeProgress: ChallengeProgress[] | null;
@@ -31,4 +31,8 @@ export type FirebaseCommentDocType = {
     userImageUrl: string;
     createdAt: Date;
     updatedAt: Date;
+}
+
+export type UserProfileViewWithViewers = UserProfileView & {
+    viewer: User
 }

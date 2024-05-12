@@ -17,6 +17,7 @@ import ActiveCourseCard from "../_components/active-course-card";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import List from "../_components/list";
+import { getUserProfileViewByOwnerId } from "@/queries/user-profile-view-queries";
 
 export const metadata: Metadata = {
   title: "Profile",
@@ -33,14 +34,21 @@ const ProfilePage = async () => {
   const userData = getUserByExternalUserId(userId);
   const challengeProgressStatusData = getChallengeProgressStatus();
   const coursesData = getCourses();
+  const userProfileViewsData = getUserProfileViewByOwnerId(userId);
 
-  const [user, challengeProgressStatus, userProgress, courses] =
-    await Promise.all([
-      userData,
-      challengeProgressStatusData,
-      userProgressData,
-      coursesData,
-    ]);
+  const [
+    user,
+    challengeProgressStatus,
+    userProgress,
+    courses,
+    userProfileViews,
+  ] = await Promise.all([
+    userData,
+    challengeProgressStatusData,
+    userProgressData,
+    coursesData,
+    userProfileViewsData,
+  ]);
 
   if (!user) {
     return auth().redirectToSignIn();
@@ -70,6 +78,13 @@ const ProfilePage = async () => {
             </div>
           </div>
           <BioForm initialBio={user.bio!} />
+          <div>
+            {userProfileViews.map((pv) => (
+              <div key={pv.id}>
+                <h3>{pv.viewer.username}</h3>
+              </div>
+            ))}
+          </div>
           <SolvedChallenges
             easy={challengeProgressStatus?.easy ?? 0}
             medium={challengeProgressStatus?.medium ?? 0}

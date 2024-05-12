@@ -20,6 +20,9 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import BackRedirect from "../../_components/back-redirect";
 import { createUserProfileView } from "@/actions/user-profile-view-actions";
+import { getUserProfileViewByOwnerId } from "@/queries/user-profile-view-queries";
+import ActionTooltip from "@/components/action-tooltip";
+import ProfileViewAvatars from "@/components/profile-view-avatars";
 
 export const metadata: Metadata = {
   title: "Profile",
@@ -49,17 +52,20 @@ const ProfileIdPage = async ({ params }: ProfileIdPageProps) => {
   const challengeProgressStatusForExternalUserIdData =
     getChallengeProgressStatusForExternalUserId(params.profileId);
   const coursesData = getCourses();
+  const userProfileViewsData = getUserProfileViewByOwnerId(params.profileId);
 
   const [
     externalUser,
     challengeProgressStatusForExternalUserId,
     userProgressByExternalId,
     courses,
+    userProfileViews,
   ] = await Promise.all([
     externalUserData,
     challengeProgressStatusForExternalUserIdData,
     userProgressByExternalIdData,
     coursesData,
+    userProfileViewsData,
   ]);
 
   if (!externalUser) {
@@ -101,6 +107,7 @@ const ProfileIdPage = async ({ params }: ProfileIdPageProps) => {
               notEditable={externalUser.externalUserId !== userId}
               initialBio={externalUser.bio!}
             />
+            <ProfileViewAvatars userProfileViews={userProfileViews} />
             <SolvedChallenges
               easy={challengeProgressStatusForExternalUserId?.easy ?? 0}
               medium={challengeProgressStatusForExternalUserId?.medium ?? 0}
