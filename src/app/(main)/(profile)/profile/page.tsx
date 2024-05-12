@@ -18,6 +18,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import List from "../_components/list";
 import { getUserProfileViewByOwnerId } from "@/queries/user-profile-view-queries";
+import ProfileViewAvatars from "@/components/profile-view-avatars";
 
 export const metadata: Metadata = {
   title: "Profile",
@@ -85,6 +86,7 @@ const ProfilePage = async () => {
               </div>
             ))}
           </div>
+          <ProfileViewAvatars userProfileViews={userProfileViews} />
           <SolvedChallenges
             easy={challengeProgressStatus?.easy ?? 0}
             medium={challengeProgressStatus?.medium ?? 0}
