@@ -8,18 +8,21 @@ datasource db {
 }
 
 model User {
-  id             Int     @id @default(autoincrement())
-  username       String  @unique
-  externalUserId String  @unique
+  id             Int      @id @default(autoincrement())
+  username       String   @unique
+  externalUserId String   @unique
   email          String
-  imageUrl       String? @db.Text
+  imageUrl       String?  @db.Text
   bio            String?
+  privateProfile Boolean? @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  userProgress  UserProgress?
-  questProgress QuestProgress[]
+  userProgress    UserProgress?
+  questProgress   QuestProgress[]
+  userProfileView UserProfileView[] @relation(name: "ownerUserProfileView")
+  UserProfileView UserProfileView[] @relation(name: "viewerUserProfileView")
 }
 
 model Course {
@@ -115,4 +118,13 @@ model QuestProgress {
   completed Boolean @default(false)
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model UserProfileView {
+  id       Int    @id @default(autoincrement())
+  viewerId String
+  ownerId  String
+  owner    User   @relation(fields: [ownerId], references: [externalUserId], onDelete: Cascade, name: "ownerUserProfileView")
+
+  viewer User @relation(fields: [viewerId], references: [externalUserId], onDelete: Cascade, name: "viewerUserProfileView")
 }

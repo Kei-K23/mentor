@@ -19,6 +19,7 @@ import { auth } from "@clerk/nextjs/server";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import BackRedirect from "../../_components/back-redirect";
+import { createUserProfileView } from "@/actions/user-profile-view-actions";
 
 export const metadata: Metadata = {
   title: "Profile",
@@ -36,6 +37,10 @@ const ProfileIdPage = async ({ params }: ProfileIdPageProps) => {
   }
 
   const { userId } = auth();
+
+  if (!userId) {
+    return auth().redirectToSignIn();
+  }
 
   const userProgressByExternalIdData = getUserProgressByExternalId(
     params.profileId
@@ -60,6 +65,9 @@ const ProfileIdPage = async ({ params }: ProfileIdPageProps) => {
   if (!externalUser) {
     return notFound();
   }
+
+  // create user profile view here
+  await createUserProfileView(userId, params.profileId);
 
   return (
     <div className="relative">
