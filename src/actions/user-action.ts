@@ -33,3 +33,33 @@ export const createUserBio = async (bio: string) => {
         throw new Error("Something went wrong");
     }
 }
+
+export const toggleUserProfileView = async (isPrivate: boolean) => {
+    try {
+
+        if (isPrivate === null) throw new Error("Missing something")
+
+        const { userId } = auth();
+
+        if (!userId) throw new Error("Unauthorized!");
+
+        const user = await getUserByExternalUserId(userId);
+
+        if (!user) throw new Error("User not found!");
+
+        await db.user.update({
+            where: {
+                id: user.id,
+                externalUserId: userId
+            },
+            data: {
+                privateProfile: isPrivate
+            }
+        });
+
+        revalidatePath("/profile");
+        revalidatePath(`/profile/${user.externalUserId}`)
+    } catch (e) {
+        throw new Error("Something went wrong");
+    }
+}
