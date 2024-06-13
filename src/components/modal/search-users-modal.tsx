@@ -65,6 +65,7 @@ const SearchUserModal = () => {
                     index={index}
                     userProgress={user}
                     onClose={close}
+                    showUserRank={false}
                   />
                 ))
               ) : (

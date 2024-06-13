@@ -10,25 +10,34 @@ type UserItemProps = {
   userProgress: UserProgressWithUser;
   index: number;
   onClose?: () => void;
+  showUserRank?: boolean;
 };
 
-const UserItem = ({ userProgress, index, onClose }: UserItemProps) => {
+const UserItem = ({
+  userProgress,
+  index,
+  onClose,
+  showUserRank = true,
+}: UserItemProps) => {
   return (
     <div
       key={userProgress.userId}
       className="flex items-center w-full p-2 px-4 rounded-xl hover:bg-gray-200/50 dark:hover:bg-gray-800/50"
     >
-      <p
-        className={cn(
-          "font-bold  mr-2",
-          index < 3 && "animate-bounce text-xl",
-          index === 0 && "text-rose-500",
-          index === 1 && "text-sky-600",
-          index === 2 && "text-emerald-600"
-        )}
-      >
-        {index + 1}
-      </p>
+      {showUserRank && (
+        <p
+          className={cn(
+            "font-bold  mr-2",
+            index < 3 && "animate-bounce text-xl",
+            index === 0 && "text-rose-500",
+            index === 1 && "text-sky-600",
+            index === 2 && "text-emerald-600"
+          )}
+        >
+          {index + 1}
+        </p>
+      )}
+
       <Avatar className="bg-sky-500 h-12 w-12 ml-3 mr-5">
         {/* TODO: handle if user img is null */}
         <AvatarImage

@@ -19,8 +19,6 @@ import { cn } from "@/lib/utils";
 import List from "../_components/list";
 import { getUserProfileViewByOwnerId } from "@/queries/user-profile-view-queries";
 import ProfileViewAvatars from "@/components/profile-view-avatars";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
 import ProfileHideComponent from "../_components/profile-hide-component";
 
 export const metadata: Metadata = {
@@ -95,7 +93,7 @@ const ProfilePage = async () => {
             medium={challengeProgressStatus?.medium ?? 0}
             hard={challengeProgressStatus?.hard ?? 0}
           />
-          <ProfileHideComponent />
+          <ProfileHideComponent privateProfile={user.privateProfile!} />
           <Separator className="mb-4 h-0.5 rounded-full" />
           <div className="w-full space-y-10">
             <div className="w-full">
