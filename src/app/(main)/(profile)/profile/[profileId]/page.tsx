@@ -23,6 +23,8 @@ import { createUserProfileView } from "@/actions/user-profile-view-actions";
 import { getUserProfileViewByOwnerId } from "@/queries/user-profile-view-queries";
 import ActionTooltip from "@/components/action-tooltip";
 import ProfileViewAvatars from "@/components/profile-view-avatars";
+import ProfileHideComponent from "../../_components/profile-hide-component";
+import PrivateImageBanner from "../../_components/private-image-banner";
 
 export const metadata: Metadata = {
   title: "Profile",
@@ -107,42 +109,62 @@ const ProfileIdPage = async ({ params }: ProfileIdPageProps) => {
               notEditable={externalUser.externalUserId !== userId}
               initialBio={externalUser.bio!}
             />
-            <ProfileViewAvatars userProfileViews={userProfileViews} />
-            <SolvedChallenges
-              easy={challengeProgressStatusForExternalUserId?.easy ?? 0}
-              medium={challengeProgressStatusForExternalUserId?.medium ?? 0}
-              hard={challengeProgressStatusForExternalUserId?.hard ?? 0}
-            />
-            <Separator className="mb-4 h-0.5 rounded-full" />
-            <div className="w-full space-y-10">
-              <div className="w-full">
-                <h1 className="text-lg font-bold mb-3">
-                  Current active course
-                </h1>
-                {userProgressByExternalId?.course ? (
-                  <div className="pt-4">
-                    <ActiveCourseCard
-                      active={true}
-                      imageSrc={userProgressByExternalId?.course?.imageUrl}
-                      title={userProgressByExternalId?.course.title}
-                      description={userProgressByExternalId.course.description}
-                    />
-                  </div>
-                ) : (
-                  <div className="space-y-2 pt-4">
-                    <h3>No active course yet!</h3>
-                    <Link href={"/courses"} className={cn(buttonVariants({}))}>
-                      Explore our courses
-                    </Link>
-                  </div>
+
+            {externalUser.externalUserId !== userId &&
+            externalUser.privateProfile ? (
+              <PrivateImageBanner />
+            ) : (
+              <>
+                <ProfileViewAvatars userProfileViews={userProfileViews} />
+                <SolvedChallenges
+                  easy={challengeProgressStatusForExternalUserId?.easy ?? 0}
+                  medium={challengeProgressStatusForExternalUserId?.medium ?? 0}
+                  hard={challengeProgressStatusForExternalUserId?.hard ?? 0}
+                />
+                {externalUser.externalUserId === userId && (
+                  <ProfileHideComponent
+                    privateProfile={externalUser.privateProfile!}
+                  />
                 )}
-              </div>
-              <div className="w-full">
-                <h1 className="text-lg font-bold mb-3">Completed courses</h1>
-                {/* // TODO: check routing and create user progress need for this */}
-                <List courses={courses} user={externalUser} />
-              </div>
-            </div>
+                <Separator className="mb-4 h-0.5 rounded-full" />
+                <div className="w-full space-y-10">
+                  <div className="w-full">
+                    <h1 className="text-lg font-bold mb-3">
+                      Current active course
+                    </h1>
+                    {userProgressByExternalId?.course ? (
+                      <div className="pt-4">
+                        <ActiveCourseCard
+                          active={true}
+                          imageSrc={userProgressByExternalId?.course?.imageUrl}
+                          title={userProgressByExternalId?.course.title}
+                          description={
+                            userProgressByExternalId.course.description
+                          }
+                        />
+                      </div>
+                    ) : (
+                      <div className="space-y-2 pt-4">
+                        <h3>No active course yet!</h3>
+                        <Link
+                          href={"/courses"}
+                          className={cn(buttonVariants({}))}
+                        >
+                          Explore our courses
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                  <div className="w-full">
+                    <h1 className="text-lg font-bold mb-3">
+                      Completed courses
+                    </h1>
+                    {/* // TODO: check routing and create user progress need for this */}
+                    <List courses={courses} user={externalUser} />
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </FeedWrapper>
         <BackRedirect />
