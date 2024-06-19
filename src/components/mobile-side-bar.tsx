@@ -2,23 +2,13 @@
 
 import React from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { Goal, Home, Medal, Menu, Store, User, X } from "lucide-react";
+import { Goal, Home, Medal, Menu, Store, User } from "lucide-react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Badge } from "./ui/badge";
-import ActionTooltip from "./action-tooltip";
-import { useFooterCardStore } from "@/store/use-footer-card-store";
-import AdsCard from "./ads-card";
 
 type MobileSideBarProps = {
   completedQuestsLength: number;
@@ -26,7 +16,6 @@ type MobileSideBarProps = {
 
 const MobileSideBar = ({ completedQuestsLength }: MobileSideBarProps) => {
   const pathname = usePathname();
-  const { isOpen, close } = useFooterCardStore();
 
   return (
     <Sheet>
@@ -97,7 +86,6 @@ const MobileSideBar = ({ completedQuestsLength }: MobileSideBarProps) => {
             Profile
           </Link>
         </nav>
-        {isOpen && <AdsCard />}
       </SheetContent>
     </Sheet>
   );

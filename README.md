@@ -80,13 +80,12 @@ We welcome contributions from the community! If you find a bug or have an idea f
 This is the todo list to complete for version 1.
 
 - [ ] Add errors management
-- [ ] Update user leaderboard status design
-- [ ] Add features private profile and profile view count
+- [ ] Add skeleton and waiting loading animation or style when fetching data
+- [ ] Update UI design
+- [x] Add features private profile and profile view count
 - [ ] Apply pagination and limiting fetching for comments from Firebase
 - [ ] Add blogs system
-- [ ] Add user friend system
 - [ ] Add point gift system to send points from one account to another
-- [ ] Avatar system that users can buy avatars with their points
 
 ## License
 

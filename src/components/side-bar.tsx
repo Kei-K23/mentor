@@ -3,15 +3,11 @@
 import { Goal, Home, Medal, Store, User, X } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-import { Button } from "./ui/button";
-import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Badge } from "./ui/badge";
-import ActionTooltip from "./action-tooltip";
 import { useFooterCardStore } from "@/store/use-footer-card-store";
-import AdsCard from "./ads-card";
 
 type SideBarProps = {
   completedQuestsLength: number;
@@ -19,7 +15,6 @@ type SideBarProps = {
 
 const SideBar = ({ completedQuestsLength }: SideBarProps) => {
   const pathname = usePathname();
-  const { isOpen, close } = useFooterCardStore();
 
   return (
     <div className=" hidden border-r bg-muted/40 md:block">
@@ -85,7 +80,6 @@ const SideBar = ({ completedQuestsLength }: SideBarProps) => {
             </Link>
           </nav>
         </div>
-        {isOpen && <AdsCard />}
       </div>
     </div>
   );
